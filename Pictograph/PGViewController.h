@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PGViewController : UIViewController
+@property (retain, nonatomic) IBOutlet UIButton *takePhoto;
+@property (retain, nonatomic) IBOutlet UIButton *cameraRoll;
 
 @end
