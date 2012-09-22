@@ -11,5 +11,6 @@
 @interface PGViewController : UIViewController
 @property (retain, nonatomic) IBOutlet UIButton *takePhoto;
 @property (retain, nonatomic) IBOutlet UIButton *cameraRoll;
+@property (retain, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

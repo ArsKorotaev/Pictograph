@@ -44,9 +44,14 @@
   
     
     
-    UIFont *titleFont = [UIFont fontWithName:@"BALLW__.TTF" size:20];
+
+    NSLog(@"Name: %@ |", [UIFont fontNamesForFamilyName:@"BALLW__"]);
+
     
-    
+    self.titleLabel.font = [UIFont fontWithName:@"Ballpark" size:32];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.shadowOffset = CGSizeMake(0,2);
+    self.titleLabel.shadowColor = [UIColor blackColor];
     
     
 }
@@ -60,11 +65,13 @@
 - (void)dealloc {
     [_takePhoto release];
     [_cameraRoll release];
+    [_titleLabel release];
     [super dealloc];
 }
 - (void)viewDidUnload {
     [self setTakePhoto:nil];
     [self setCameraRoll:nil];
+    [self setTitleLabel:nil];
     [super viewDidUnload];
 }
 @end
