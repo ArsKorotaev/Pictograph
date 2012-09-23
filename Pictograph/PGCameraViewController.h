@@ -14,6 +14,12 @@
     GPUImageStillCamera *stillCamera;
     GPUImageOutput<GPUImageInput> *filter;
 }
+- (IBAction)changeCamera:(id)sender;
+- (IBAction)flashButtonPressed:(id)sender;
+- (IBAction)filtersButtonPressed:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *cancelButton;
+@property (strong, nonatomic) IBOutlet UIButton *filtersButton;
+@property (strong, nonatomic) IBOutlet UIButton *flashSwitch;
 
 
 @end
