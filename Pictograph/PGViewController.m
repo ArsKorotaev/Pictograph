@@ -7,7 +7,7 @@
 //
 
 #import "PGViewController.h"
-
+#import "PGCameraViewController.h"
 @interface PGViewController ()
 
 @end
@@ -19,8 +19,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.view.backgroundColor = [[[UIColor alloc]
-                                  initWithPatternImage:[UIImage imageNamed:@"BackGround.png"]] autorelease];
+    self.view.backgroundColor = [[UIColor alloc]
+                                  initWithPatternImage:[UIImage imageNamed:@"BackGround.png"]];
     
     UIImage *takePhotoBtnImgNormal = [[UIImage imageNamed:@"SaveBtn.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
     UIImage *takePhotoBtnImgPressed = [[UIImage imageNamed:@"SaveBtn_Pressed.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
@@ -42,10 +42,6 @@
     self.cameraRoll.titleLabel.shadowOffset = CGSizeMake(0, -1);
     self.cameraRoll.titleLabel.shadowColor = [UIColor blackColor];
   
-    
-    
-
-    NSLog(@"Name: %@ |", [UIFont fontNamesForFamilyName:@"BALLW__"]);
 
     
     self.titleLabel.font = [UIFont fontWithName:@"Ballpark" size:32];
@@ -62,16 +58,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [_takePhoto release];
-    [_cameraRoll release];
-    [_titleLabel release];
-    [super dealloc];
-}
 - (void)viewDidUnload {
     [self setTakePhoto:nil];
     [self setCameraRoll:nil];
     [self setTitleLabel:nil];
     [super viewDidUnload];
+}
+- (IBAction)takePhotoButtonPressed:(id)sender {
+    PGCameraViewController *cvc = [[PGCameraViewController alloc] initWithNibName:@"PGCameraViewController" bundle:nil];
+    
+    [self presentModalViewController:cvc animated:YES];
 }
 @end
