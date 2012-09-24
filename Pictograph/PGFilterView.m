@@ -20,6 +20,7 @@
 - (void) selectNoAnimation;
 @property UIView *view;
 @property (readonly) BOOL isSelected;
+@property NSString *filterName;
 @end
 
 @implementation FilterMicroView
@@ -44,6 +45,10 @@
         selectedImage.alpha = 0;
         [self.view addSubview:standartImage];
         
+        
+        //Инициализация масиива с именами фильтров
+
+        //= @[@"Standart", @"Sepia", @"Warm", @"Cool", @"Retro"];
         
     }
     
@@ -108,6 +113,7 @@
     if (self)
     {
         self.isAdded = NO;
+        filterNames = @[@"FilterNone", @"HipsterFilter", @"WarmFilter", @"Cool", @"Retro"];
         //_thread = [[NSThread alloc] initWithTarget:self selector:@selector(addFilterViews:) object:nil];
         [self addFilterViews:nil];
         //[_thread start];
@@ -129,6 +135,7 @@
             viewToAdd = [[FilterMicroView alloc] init];
             viewToAdd.view = [self createSubviewForIndex:i];
             viewToAdd.view.tag = i;
+            viewToAdd.filterName = [filterNames objectAtIndex:i];
             //[self performSelectorOnMainThread:@selector(addViewWithAnimation:) withObject:viewToAdd waitUntilDone:NO];
             //[NSThread sleepForTimeInterval:0.25];
             [viewsArray insertObject:viewToAdd atIndex:i];
@@ -191,14 +198,18 @@
     
    
     NSInteger viewIndex = sender.view.tag;
+    NSString *filterName;
     if (oldeSelectedView != viewIndex)
     {
         FilterMicroView *mv = [viewsArray objectAtIndex:viewIndex];
+        filterName = mv.filterName;
         [mv select];
         mv = [viewsArray objectAtIndex:oldeSelectedView];
         [mv deselect];
         
         oldeSelectedView = viewIndex;
+        
+        [self.del setFilterNamed:filterName];
     }
 
 }

@@ -21,6 +21,7 @@
     
     NSMutableArray *viewsArray;
     
+    NSArray *filterNames;
     NSInteger oldeSelectedView;
     
 }

@@ -10,6 +10,9 @@
 #import "PGFilterView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PGProcessImageViewController.h"
+
+#import "PGFilter.h"
+
 @interface PGCameraViewController ()
 
 @end
@@ -38,24 +41,32 @@
     stillCamera = [[GPUImageStillCamera alloc] init];
     //    stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionBack];
     stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
-    //    filter = [[GPUImageGammaFilter alloc] init];
-   // filter = [[GPUImageSketchFilter alloc] init];
-    filter = [[GPUImageSepiaFilter alloc] init];
-    //    [(GPUImageSketchFilter *)filter setTexelHeight:(1.0 / 1024.0)];
-    //    [(GPUImageSketchFilter *)filter setTexelWidth:(1.0 / 768.0)];
-    //    filter = [[GPUImageSmoothToonFilter alloc] init];
-    //    filter = [[GPUImageSepiaFilter alloc] init];
+//    //    filter = [[GPUImageGammaFilter alloc] init];
+//   // filter = [[GPUImageSketchFilter alloc] init];
+//    
+//    
+//    //filter = [[GPUImageSepiaFilter alloc] init];
+//    filter = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"WarmCool"];
+//    
+//    //    [(GPUImageSketchFilter *)filter setTexelHeight:(1.0 / 1024.0)];
+//    //    [(GPUImageSketchFilter *)filter setTexelWidth:(1.0 / 768.0)];
+//    //    filter = [[GPUImageSmoothToonFilter alloc] init];
+//    //    filter = [[GPUImageSepiaFilter alloc] init];
+//    
+//	[filter prepareForImageCapture];
+//    
+//    [stillCamera addTarget:filter];
+//    GPUImageView *filteredView = (GPUImageView *)self.view;
+//    [filter addTarget:filteredView];
+//    
+//    //    [stillCamera.inputCamera lockForConfiguration:nil];
+//    //    [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
+//    //    [stillCamera.inputCamera unlockForConfiguration];
     
-	[filter prepareForImageCapture];
+    filterObject = [[NSClassFromString(@"FilterNone") alloc] init];
     
-    [stillCamera addTarget:filter];
-    GPUImageView *filteredView = (GPUImageView *)self.view;
-    [filter addTarget:filteredView];
     
-    //    [stillCamera.inputCamera lockForConfiguration:nil];
-    //    [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
-    //    [stillCamera.inputCamera unlockForConfiguration];
-    
+    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view];
     [stillCamera startCameraCapture];
     
     self.flashSwitch.titleLabel.text = @"Auto";
@@ -112,6 +123,7 @@
 - (IBAction)changeCamera:(id)sender {
     
 
+
     [stillCamera rotateCamera];
     // stillCamera.cameraPosition = AVCaptureDevicePositionFront;
 }
@@ -166,7 +178,9 @@
     [stillCamera capturePhotoAsSampleBufferWithCompletionHandler:^(CMSampleBufferRef sampleBuffer, NSError *error)
     {
         runOnMainQueueWithoutDeadlocking(^{
-        UIImage *image = imageFromSampleBuffer(sampleBuffer);
+        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:sampleBuffer];
+        UIImage *image = [[UIImage alloc] initWithData:imageData];
+//        UIImage *image = imageFromSampleBuffer(sampleBuffer);
 //        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 100, 100)];
 //        [img setImage:image];
 //        [self.view addSubview:img];
@@ -178,8 +192,8 @@
      ];
     
     
-    
-//    [stillCamera capturePhotoAsImageProcessedUpToFilter:filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
+ 
+//    [stillCamera capturePhotoAsImageProcessedUpToFilter:filterObject.lastFilter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
 //        
 //        runOnMainQueueWithoutDeadlocking(^{
 //            NSLog(@"Size: %f", processedImage.size.width);
@@ -219,7 +233,16 @@
 
 -(void) setFilterNamed:(NSString *)filterName
 {
-    
+
+    assert(filterName);
+    [stillCamera pauseCameraCapture];
+    [filterObject removeFilter];
+   
+    filterObject  = [[NSClassFromString(filterName) alloc] init];
+    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view];
+    stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    [stillCamera resumeCameraCapture];
+
 }
 
 UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {

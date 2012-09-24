@@ -10,6 +10,7 @@
 #import "GPUImage.h"
 #import "PGFilterView.h"
 @class PGFilterView;
+@class PGFilter;
 
 @interface PGCameraViewController : UIViewController <PGFilterViewDelegate>
 {
@@ -17,7 +18,7 @@
     GPUImageOutput<GPUImageInput> *filter;
     
     PGFilterView *filterView;
-    
+    PGFilter *filterObject;
 }
 - (IBAction)changeCamera:(id)sender;
 - (IBAction)flashButtonPressed:(id)sender;

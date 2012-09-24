@@ -63,6 +63,12 @@
 		8C25243C160E2B15002651B8 /* tt1018m_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252436160E2B15002651B8 /* tt1018m_.ttf */; };
 		8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */; };
 		8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9BC161074AA00597A4E /* FilterMask-2.png */; };
+		8C32A9C1161076B000597A4E /* WarmFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9C0161076B000597A4E /* WarmFilter.m */; };
+		8C32A9D116107C0400597A4E /* HipsterFilterShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9C21610778100597A4E /* HipsterFilterShader.fsh */; };
+		8C32A9D216107C0A00597A4E /* HipsterFilterShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9C4161078A100597A4E /* HipsterFilterShader.vsh */; };
+		8C32A9D51610846600597A4E /* PGFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9D41610846600597A4E /* PGFilter.m */; };
+		8C32A9D8161093DF00597A4E /* HipsterFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9D7161093DE00597A4E /* HipsterFilter.m */; };
+		8C32A9DB1610A2EE00597A4E /* FilterNone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9DA1610A2EE00597A4E /* FilterNone.m */; };
 		8C4CD105160EDCDA00890DDB /* PGCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */; };
 		8C4CD109160EDD0200890DDB /* PGCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C4CD107160EDD0200890DDB /* PGCameraViewController.xib */; };
 		8C4CD909160EE0CC00890DDB /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD7F6160EE0CC00890DDB /* GLProgram.m */; };
@@ -315,6 +321,16 @@
 		8C252436160E2B15002651B8 /* tt1018m_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tt1018m_.ttf; sourceTree = "<group>"; };
 		8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2@2x.png"; sourceTree = "<group>"; };
 		8C32A9BC161074AA00597A4E /* FilterMask-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2.png"; sourceTree = "<group>"; };
+		8C32A9BF161076B000597A4E /* WarmFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarmFilter.h; sourceTree = "<group>"; };
+		8C32A9C0161076B000597A4E /* WarmFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarmFilter.m; sourceTree = "<group>"; };
+		8C32A9C21610778100597A4E /* HipsterFilterShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HipsterFilterShader.fsh; sourceTree = "<group>"; };
+		8C32A9C4161078A100597A4E /* HipsterFilterShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HipsterFilterShader.vsh; sourceTree = "<group>"; };
+		8C32A9D31610846600597A4E /* PGFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFilter.h; sourceTree = "<group>"; };
+		8C32A9D41610846600597A4E /* PGFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGFilter.m; sourceTree = "<group>"; };
+		8C32A9D6161093DE00597A4E /* HipsterFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HipsterFilter.h; sourceTree = "<group>"; };
+		8C32A9D7161093DE00597A4E /* HipsterFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HipsterFilter.m; sourceTree = "<group>"; };
+		8C32A9D91610A2EE00597A4E /* FilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNone.h; sourceTree = "<group>"; };
+		8C32A9DA1610A2EE00597A4E /* FilterNone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNone.m; sourceTree = "<group>"; };
 		8C4CD102160EDCDA00890DDB /* PGCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCameraViewController.h; sourceTree = "<group>"; };
 		8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCameraViewController.m; sourceTree = "<group>"; };
 		8C4CD108160EDD0200890DDB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Pictograph/en.lproj/PGCameraViewController.xib; sourceTree = "<group>"; };
@@ -706,7 +722,6 @@
 		8C2523BB160E1573002651B8 /* Pictograph */ = {
 			isa = PBXGroup;
 			children = (
-				8C4CD9FF160F143800890DDB /* Custom filters classes */,
 				8C252430160E2B15002651B8 /* Fonts */,
 				8C2523DE160E1695002651B8 /* Graphics */,
 				8C2523C4160E1573002651B8 /* PGAppDelegate.h */,
@@ -718,6 +733,7 @@
 				8C4CD107160EDD0200890DDB /* PGCameraViewController.xib */,
 				8C4CD102160EDCDA00890DDB /* PGCameraViewController.h */,
 				8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */,
+				8C4CD9FF160F143800890DDB /* Custom filters classes */,
 				8C4CD9FC160F0F2B00890DDB /* PGFilterView.h */,
 				8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */,
 				8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */,
@@ -1134,6 +1150,16 @@
 		8C4CD9FF160F143800890DDB /* Custom filters classes */ = {
 			isa = PBXGroup;
 			children = (
+				8C32A9D31610846600597A4E /* PGFilter.h */,
+				8C32A9D41610846600597A4E /* PGFilter.m */,
+				8C32A9BF161076B000597A4E /* WarmFilter.h */,
+				8C32A9C0161076B000597A4E /* WarmFilter.m */,
+				8C32A9C21610778100597A4E /* HipsterFilterShader.fsh */,
+				8C32A9C4161078A100597A4E /* HipsterFilterShader.vsh */,
+				8C32A9D6161093DE00597A4E /* HipsterFilter.h */,
+				8C32A9D7161093DE00597A4E /* HipsterFilter.m */,
+				8C32A9D91610A2EE00597A4E /* FilterNone.h */,
+				8C32A9DA1610A2EE00597A4E /* FilterNone.m */,
 			);
 			name = "Custom filters classes";
 			sourceTree = "<group>";
@@ -1190,6 +1216,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C32A9D216107C0A00597A4E /* HipsterFilterShader.vsh in Resources */,
+				8C32A9D116107C0400597A4E /* HipsterFilterShader.fsh in Resources */,
 				8C2523C0160E1573002651B8 /* InfoPlist.strings in Resources */,
 				8C2523C8160E1573002651B8 /* Default.png in Resources */,
 				8C2523CA160E1573002651B8 /* Default@2x.png in Resources */,
@@ -1434,6 +1462,10 @@
 				8C4CD991160EE0CC00890DDB /* GPUImageXYDerivativeFilter.m in Sources */,
 				8C4CD9FE160F0F2B00890DDB /* PGFilterView.m in Sources */,
 				8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */,
+				8C32A9C1161076B000597A4E /* WarmFilter.m in Sources */,
+				8C32A9D51610846600597A4E /* PGFilter.m in Sources */,
+				8C32A9D8161093DF00597A4E /* HipsterFilter.m in Sources */,
+				8C32A9DB1610A2EE00597A4E /* FilterNone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
