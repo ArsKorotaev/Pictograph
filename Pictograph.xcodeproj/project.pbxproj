@@ -61,6 +61,8 @@
 		8C25243A160E2B15002651B8 /* Helvetica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252434160E2B15002651B8 /* Helvetica.ttf */; };
 		8C25243B160E2B15002651B8 /* Lobster 1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252435160E2B15002651B8 /* Lobster 1.4.otf */; };
 		8C25243C160E2B15002651B8 /* tt1018m_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252436160E2B15002651B8 /* tt1018m_.ttf */; };
+		8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */; };
+		8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9BC161074AA00597A4E /* FilterMask-2.png */; };
 		8C4CD105160EDCDA00890DDB /* PGCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */; };
 		8C4CD109160EDD0200890DDB /* PGCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C4CD107160EDD0200890DDB /* PGCameraViewController.xib */; };
 		8C4CD909160EE0CC00890DDB /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD7F6160EE0CC00890DDB /* GLProgram.m */; };
@@ -247,6 +249,8 @@
 		8C4CD9FB160F0EC400890DDB /* FilterMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C4CD9FA160F0EC400890DDB /* FilterMask@2x.png */; };
 		8C4CD9FE160F0F2B00890DDB /* PGFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */; };
 		8C800DE3160F366D001F7CFD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */; };
+		8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */; };
+		8C800DF4160F43FC001F7CFD /* PGProcessImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -309,6 +313,8 @@
 		8C252434160E2B15002651B8 /* Helvetica.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Helvetica.ttf; sourceTree = "<group>"; };
 		8C252435160E2B15002651B8 /* Lobster 1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster 1.4.otf"; sourceTree = "<group>"; };
 		8C252436160E2B15002651B8 /* tt1018m_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tt1018m_.ttf; sourceTree = "<group>"; };
+		8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2@2x.png"; sourceTree = "<group>"; };
+		8C32A9BC161074AA00597A4E /* FilterMask-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2.png"; sourceTree = "<group>"; };
 		8C4CD102160EDCDA00890DDB /* PGCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCameraViewController.h; sourceTree = "<group>"; };
 		8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCameraViewController.m; sourceTree = "<group>"; };
 		8C4CD108160EDD0200890DDB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Pictograph/en.lproj/PGCameraViewController.xib; sourceTree = "<group>"; };
@@ -636,6 +642,9 @@
 		8C4CD9FC160F0F2B00890DDB /* PGFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFilterView.h; sourceTree = "<group>"; };
 		8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGFilterView.m; sourceTree = "<group>"; };
 		8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProcessImageViewController.h; sourceTree = "<group>"; };
+		8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGProcessImageViewController.m; sourceTree = "<group>"; };
+		8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGProcessImageViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -711,6 +720,9 @@
 				8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */,
 				8C4CD9FC160F0F2B00890DDB /* PGFilterView.h */,
 				8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */,
+				8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */,
+				8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */,
+				8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */,
 			);
 			path = Pictograph;
 			sourceTree = "<group>";
@@ -733,6 +745,7 @@
 		8C2523DE160E1695002651B8 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */,
 				8C4CD99E160EF2E700890DDB /* Graphic-small */,
 				8C2523E2160E17E9002651B8 /* FilterMask_Active@2x.png */,
 				8C4CD9FA160F0EC400890DDB /* FilterMask@2x.png */,
@@ -1075,6 +1088,7 @@
 		8C4CD99E160EF2E700890DDB /* Graphic-small */ = {
 			isa = PBXGroup;
 			children = (
+				8C32A9BC161074AA00597A4E /* FilterMask-2.png */,
 				8C4CD99F160EF2E700890DDB /* ActionBtn.png */,
 				8C4CD9A0160EF2E700890DDB /* ActionBtn_Active.png */,
 				8C4CD9A1160EF2E700890DDB /* ActionBtn_Pressed.png */,
@@ -1264,6 +1278,9 @@
 				8C4CD9E9160EF2E700890DDB /* ShootBtn.png in Resources */,
 				8C4CD9EA160EF2E700890DDB /* ShootBtn_Pressed.png in Resources */,
 				8C4CD9FB160F0EC400890DDB /* FilterMask@2x.png in Resources */,
+				8C800DF4160F43FC001F7CFD /* PGProcessImageViewController.xib in Resources */,
+				8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */,
+				8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,6 +1433,7 @@
 				8C4CD990160EE0CC00890DDB /* GPUImageWhiteBalanceFilter.m in Sources */,
 				8C4CD991160EE0CC00890DDB /* GPUImageXYDerivativeFilter.m in Sources */,
 				8C4CD9FE160F0F2B00890DDB /* PGFilterView.m in Sources */,
+				8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,8 @@
 
 #import "PGCameraViewController.h"
 #import "PGFilterView.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "PGProcessImageViewController.h"
 @interface PGCameraViewController ()
 
 @end
@@ -24,51 +25,9 @@
     return self;
 }
 
-//- (void) loadView
-//{
-//    CGRect mainScreenFrame = [[UIScreen mainScreen] bounds];
-//    
-////    // Yes, I know I'm a caveman for doing all this by hand
-////	GPUImageView *primaryView = [[GPUImageView alloc] initWithFrame:mainScreenFrame];
-////	primaryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-////        //
-//// 
-////   
-////	self.view = primaryView;
-//    
-//    [self.view setBackgroundColor:[UIColor whiteColor]];
-//
-//    //Задний фон камеры
-//    UIImage *cameraImage = [UIImage imageNamed:@"Camera_Background.png"];
-//    UIImageView *cameraBackground = [[UIImageView alloc] initWithImage:cameraImage];
-//    [self.view addSubview:cameraBackground];
-//    
-//    //Кнопка "сфотографировать"
-//    UIImage *photoBtnImg = [UIImage imageNamed:@"PhotoBtn.png"];
-//    UIButton *photoBtn = [[UIButton alloc] initWithFrame:CGRectMake(111,404, 98, 46)];
-//    [photoBtn setBackgroundImage:photoBtnImg forState:UIControlStateNormal];
-//    [cameraBackground addSubview:photoBtn];
-//    
-//    
-//}
-
 - (void) createInterface
 {
-    
     self.flashSwitch.backgroundColor = [UIColor clearColor];
-    //Задний фон камеры
-//    UIImage *cameraImage = [UIImage imageNamed:@"Camera_Background.png"];
-//    UIImageView *cameraBackground = [[UIImageView alloc] initWithImage:cameraImage];
-//    [self.view addSubview:cameraBackground];
-//        //
-//    //Кнопка "сфотографировать"
-//    UIImage *photoBtnImg = [UIImage imageNamed:@"PhotoBtn.png"];
-//    UIImage *photoBtnImgPressed = [UIImage imageNamed:@"PhotoBtn_Pressed.png"];
-//    UIButton *photoBtn = [[UIButton alloc] initWithFrame:CGRectMake(111,404, 98, 46)];
-//    [photoBtn setBackgroundImage:photoBtnImg forState:UIControlStateNormal];
-//    [photoBtn setBackgroundImage:photoBtnImgPressed forState:UIControlStateSelected];
-//    [cameraBackground addSubview:photoBtn];
-    //
 }
 - (void)viewDidLoad
 {
@@ -90,8 +49,8 @@
 	[filter prepareForImageCapture];
     
     [stillCamera addTarget:filter];
-    GPUImageView *filterView = (GPUImageView *)self.view;
-    [filter addTarget:filterView];
+    GPUImageView *filteredView = (GPUImageView *)self.view;
+    [filter addTarget:filteredView];
     
     //    [stillCamera.inputCamera lockForConfiguration:nil];
     //    [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
@@ -102,34 +61,38 @@
     self.flashSwitch.titleLabel.text = @"Auto";
     
     
+
+    
+    
     //add view
     
-     UIImage *filterMask = [UIImage imageNamed:@"FilterMask.png"];
-    
-    
-    
-    
-    GPUImageView *addFilterView = [[GPUImageView alloc] initWithFrame:CGRectMake(10, 300, 66, 65)];
-    [self.view addSubview:addFilterView];
-    
-    
-    UIImage *_maskingImage = [UIImage imageNamed:@"FilterMask.png"];
-    CALayer *_maskingLayer = [CALayer layer];
-    _maskingLayer.frame = addFilterView.bounds;
-    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
-    [addFilterView.layer setMask:_maskingLayer];
-
-    
-    [addFilterView addSubview:[[UIImageView alloc] initWithImage:filterMask]];
-    
-    GPUImageFilter *filter1 = [[GPUImageGaussianBlurFilter alloc] init];
-    [filter1 forceProcessingAtSize:addFilterView.sizeInPixels];
-    
-    [stillCamera addTarget:filter1];
-    
-    [filter1 addTarget:addFilterView];
+//     UIImage *filterMask = [UIImage imageNamed:@"FilterMask.png"];
+//    
+//    
+//    
+//    
+//    GPUImageView *addFilterView = [[GPUImageView alloc] initWithFrame:CGRectMake(10, 300, 66, 65)];
+//    [self.view addSubview:addFilterView];
+//    
+//    
+//    UIImage *_maskingImage = [UIImage imageNamed:@"FilterMask.png"];
+//    CALayer *_maskingLayer = [CALayer layer];
+//    _maskingLayer.frame = addFilterView.bounds;
+//    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
+//    [addFilterView.layer setMask:_maskingLayer];
+//
+//    
+//    [addFilterView addSubview:[[UIImageView alloc] initWithImage:filterMask]];
+//    
+//    GPUImageFilter *filter1 = [[GPUImageGaussianBlurFilter alloc] init];
+//    [filter1 forceProcessingAtSize:addFilterView.sizeInPixels];
+//    
+//    [stillCamera addTarget:filter1];
+//    
+//    [filter1 addTarget:addFilterView];
 
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -142,6 +105,8 @@
     [self setCancelButton:nil];
     [self setFiltersButton:nil];
     [self setFlashSwitch:nil];
+    [self setPhotoCaptureButton:nil];
+    [filterView setDel:nil];
     [super viewDidUnload];
 }
 - (IBAction)changeCamera:(id)sender {
@@ -170,8 +135,136 @@
 }
 
 - (IBAction)filtersButtonPressed:(id)sender {
-    PGFilterView *fv = [[PGFilterView alloc] initFilterView];
     
-    [self.view addSubview:fv];
+    if (filterView == nil)
+    {
+        filterView = [[PGFilterView alloc] initFilterView];
+        filterView.del = self;
+    }
+    
+    //PGFilterView *fv = [[PGFilterView alloc] initFilterView];
+    
+    if (filterView.isAdded)
+    {
+        [filterView removeFromSuperview];
+        filterView.isAdded = NO;
+    }
+    else
+    {
+        [self.view addSubview:filterView];
+        filterView.isAdded = YES;
+    }
+
+    
+    
+}
+
+- (IBAction)shot:(id)sender {
+//
+    
+    
+    [stillCamera capturePhotoAsSampleBufferWithCompletionHandler:^(CMSampleBufferRef sampleBuffer, NSError *error)
+    {
+        runOnMainQueueWithoutDeadlocking(^{
+        UIImage *image = imageFromSampleBuffer(sampleBuffer);
+//        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 100, 100)];
+//        [img setImage:image];
+//        [self.view addSubview:img];
+        PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy]];
+        [self presentModalViewController:pivc animated:YES];
+        });
+        
+    }
+     ];
+    
+    
+    
+//    [stillCamera capturePhotoAsImageProcessedUpToFilter:filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
+//        
+//        runOnMainQueueWithoutDeadlocking(^{
+//            NSLog(@"Size: %f", processedImage.size.width);
+//                            PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[processedImage copy]];
+//                             [self presentModalViewController:pivc animated:YES];
+//                        });
+//        
+//    }];
+    
+
+//    
+//    [stillCamera capturePhotoAsJPEGProcessedUpToFilter:filter  withCompletionHandler:^(NSData *processedJPEG, NSError *error){
+//        
+//        
+//        // Save to assets library
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        //        report_memory(@"After asset library creation");
+//        
+//        [library writeImageDataToSavedPhotosAlbum:processedJPEG metadata:nil completionBlock:^(NSURL *assetURL, NSError *error2)
+//         {
+//             //             report_memory(@"After writing to library");
+//             if (error2) {
+//                 NSLog(@"ERROR: the image failed to be written");
+//             }
+//             else {
+//                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
+//             }
+//			 
+//             runOnMainQueueWithoutDeadlocking(^{
+//                 //                 report_memory(@"Operation completed");
+//                 [self.photoCaptureButton setEnabled:YES];
+//             });
+//         }];
+//    }];
+
+}
+
+-(void) setFilterNamed:(NSString *)filterName
+{
+    
+}
+
+UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
+    
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    // Lock the base address of the pixel buffer.
+    CVPixelBufferLockBaseAddress(imageBuffer,0);
+    
+    // Get the number of bytes per row for the pixel buffer.
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+    // Get the pixel buffer width and height.
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
+    
+    // Create a device-dependent RGB color space.
+    static CGColorSpaceRef colorSpace = NULL;
+    if (colorSpace == NULL) {
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+        if (colorSpace == NULL) {
+            // Handle the error appropriately.
+            return nil;
+        }
+    }
+    
+    // Get the base address of the pixel buffer.
+    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
+    // Get the data size for contiguous planes of the pixel buffer.
+    size_t bufferSize = CVPixelBufferGetDataSize(imageBuffer);
+    
+    // Create a Quartz direct-access data provider that uses data we supply.
+    CGDataProviderRef dataProvider =
+    CGDataProviderCreateWithData(NULL, baseAddress, bufferSize, NULL);
+    // Create a bitmap image from data supplied by the data provider.
+    CGImageRef cgImage =
+    CGImageCreate(width, height, 8, 32, bytesPerRow,
+                  colorSpace, kCGImageAlphaNoneSkipFirst | kCGBitmapByteOrder32Little,
+                  dataProvider, NULL, true, kCGRenderingIntentDefault);
+    CGDataProviderRelease(dataProvider);
+    
+    // Create and return an image object to represent the Quartz image.
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    
+    CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
+    
+    return image;
 }
 @end
