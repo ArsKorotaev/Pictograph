@@ -8,11 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PGProcessImageViewController : UIViewController
+@class PGFilterView;
+@class PGFilter;
+@class GPUImageView;
+@interface PGProcessImageViewController : UIViewController <UIScrollViewDelegate>
 {
     UIImage *picketImage;
+    
+    UIScrollView *imageArea;
+    
+    UIImageView *dispImage;
+    
+    GPUImageView *dispImageView;
+    
+    PGFilterView *filterView;
+    PGFilter *filterObject;
+    NSString *currentFilterName;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIButton *saveBtn;
 
 -(id) initWithImage:(UIImage*) img;
 @end

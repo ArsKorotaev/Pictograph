@@ -10,6 +10,7 @@
 #import "PGFilterView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PGProcessImageViewController.h"
+#import "PGViewController.h"
 
 #import "PGFilter.h"
 
@@ -184,6 +185,10 @@
 //        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 100, 100)];
 //        [img setImage:image];
 //        [self.view addSubview:img];
+            
+           
+            [filterObject removeFilter];
+            [stillCamera stopCameraCapture];
         PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy]];
         [self presentModalViewController:pivc animated:YES];
         });
@@ -191,6 +196,8 @@
     }
      ];
     
+    
+
     
  
 //    [stillCamera capturePhotoAsImageProcessedUpToFilter:filterObject.lastFilter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
@@ -229,6 +236,11 @@
 //         }];
 //    }];
 
+}
+
+- (IBAction)cancelButtonPressed:(id)sender {
+    //PGViewController *mainVc = [PGViewController
+    [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
 -(void) setFilterNamed:(NSString *)filterName

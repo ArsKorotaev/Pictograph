@@ -10,7 +10,7 @@
 #import "PGCameraViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-
+#import "PGAppDelegate.h"
 #define MAX_RECENT_IMAGES 10
 @interface PGViewController ()
 
@@ -26,8 +26,8 @@
     self.view.backgroundColor = [[UIColor alloc]
                                   initWithPatternImage:[UIImage imageNamed:@"BackGround.png"]];
     
-    UIImage *takePhotoBtnImgNormal = [[UIImage imageNamed:@"SaveBtn.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
-    UIImage *takePhotoBtnImgPressed = [[UIImage imageNamed:@"SaveBtn_Pressed.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
+    UIImage *takePhotoBtnImgNormal = [[UIImage imageNamed:@"ShootBtn.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
+    UIImage *takePhotoBtnImgPressed = [[UIImage imageNamed:@"ShootBtn_Pressed.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
     [self.takePhoto setBackgroundImage:takePhotoBtnImgNormal forState:UIControlStateNormal];
     [self.takePhoto setBackgroundImage:takePhotoBtnImgPressed forState:UIControlStateSelected];
     self.takePhoto.titleLabel.textColor = [UIColor whiteColor];
@@ -166,6 +166,8 @@
 - (IBAction)takePhotoButtonPressed:(id)sender {
     PGCameraViewController *cvc = [[PGCameraViewController alloc] initWithNibName:@"PGCameraViewController" bundle:nil];
     
+//    PGAppDelegate *del = (PGAppDelegate*)[UIApplication sharedApplication].delegate;
+//    [del transitionToViewController:cvc withTransition:nil];
     [self presentModalViewController:cvc animated:YES];
 }
 

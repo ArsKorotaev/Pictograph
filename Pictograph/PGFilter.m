@@ -21,4 +21,9 @@
 {
     
 }
+
+- (UIImage*) filterForImage:(UIImage *)image
+{
+    return nil;
+}
 @end

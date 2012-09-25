@@ -31,6 +31,20 @@
   
 }
 
+- (UIImage*) filterForImage:(UIImage *)image
+{
+    
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
+    filter1 = [[GPUImageGaussianBlurFilter alloc] init];
+    filter2 = [[GPUImageSepiaFilter alloc] init];
+    
+    [stillImageSource addTarget:filter1];
+    [filter1 addTarget:filter2];
+    [stillImageSource processImage];
+    
+    return [filter2 imageFromCurrentlyProcessedOutput];
+}
+
 -(GPUImageFilter*) lastFilter
 {
     return filter2;
@@ -44,7 +58,9 @@
     [filter1 deleteOutputTexture];
     [filter2 deleteOutputTexture];
     
-    
-    [cam removeAllTargets];
+    if (cam != nil)
+    {
+        [cam removeAllTargets];
+    }
 }
 @end

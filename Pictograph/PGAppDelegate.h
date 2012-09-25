@@ -12,6 +12,8 @@
 
 @interface PGAppDelegate : UIResponder <UIApplicationDelegate>
 
+- (void)transitionToViewController:(UIViewController *)viewController
+                    withTransition:(UIViewAnimationOptions)transition;
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) PGViewController *viewController;

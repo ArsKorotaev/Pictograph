@@ -19,4 +19,5 @@
 @property (readonly) GPUImageFilter *lastFilter;
 -(void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view;
 -(void) removeFilter;
+- (UIImage*) filterForImage:(UIImage*) image;
 @end

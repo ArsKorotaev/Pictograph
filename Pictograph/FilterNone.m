@@ -17,7 +17,10 @@
     
 }
 
-
+-(UIImage*) filterForImage:(UIImage *)image
+{
+    return image;
+}
 
 -(GPUImageFilter*) lastFilter
 {
@@ -25,7 +28,10 @@
 }
 - (void) removeFilter
 {
-     [cam removeAllTargets];
+    if (cam != nil)
+    {
+        [cam removeAllTargets];
+    }
 }
 
 @end
