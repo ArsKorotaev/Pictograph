@@ -10,14 +10,15 @@
 @class GPUImageStillCamera;
 @class GPUImageView;
 @class GPUImageFilter;
-
+@class GPUImagePicture;
 @interface PGFilter : NSObject
 {
     GPUImageStillCamera *cam;
     GPUImageView *imgView;
+    GPUImagePicture* sourcePicture;
 }
 @property (readonly) GPUImageFilter *lastFilter;
 -(void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view;
 -(void) removeFilter;
-- (UIImage*) filterForImage:(UIImage*) image;
+- (void) filterForImage:(UIImage*) image andView:(GPUImageView*) view;
 @end

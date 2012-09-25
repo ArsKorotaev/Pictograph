@@ -17,21 +17,22 @@
     
 }
 
--(UIImage*) filterForImage:(UIImage *)image
+-(void) filterForImage:(UIImage *)image andView:(GPUImageView *)view
 {
-    return image;
+    [super filterForImage:image andView:view];
+    sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+    [sourcePicture addTarget:view];
+    [sourcePicture processImage];
 }
 
 -(GPUImageFilter*) lastFilter
 {
     return nil;
 }
+
 - (void) removeFilter
 {
-    if (cam != nil)
-    {
-        [cam removeAllTargets];
-    }
+    [super removeFilter];
 }
 
 @end

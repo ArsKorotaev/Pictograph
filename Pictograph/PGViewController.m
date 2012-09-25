@@ -11,6 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "PGAppDelegate.h"
+#import "PGProcessImageViewController.h"
 #define MAX_RECENT_IMAGES 10
 @interface PGViewController ()
 
@@ -59,6 +60,11 @@
     [self.recentImages setContentSize:CGSizeMake(MAX_RECENT_IMAGES*75+10, self.recentImages.frame.size.height)];
     [self addImages];
     
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.numberOfTouchesRequired = 1;
+    [self.recentImages addGestureRecognizer:tapGesture];
 }
 
 - (void) addImages
@@ -115,6 +121,8 @@
                                      
                                      [self.recentImages addSubview:phView];
                                      
+                                     
+                                     
                                  }
                              }];
     }
@@ -125,6 +133,22 @@
 
 }
 
+- (void) handleGesture:(UIGestureRecognizer *)sender
+{
+    
+    CGPoint touchLocation = [sender locationInView:sender.view];
+    for (UIView *imView in sender.view.subviews)
+    {
+        if (CGRectContainsPoint(imView.frame, touchLocation))
+        {
+            UIImage *image = [(UIImageView*)imView image];
+            PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:image andFilterName:@"FilterNone"];
+            
+            [self presentModalViewController:pivc animated:YES];
+            break;
+        }
+    }
+}
 - (BOOL) startMediaBrowserFromViewController: (UIViewController*) controller usingDelegate: (id <UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate {
     
 //    if (([UIImagePickerController isSourceTypeAvailable:

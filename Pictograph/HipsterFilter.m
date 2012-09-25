@@ -34,16 +34,16 @@
     
 }
 
-+(UIImage*) filterForImage:(UIImage *)image
-{
-    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
-    GPUImageFilter *filter1 = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"HipsterFilterShader"];
-    
-    [stillImageSource addTarget:filter1];
-    [stillImageSource processImage];
-    
-    return [filter1 imageFromCurrentlyProcessedOutput];
-}
+// -(UIImage*) filterForImage:(UIImage *)image
+//{
+//    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
+//    GPUImageFilter *filter1 = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"HipsterFilterShader"];
+//    
+//    [stillImageSource addTarget:filter1];
+//    [stillImageSource processImage];
+//    
+//    return [filter1 imageFromCurrentlyProcessedOutput];
+//}
 
 -(GPUImageFilter*) lastFilter
 {

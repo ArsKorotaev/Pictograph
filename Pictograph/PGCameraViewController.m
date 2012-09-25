@@ -39,10 +39,7 @@
     // Do any additional setup after loading the view from its nib.
     [self createInterface];
     
-    stillCamera = [[GPUImageStillCamera alloc] init];
-    //    stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionBack];
-    stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
-//    //    filter = [[GPUImageGammaFilter alloc] init];
+   //    //    filter = [[GPUImageGammaFilter alloc] init];
 //   // filter = [[GPUImageSketchFilter alloc] init];
 //    
 //    
@@ -64,11 +61,7 @@
 //    //    [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
 //    //    [stillCamera.inputCamera unlockForConfiguration];
     
-    filterObject = [[NSClassFromString(@"FilterNone") alloc] init];
-    
-    
-    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view];
-    [stillCamera startCameraCapture];
+       
     
     self.flashSwitch.titleLabel.text = @"Auto";
     
@@ -120,6 +113,28 @@
     [self setPhotoCaptureButton:nil];
     [filterView setDel:nil];
     [super viewDidUnload];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+  
+    stillCamera = [[GPUImageStillCamera alloc] init];
+    stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    filterObject = [[NSClassFromString(@"FilterNone") alloc] init];
+    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view];
+
+    [stillCamera startCameraCapture];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [filterObject removeFilter];
+    [stillCamera stopCameraCapture];
+    GPUImageView* imgView = (GPUImageView*)self.view;
+    
+    stillCamera = nil;
 }
 - (IBAction)changeCamera:(id)sender {
     
@@ -175,11 +190,12 @@
 - (IBAction)shot:(id)sender {
 //
     
-    
+   
     [stillCamera capturePhotoAsSampleBufferWithCompletionHandler:^(CMSampleBufferRef sampleBuffer, NSError *error)
     {
         runOnMainQueueWithoutDeadlocking(^{
         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:sampleBuffer];
+
         UIImage *image = [[UIImage alloc] initWithData:imageData];
 //        UIImage *image = imageFromSampleBuffer(sampleBuffer);
 //        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 100, 100)];
@@ -187,15 +203,14 @@
 //        [self.view addSubview:img];
             
            
-            [filterObject removeFilter];
-            [stillCamera stopCameraCapture];
-        PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy]];
+            
+        PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy] andFilterName:NSStringFromClass([filterObject class])];
+       
         [self presentModalViewController:pivc animated:YES];
         });
         
     }
      ];
-    
     
 
     
@@ -240,6 +255,7 @@
 
 - (IBAction)cancelButtonPressed:(id)sender {
     //PGViewController *mainVc = [PGViewController
+    [stillCamera stopCameraCapture];
     [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 

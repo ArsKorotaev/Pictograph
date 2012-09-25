@@ -19,11 +19,21 @@
 
 - (void) removeFilter
 {
+    if (cam!=nil)
+    {
+        [cam removeAllTargets];
+    }
+    if (sourcePicture != nil)
+    {
+        [sourcePicture removeAllTargets];
+    }
     
+    cam = nil;
+    sourcePicture = nil;
 }
 
-- (UIImage*) filterForImage:(UIImage *)image
+- (void) filterForImage:(UIImage *)image andView:(GPUImageView *)view
 {
-    return nil;
+    imgView = view;
 }
 @end

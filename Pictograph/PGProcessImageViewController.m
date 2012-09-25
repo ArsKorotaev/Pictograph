@@ -25,7 +25,7 @@
     return self;
 }
 
--(id) initWithImage:(UIImage *)img
+-(id) initWithImage:(UIImage *)img andFilterName:(NSString *)filterName
 {
     self = [super initWithNibName:@"PGProcessImageViewController" bundle:nil];
     
@@ -38,10 +38,14 @@
        // [self.view addSubview:imgView];
         //[self.imageView setImage:img];
     
-        
+        currentFilterName = filterName;
     }
     
     return self;
+}
+
+- (IBAction)cancelButtonPressed:(id)sender {
+    [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
 - (void) customizeInterface
@@ -76,8 +80,12 @@
     imageArea.minimumZoomScale = 320.f / picketImage.size.width;
     imageArea.bouncesZoom = NO;
     imageArea.delegate = self;
-    dispImage = [[UIImageView alloc] initWithImage:picketImage];
-    [imageArea addSubview:dispImage];
+    
+   // dispImage = [[UIImageView alloc] initWithImage:picketImage];
+    dispImageView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, picketImage.size.width, picketImage.size.height)];
+    [self setFilterNamed:currentFilterName];
+   // [imageArea addSubview:dispImage];
+    [imageArea addSubview:dispImageView];
     [self.imageView addSubview:imageArea];
     [imageArea setZoomScale:320.f / picketImage.size.width];
     
@@ -101,6 +109,7 @@
 - (void)viewDidUnload {
     [self setImageView:nil];
     [self setSaveBtn:nil];
+    [self setCancelButton:nil];
     [super viewDidUnload];
 }
 
@@ -112,7 +121,7 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 
 {
-    return dispImage;
+    return dispImageView;
 }
 
 #pragma mark - PGFilterViewDelegate methods
@@ -125,8 +134,9 @@
     }
     filterObject = [[NSClassFromString(filterName) alloc] init];
     
-    UIImage *newIm =  [filterObject filterForImage:picketImage];
-    [dispImage setImage:newIm];
+    [filterObject filterForImage:picketImage andView:dispImageView];
+   
+ 
 }
 
 

@@ -15,7 +15,7 @@
 @interface PGCameraViewController : UIViewController <PGFilterViewDelegate>
 {
     GPUImageStillCamera *stillCamera;
-    GPUImageOutput<GPUImageInput> *filter;
+    //GPUImageOutput<GPUImageInput> *filter;
     
     PGFilterView *filterView;
     PGFilter *filterObject;

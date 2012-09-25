@@ -27,6 +27,8 @@
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;
+@property (strong, nonatomic) IBOutlet UIButton *cancelButton;
 
--(id) initWithImage:(UIImage*) img;
+-(id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
+- (IBAction)cancelButtonPressed:(id)sender;
 @end
