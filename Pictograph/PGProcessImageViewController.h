@@ -24,11 +24,27 @@
     PGFilterView *filterView;
     PGFilter *filterObject;
     NSString *currentFilterName;
+    
+    BOOL isCaptionMode;
+    
+    
+    
+    
+    IBOutlet UIImageView *filtersImageView;
+    IBOutlet UIImageView *mBottomPartOfMainBackgroundView;
+    UIImageView *mFolderView;
+    UIImageView *mSelectedArrowTipView;
+    
+    UIImage *buttonActiveImg;
+    UIImage *buttonNormalImg;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;
 @property (strong, nonatomic) IBOutlet UIButton *cancelButton;
+@property (strong, nonatomic) IBOutlet UIButton *captionButton;
+
 
 -(id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
 - (IBAction)cancelButtonPressed:(id)sender;
+- (IBAction)captionButtonPressed:(id)sender;
 @end

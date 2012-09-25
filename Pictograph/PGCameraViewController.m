@@ -132,8 +132,8 @@
     [super viewWillDisappear:animated];
     [filterObject removeFilter];
     [stillCamera stopCameraCapture];
-    GPUImageView* imgView = (GPUImageView*)self.view;
-    
+  //  GPUImageView* imgView = (GPUImageView*)self.view;
+    [self setView:nil];
     stillCamera = nil;
 }
 - (IBAction)changeCamera:(id)sender {
@@ -255,7 +255,7 @@
 
 - (IBAction)cancelButtonPressed:(id)sender {
     //PGViewController *mainVc = [PGViewController
-    [stillCamera stopCameraCapture];
+    //[stillCamera stopCameraCapture];
     [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 

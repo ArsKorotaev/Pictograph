@@ -9,7 +9,7 @@
 #import "PGProcessImageViewController.h"
 #import "PGFilterView.h"
 #import "PGFilter.h"
-
+#define ANIMATION_DISTANCE 75
 @interface PGProcessImageViewController () <PGFilterViewDelegate>
 
 @end
@@ -39,6 +39,9 @@
         //[self.imageView setImage:img];
     
         currentFilterName = filterName;
+    //		mBottomPartOfMainBackgroundView = [[UIImageView alloc] initWithFrame:self.view.frame];
+//        [mBottomPartOfMainBackgroundView setImage:[UIImage imageNamed:@"Filters_Menu.png"]];
+        isCaptionMode = NO;
     }
     
     return self;
@@ -47,6 +50,54 @@
 - (IBAction)cancelButtonPressed:(id)sender {
     [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
+
+- (IBAction)captionButtonPressed:(id)sender {
+    
+
+    if (!isCaptionMode)
+    {
+        
+        CGRect newPhotoFrame = self.imageView.frame;
+        CGRect filterFrame = filterView.frame;
+        
+        newPhotoFrame.origin.y -= ANIMATION_DISTANCE;
+        filterFrame.origin.y -= ANIMATION_DISTANCE;
+        [UIView beginAnimations:@"FolderOpen" context:NULL];
+        [UIView setAnimationDuration:0.45];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        self.imageView.frame = newPhotoFrame;
+        filterView.frame = filterFrame;
+        [UIView commitAnimations];
+        
+        [UIView beginAnimations:@"FolderOpenView" context:NULL];
+        [UIView setAnimationDuration:0.2];
+        filtersImageView.alpha = 1.0;
+        [UIView commitAnimations];
+        isCaptionMode = YES;
+        
+        [(UIButton*)sender setBackgroundImage:buttonActiveImg forState:UIControlStateNormal];
+    }
+    
+    else
+    {
+        CGRect newPhotoFrame = self.imageView.frame;
+        CGRect filterFrame = filterView.frame;
+        
+        newPhotoFrame.origin.y += ANIMATION_DISTANCE;
+        filterFrame.origin.y += ANIMATION_DISTANCE;
+        [UIView beginAnimations:@"FolderClose" context:NULL];
+        [UIView setAnimationDuration:0.45];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        self.imageView.frame = newPhotoFrame;
+        filterView.frame = filterFrame;
+        filtersImageView.alpha = 0;
+        [UIView commitAnimations];
+        isCaptionMode = NO;
+        [(UIButton*)sender setBackgroundImage:buttonNormalImg forState:UIControlStateNormal];
+    }
+    
+}
+
 
 - (void) customizeInterface
 {
@@ -62,6 +113,19 @@
     
     UIImage *photoShadowImg = [UIImage imageNamed:@"PhotoShadows.png"];
     [self.imageView setImage:photoShadowImg];
+    
+    //Инициализация двух нижних кнопок
+    buttonNormalImg = [[UIImage imageNamed:@"ActionBtn.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
+    UIImage *buttonPressedImg = [[UIImage imageNamed:@"ActionBtn_Pressed.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
+    buttonActiveImg = [[UIImage imageNamed:@"ActionBtn_Active.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:0];
+    
+    [self.cancelButton setBackgroundImage:buttonNormalImg forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:buttonPressedImg forState:UIControlStateSelected];
+    
+    [self.captionButton setBackgroundImage:buttonNormalImg forState:UIControlStateNormal];
+    [self.captionButton setBackgroundImage:buttonPressedImg forState:UIControlStateSelected];
+    
+    
 }
 - (void)viewDidLoad
 {
@@ -95,6 +159,12 @@
     filterView.del = self;
     [self.view addSubview:filterView];
     // Do any additional setup after loading the view from its nib.
+    
+    
+    //папка
+    [self.view addSubview:mFolderView];
+   // [self.view addSubview:mBottomPartOfMainBackgroundView];
+    
 }
 
 
@@ -110,6 +180,10 @@
     [self setImageView:nil];
     [self setSaveBtn:nil];
     [self setCancelButton:nil];
+    mBottomPartOfMainBackgroundView = nil;
+ 
+    filtersImageView = nil;
+    [self setCaptionButton:nil];
     [super viewDidUnload];
 }
 
