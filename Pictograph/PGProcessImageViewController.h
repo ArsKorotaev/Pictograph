@@ -11,6 +11,7 @@
 @class PGFilterView;
 @class PGFilter;
 @class GPUImageView;
+@class PGCaptionTextView;
 @interface PGProcessImageViewController : UIViewController <UIScrollViewDelegate>
 {
     UIImage *picketImage;
@@ -42,6 +43,9 @@
     //Caption
     UISegmentedControl *segmentedControl;
     UITextField *textField;
+    PGCaptionTextView *captionTextView;
+    
+    
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;

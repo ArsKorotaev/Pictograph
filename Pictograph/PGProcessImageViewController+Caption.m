@@ -7,7 +7,7 @@
 //
 
 #import "PGProcessImageViewController+Caption.h"
-
+#import "PGSegmentedControl.h"
 @implementation PGProcessImageViewController (Caption)
 -(void) finishInitCaptionView
 {
@@ -35,31 +35,32 @@
 
 -(void) customizeSegmentedControl
 {
-//    UIImage *bothUnselectedImageLeft = [UIImage imageNamed:@"FontTabLeft.png"];
-//    [segmentedControl insertSegmentWithImage:bothUnselectedImageLeft atIndex:0 animated:NO];
-    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
-    for (int i = 0; i < 6; i++ ) {
-        [segmentedControl insertSegmentWithTitle:@"Aa" atIndex:i animated:NO];
-       
-    }
-//    UIImage *bothUnselectedImageLeft = [UIImage imageNamed:@"FontTabLeft.png"];
-//    UIView *firstSegment = [segmentedControl.subviews objectAtIndex:0];
-//    UIColor*bgCol = [UIColor colorWithPatternImage:bothUnselectedImageLeft];
-//    [firstSegment setBackgroundColor:[UIColor blackColor]];
-    
-//    UIImage *bothUnselectedImageRight = [UIImage imageNamed:@"FontTabRight.png"];
-//    [segmentedControl insertSegmentWithImage:bothUnselectedImageRight atIndex:6 animated:NO];
-//
-    UIImage *bgImage = [[UIImage imageNamed:@"Input.png"] stretchableImageWithLeftCapWidth:19 topCapHeight:0];
-  
-    //[segmentedControl setBackgroundImage:bgImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//
+////    UIImage *bothUnselectedImageLeft = [UIImage imageNamed:@"FontTabLeft.png"];
+////    [segmentedControl insertSegmentWithImage:bothUnselectedImageLeft atIndex:0 animated:NO];
+//    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
+//    for (int i = 0; i < 6; i++ ) {
+//        [segmentedControl insertSegmentWithTitle:@"Aa" atIndex:i animated:NO];
+//       
+//    }
 //    
-//    UIImage *bothUnselectedImage = [UIImage imageNamed:@"FontTabLeft.png"];
-//    [[UISegmentedControl appearance] setDividerImage:bothUnselectedImage
-//                                 forLeftSegmentState:UIControlStateNormal
-//                                   rightSegmentState:UIControlStateNormal
-//                                          barMetrics:UIBarMetricsDefault];
+////    UIImage *bothUnselectedImageLeft = [UIImage imageNamed:@"FontTabLeft.png"];
+////    UIView *firstSegment = [segmentedControl.subviews objectAtIndex:0];
+////    UIColor*bgCol = [UIColor colorWithPatternImage:bothUnselectedImageLeft];
+////    [firstSegment setBackgroundColor:[UIColor blackColor]];
+//    
+////    UIImage *bothUnselectedImageRight = [UIImage imageNamed:@"FontTabRight.png"];
+////    [segmentedControl insertSegmentWithImage:bothUnselectedImageRight atIndex:6 animated:NO];
+////
+//    UIImage *bgImage = [[UIImage imageNamed:@"Input.png"] stretchableImageWithLeftCapWidth:19 topCapHeight:0];
+//  
+//    //[segmentedControl setBackgroundImage:bgImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+////
+////    
+////    UIImage *bothUnselectedImage = [UIImage imageNamed:@"FontTabLeft.png"];
+////    [[UISegmentedControl appearance] setDividerImage:bothUnselectedImage
+////                                 forLeftSegmentState:UIControlStateNormal
+////                                   rightSegmentState:UIControlStateNormal
+////                                          barMetrics:UIBarMetricsDefault];
 
 }
 @end

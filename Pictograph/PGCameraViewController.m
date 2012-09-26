@@ -187,6 +187,21 @@
     
 }
 
+-(void) endCamera:(id) sender
+{
+    UIImage *image = sender;
+    //GPUImageView gpuView =    (GPUImageView *)self.view;
+    
+    
+    [filterObject removeFilter];
+    [stillCamera removeAllTargets];
+    [stillCamera stopCameraCapture];
+    PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy] andFilterName:NSStringFromClass([filterObject class])];
+    [[self presentingViewController] dismissModalViewControllerAnimated:NO];
+    [self presentModalViewController:pivc animated:YES];
+    
+}
+
 - (IBAction)shot:(id)sender {
 //
     
@@ -201,12 +216,9 @@
 //        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 100, 100)];
 //        [img setImage:image];
 //        [self.view addSubview:img];
-            
+            [self performSelectorOnMainThread:@selector(endCamera:) withObject:image waitUntilDone:NO];
            
-            
-        PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy] andFilterName:NSStringFromClass([filterObject class])];
-       
-        [self presentModalViewController:pivc animated:YES];
+        
         });
         
     }

@@ -10,6 +10,7 @@
 #import "PGFilterView.h"
 #import "PGFilter.h"
 #import "PGProcessImageViewController+Caption.h"
+#import "PGCaptionTextView.h"
 #define ANIMATION_DISTANCE 75
 @interface PGProcessImageViewController () <PGFilterViewDelegate>
 
@@ -40,6 +41,7 @@
         //[self.imageView setImage:img];
     
         currentFilterName = filterName;
+        captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0,0,self.imageView.frame.size.width, self.imageView.frame.size.height)];
     //		mBottomPartOfMainBackgroundView = [[UIImageView alloc] initWithFrame:self.view.frame];
 //        [mBottomPartOfMainBackgroundView setImage:[UIImage imageNamed:@"Filters_Menu.png"]];
         isCaptionMode = NO;
@@ -57,7 +59,7 @@
 
     if (!isCaptionMode)
     {
-        
+       
         CGRect newPhotoFrame = self.imageView.frame;
         CGRect filterFrame = filterView.frame;
         
@@ -166,6 +168,12 @@
     [self.view addSubview:mFolderView];
     [self customizeInterface];
     [self finishInitCaptionView];
+    
+    
+    
+    //Коментарий
+    [self.imageView addSubview:captionTextView];
+    [captionTextView setNeedsDisplay];
     
 }
 
