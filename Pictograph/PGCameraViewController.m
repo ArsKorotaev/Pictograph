@@ -197,7 +197,6 @@
     [stillCamera removeAllTargets];
     [stillCamera stopCameraCapture];
     PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy] andFilterName:NSStringFromClass([filterObject class])];
-    [[self presentingViewController] dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:pivc animated:YES];
     
 }
