@@ -66,7 +66,6 @@
     self.flashSwitch.titleLabel.text = @"Auto";
     
     
-
     
     
     //add view
@@ -118,23 +117,19 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-  
     stillCamera = [[GPUImageStillCamera alloc] init];
     stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     filterObject = [[NSClassFromString(@"FilterNone") alloc] init];
     [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view];
-
+    
     [stillCamera startCameraCapture];
+
+   
 }
 
 -(void) viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
-    [filterObject removeFilter];
-    [stillCamera stopCameraCapture];
-  //  GPUImageView* imgView = (GPUImageView*)self.view;
-    [self setView:nil];
-    stillCamera = nil;
+    
 }
 - (IBAction)changeCamera:(id)sender {
     
@@ -192,10 +187,11 @@
     UIImage *image = sender;
     //GPUImageView gpuView =    (GPUImageView *)self.view;
     
-    
-    [filterObject removeFilter];
-    [stillCamera removeAllTargets];
     [stillCamera stopCameraCapture];
+    [filterObject removeFilter];
+    [stillCamera deleteOutputTexture];
+    [stillCamera removeInputsAndOutputs];
+    
     PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy] andFilterName:NSStringFromClass([filterObject class])];
     [self presentModalViewController:pivc animated:YES];
     

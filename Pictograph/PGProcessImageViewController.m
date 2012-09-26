@@ -11,6 +11,7 @@
 #import "PGFilter.h"
 #import "PGProcessImageViewController+Caption.h"
 #import "PGCaptionTextView.h"
+#import "UIImage+FixOrientation.h"
 #define ANIMATION_DISTANCE 75
 @interface PGProcessImageViewController () <PGFilterViewDelegate>
 
@@ -34,7 +35,7 @@
     if (self)
     {
         assert(img != nil);
-        picketImage = img;
+        picketImage = [img fixOrientation];
         
         //UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
        // [self.view addSubview:imgView];
@@ -51,6 +52,7 @@
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
+    [filterObject removeFilter];
     [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 

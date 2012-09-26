@@ -72,6 +72,7 @@
 		8C32A9D51610846600597A4E /* PGFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9D41610846600597A4E /* PGFilter.m */; };
 		8C32A9D8161093DF00597A4E /* HipsterFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9D7161093DE00597A4E /* HipsterFilter.m */; };
 		8C32A9DB1610A2EE00597A4E /* FilterNone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9DA1610A2EE00597A4E /* FilterNone.m */; };
+		8C345784161336B2009CFAB5 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C345783161336B2009CFAB5 /* UIImage+FixOrientation.m */; };
 		8C4CD105160EDCDA00890DDB /* PGCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */; };
 		8C4CD109160EDD0200890DDB /* PGCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C4CD107160EDD0200890DDB /* PGCameraViewController.xib */; };
 		8C4CD909160EE0CC00890DDB /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD7F6160EE0CC00890DDB /* GLProgram.m */; };
@@ -341,6 +342,8 @@
 		8C32A9D7161093DE00597A4E /* HipsterFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HipsterFilter.m; sourceTree = "<group>"; };
 		8C32A9D91610A2EE00597A4E /* FilterNone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNone.h; sourceTree = "<group>"; };
 		8C32A9DA1610A2EE00597A4E /* FilterNone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNone.m; sourceTree = "<group>"; };
+		8C345782161336B2009CFAB5 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		8C345783161336B2009CFAB5 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
 		8C4CD102160EDCDA00890DDB /* PGCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCameraViewController.h; sourceTree = "<group>"; };
 		8C4CD103160EDCDA00890DDB /* PGCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCameraViewController.m; sourceTree = "<group>"; };
 		8C4CD108160EDD0200890DDB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Pictograph/en.lproj/PGCameraViewController.xib; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 				8C0FDD4016130A9500B6CA34 /* PGCaptionTextView.h */,
 				8C0FDD4116130A9600B6CA34 /* PGCaptionTextView.m */,
 				8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */,
+				8C345782161336B2009CFAB5 /* UIImage+FixOrientation.h */,
+				8C345783161336B2009CFAB5 /* UIImage+FixOrientation.m */,
 				8CA1A42716120C8C009C7C68 /* PGCaptionView.h */,
 				8CA1A42816120C8C009C7C68 /* PGCaptionView.m */,
 			);
@@ -1490,6 +1495,7 @@
 				8C0FDD3B1612EEE400B6CA34 /* PGProcessImageViewController+Caption.m in Sources */,
 				8C0FDD3F161302F500B6CA34 /* PGSegmentedControl.m in Sources */,
 				8C0FDD4216130A9700B6CA34 /* PGCaptionTextView.m in Sources */,
+				8C345784161336B2009CFAB5 /* UIImage+FixOrientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
