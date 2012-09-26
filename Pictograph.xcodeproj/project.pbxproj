@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0FDD3B1612EEE400B6CA34 /* PGProcessImageViewController+Caption.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0FDD3A1612EEE200B6CA34 /* PGProcessImageViewController+Caption.m */; };
 		8C2523B6160E1573002651B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2523B5160E1573002651B8 /* UIKit.framework */; };
 		8C2523B8160E1573002651B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2523B7160E1573002651B8 /* Foundation.framework */; };
 		8C2523BA160E1573002651B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2523B9160E1573002651B8 /* CoreGraphics.framework */; };
@@ -257,9 +258,12 @@
 		8C800DE3160F366D001F7CFD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */; };
 		8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */; };
 		8C800DF4160F43FC001F7CFD /* PGProcessImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */; };
+		8CA1A42916120C8D009C7C68 /* PGCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1A42816120C8C009C7C68 /* PGCaptionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C0FDD391612EEE100B6CA34 /* PGProcessImageViewController+Caption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PGProcessImageViewController+Caption.h"; sourceTree = "<group>"; };
+		8C0FDD3A1612EEE200B6CA34 /* PGProcessImageViewController+Caption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PGProcessImageViewController+Caption.m"; sourceTree = "<group>"; };
 		8C2523B1160E1573002651B8 /* Pictograph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pictograph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2523B5160E1573002651B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8C2523B7160E1573002651B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -661,6 +665,8 @@
 		8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProcessImageViewController.h; sourceTree = "<group>"; };
 		8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGProcessImageViewController.m; sourceTree = "<group>"; };
 		8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGProcessImageViewController.xib; sourceTree = "<group>"; };
+		8CA1A42716120C8C009C7C68 /* PGCaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCaptionView.h; sourceTree = "<group>"; };
+		8CA1A42816120C8C009C7C68 /* PGCaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCaptionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -738,7 +744,11 @@
 				8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */,
 				8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */,
 				8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */,
+				8C0FDD391612EEE100B6CA34 /* PGProcessImageViewController+Caption.h */,
+				8C0FDD3A1612EEE200B6CA34 /* PGProcessImageViewController+Caption.m */,
 				8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */,
+				8CA1A42716120C8C009C7C68 /* PGCaptionView.h */,
+				8CA1A42816120C8C009C7C68 /* PGCaptionView.m */,
 			);
 			path = Pictograph;
 			sourceTree = "<group>";
@@ -1466,6 +1476,8 @@
 				8C32A9D51610846600597A4E /* PGFilter.m in Sources */,
 				8C32A9D8161093DF00597A4E /* HipsterFilter.m in Sources */,
 				8C32A9DB1610A2EE00597A4E /* FilterNone.m in Sources */,
+				8CA1A42916120C8D009C7C68 /* PGCaptionView.m in Sources */,
+				8C0FDD3B1612EEE400B6CA34 /* PGProcessImageViewController+Caption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

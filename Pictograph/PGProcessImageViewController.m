@@ -9,6 +9,7 @@
 #import "PGProcessImageViewController.h"
 #import "PGFilterView.h"
 #import "PGFilter.h"
+#import "PGProcessImageViewController+Caption.h"
 #define ANIMATION_DISTANCE 75
 @interface PGProcessImageViewController () <PGFilterViewDelegate>
 
@@ -71,7 +72,7 @@
         
         [UIView beginAnimations:@"FolderOpenView" context:NULL];
         [UIView setAnimationDuration:0.2];
-        filtersImageView.alpha = 1.0;
+        captionView.alpha = 1.0;
         [UIView commitAnimations];
         isCaptionMode = YES;
         
@@ -90,7 +91,7 @@
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         self.imageView.frame = newPhotoFrame;
         filterView.frame = filterFrame;
-        filtersImageView.alpha = 0;
+        captionView.alpha = 0;
         [UIView commitAnimations];
         isCaptionMode = NO;
         [(UIButton*)sender setBackgroundImage:buttonNormalImg forState:UIControlStateNormal];
@@ -130,7 +131,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self customizeInterface];
+  
     //инициализация области с изображением
     imageArea = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 6, 320, 320)];
     imageArea.contentSize = picketImage.size;
@@ -163,7 +164,8 @@
     
     //папка
     [self.view addSubview:mFolderView];
-   // [self.view addSubview:mBottomPartOfMainBackgroundView];
+    [self customizeInterface];
+    [self finishInitCaptionView];
     
 }
 
@@ -182,7 +184,7 @@
     [self setCancelButton:nil];
     mBottomPartOfMainBackgroundView = nil;
  
-    filtersImageView = nil;
+    captionView = nil;
     [self setCaptionButton:nil];
     [super viewDidUnload];
 }

@@ -30,13 +30,18 @@
     
     
     
-    IBOutlet UIImageView *filtersImageView;
+    IBOutlet UIImageView *captionView;
     IBOutlet UIImageView *mBottomPartOfMainBackgroundView;
     UIImageView *mFolderView;
     UIImageView *mSelectedArrowTipView;
     
     UIImage *buttonActiveImg;
     UIImage *buttonNormalImg;
+    
+    
+    //Caption
+    UISegmentedControl *segmentedControl;
+    UITextField *textField;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;
