@@ -16,9 +16,7 @@
     
     [super filterForCamer:camera andView:view];
     
-    filter1 = [[GPUImageGaussianBlurFilter alloc] init];
-    filter2 = [[GPUImageSepiaFilter alloc] init];
-    
+    [self processFilterInitialization];
     
     [filter1 prepareForImageCapture];
     [filter2 prepareForImageCapture];
@@ -44,7 +42,7 @@
     
     //return [filter2 imageFromCurrentlyProcessedOutput];
     sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-    filter1 = [[GPUImageSepiaFilter alloc] init];
+    filter1 = [[GPUImageVignetteFilter alloc] init];
     
     GPUImageView *imageView = view;
     [filter1 forceProcessingAtSize:imageView.sizeInPixels]; // This is now needed to make the filter run at the smaller output size
@@ -55,6 +53,12 @@
     [sourcePicture processImage];
     
     
+}
+
+-(void) processFilterInitialization
+{
+    filter1 = [[GPUImageGaussianBlurFilter alloc] init];
+    filter2 = [[GPUImageVignetteFilter alloc] init];
 }
 
 -(GPUImageFilter*) lastFilter

@@ -27,6 +27,11 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>BALLW__.TTF</string>
+		<string>tt1018m_.ttf</string>
+		<string>Lobster 1.4.otf</string>
+		<string>Helvetica.ttf</string>
+		<string>Complete_in_Him.ttf</string>
+		<string>collegiateHeavyOutline Medium.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

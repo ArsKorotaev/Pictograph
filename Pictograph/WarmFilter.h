@@ -10,6 +10,8 @@
 
 
 #import "PGFilter.h"
+
+
 @class GPUImageFilter;
 
 @interface WarmFilter : PGFilter

@@ -8,10 +8,11 @@
 
 #import "PGProcessImageViewController+Caption.h"
 #import "PGSegmentedControl.h"
-@implementation PGProcessImageViewController (Caption)
+@implementation PGProcessImageViewController (Caption) 
 -(void) finishInitCaptionView
 {
     textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, 300, 30)];
+    textField.delegate = self;
     segmentedControl = [[PGSegmentedControl alloc] initWithFrame:CGRectMake(10, 43, 300, 30)];
 
     captionView.userInteractionEnabled = YES;
@@ -31,6 +32,8 @@
     textField.leftView = paddingView;
     textField.leftViewMode = UITextFieldViewModeAlways;
     textField.textColor = [UIColor whiteColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(keyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
 }
 
 -(void) customizeSegmentedControl
@@ -62,5 +65,12 @@
 ////                                   rightSegmentState:UIControlStateNormal
 ////                                          barMetrics:UIBarMetricsDefault];
 
+}
+
+-(void) keyPressed:(NSNotification *) sender
+{
+    UITextField *tf = sender.object;
+    
+    self.downText.text = tf.text;
 }
 @end

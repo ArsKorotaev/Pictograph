@@ -14,20 +14,20 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
-//        UIImage *bgImage = [[UIImage imageNamed:@"Input.png"] stretchableImageWithLeftCapWidth:19 topCapHeight:0];
-//        //UIImage *img2 = [UIImage alloc]
-//        self.backgroundColor = [UIColor colorWithPatternImage:bgImage];
+    
+        
+        buttonFonts = @[@"Freehand521 BT", @"Ballpark", @"Lobster 1.4", @"CollegiateHeavyOutline", @"Complete In Him", @"Helvetica"];
+        
         buttonArray = [[NSMutableArray alloc] initWithCapacity:6];
         leftPartImage = [[UIImage imageNamed:@"FontTabLeft.png"] stretchableImageWithLeftCapWidth:25 topCapHeight:0];
         rightPartImage = [[UIImage imageNamed:@"FontTabRight.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
-        bgImage = [[UIImage imageNamed:@"FontTab.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:0];
+        bgImage = [[UIImage imageNamed:@"FontTab.png"] stretchableImageWithLeftCapWidth:7 topCapHeight:0];
         
         leftPartActiveImage = [[UIImage imageNamed:@"FontTabLeft_Active.png"] stretchableImageWithLeftCapWidth:25 topCapHeight:0];
         rightPartActiveImage = [[UIImage imageNamed:@"FontTabRight_Active.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
-        bgActiveImage = [[UIImage imageNamed:@"FontTab_Active.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:0];
+        bgActiveImage = [[UIImage imageNamed:@"FontTab_Active.png"] stretchableImageWithLeftCapWidth:7 topCapHeight:0];
         
-        assert(leftPartImage && rightPartImage && bgImage && leftPartActiveImage && rightPartActiveImage && bgActiveImage);
+        //assert(leftPartImage && rightPartImage && bgImage && leftPartActiveImage && rightPartActiveImage && bgActiveImage);
         
         segmentLength = 300/6;
         
@@ -50,6 +50,7 @@
         [[buttonArray objectAtIndex:0] setBackgroundImage:leftPartActiveImage forState:UIControlStateNormal];
         [[buttonArray objectAtIndex:0]  setBackgroundImage:leftPartActiveImage forState:UIControlStateHighlighted];
         
+        self.backgroundColor = [UIColor clearColor];
     }
     
     
@@ -63,9 +64,13 @@
     [btn setBackgroundImage:img forState:UIControlStateNormal];
     [btn setBackgroundImage:img forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchDown];
-    btn.titleLabel.text = @"Aa";
-    btn.titleLabel.textColor = [UIColor whiteColor];
-    btn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [btn setTitle:@"Aa" forState:UIControlStateNormal];
+    [btn setTitle:@"Aa" forState:UIControlStateHighlighted];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+
+    btn.titleLabel.font = [UIFont fontWithName:[buttonFonts objectAtIndex:index] size:19];
+    
     [btn setTag:index];
     
     return btn;

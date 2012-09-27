@@ -60,7 +60,6 @@
 		8C25242A160E17E9002651B8 /* Filters_Menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C252405160E17E9002651B8 /* Filters_Menu@2x.png */; };
 		8C252437160E2B15002651B8 /* BALLW__.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 8C252431160E2B15002651B8 /* BALLW__.TTF */; };
 		8C252438160E2B15002651B8 /* collegiateHeavyOutline Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252432160E2B15002651B8 /* collegiateHeavyOutline Medium.ttf */; };
-		8C252439160E2B15002651B8 /* Complete in Him.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252433160E2B15002651B8 /* Complete in Him.ttf */; };
 		8C25243A160E2B15002651B8 /* Helvetica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252434160E2B15002651B8 /* Helvetica.ttf */; };
 		8C25243B160E2B15002651B8 /* Lobster 1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252435160E2B15002651B8 /* Lobster 1.4.otf */; };
 		8C25243C160E2B15002651B8 /* tt1018m_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252436160E2B15002651B8 /* tt1018m_.ttf */; };
@@ -258,6 +257,7 @@
 		8C4CD9EA160EF2E700890DDB /* ShootBtn_Pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C4CD9C4160EF2E700890DDB /* ShootBtn_Pressed.png */; };
 		8C4CD9FB160F0EC400890DDB /* FilterMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C4CD9FA160F0EC400890DDB /* FilterMask@2x.png */; };
 		8C4CD9FE160F0F2B00890DDB /* PGFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */; };
+		8C5256C916148FC100A2EEE8 /* Complete_in_Him.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C5256C816148FC100A2EEE8 /* Complete_in_Him.ttf */; };
 		8C800DE3160F366D001F7CFD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */; };
 		8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */; };
 		8C800DF4160F43FC001F7CFD /* PGProcessImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */; };
@@ -325,11 +325,10 @@
 		8C252404160E17E9002651B8 /* Camera_ReverseFill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera_ReverseFill@2x.png"; sourceTree = "<group>"; };
 		8C252405160E17E9002651B8 /* Filters_Menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Filters_Menu@2x.png"; sourceTree = "<group>"; };
 		8C252431160E2B15002651B8 /* BALLW__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = BALLW__.TTF; path = Fonts/BALLW__.TTF; sourceTree = "<group>"; };
-		8C252432160E2B15002651B8 /* collegiateHeavyOutline Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "collegiateHeavyOutline Medium.ttf"; sourceTree = "<group>"; };
-		8C252433160E2B15002651B8 /* Complete in Him.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Complete in Him.ttf"; sourceTree = "<group>"; };
-		8C252434160E2B15002651B8 /* Helvetica.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Helvetica.ttf; sourceTree = "<group>"; };
-		8C252435160E2B15002651B8 /* Lobster 1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster 1.4.otf"; sourceTree = "<group>"; };
-		8C252436160E2B15002651B8 /* tt1018m_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tt1018m_.ttf; sourceTree = "<group>"; };
+		8C252432160E2B15002651B8 /* collegiateHeavyOutline Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "collegiateHeavyOutline Medium.ttf"; path = "Fonts/collegiateHeavyOutline Medium.ttf"; sourceTree = "<group>"; };
+		8C252434160E2B15002651B8 /* Helvetica.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Helvetica.ttf; path = Fonts/Helvetica.ttf; sourceTree = "<group>"; };
+		8C252435160E2B15002651B8 /* Lobster 1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lobster 1.4.otf"; path = "Fonts/Lobster 1.4.otf"; sourceTree = "<group>"; };
+		8C252436160E2B15002651B8 /* tt1018m_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = tt1018m_.ttf; path = Fonts/tt1018m_.ttf; sourceTree = "<group>"; };
 		8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2@2x.png"; sourceTree = "<group>"; };
 		8C32A9BC161074AA00597A4E /* FilterMask-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2.png"; sourceTree = "<group>"; };
 		8C32A9BF161076B000597A4E /* WarmFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarmFilter.h; sourceTree = "<group>"; };
@@ -670,6 +669,7 @@
 		8C4CD9FA160F0EC400890DDB /* FilterMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask@2x.png"; sourceTree = "<group>"; };
 		8C4CD9FC160F0F2B00890DDB /* PGFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFilterView.h; sourceTree = "<group>"; };
 		8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGFilterView.m; sourceTree = "<group>"; };
+		8C5256C816148FC100A2EEE8 /* Complete_in_Him.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Complete_in_Him.ttf; path = Fonts/Complete_in_Him.ttf; sourceTree = "<group>"; };
 		8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProcessImageViewController.h; sourceTree = "<group>"; };
 		8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGProcessImageViewController.m; sourceTree = "<group>"; };
@@ -771,6 +771,11 @@
 		8C2523BC160E1573002651B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8C5256C816148FC100A2EEE8 /* Complete_in_Him.ttf */,
+				8C252432160E2B15002651B8 /* collegiateHeavyOutline Medium.ttf */,
+				8C252434160E2B15002651B8 /* Helvetica.ttf */,
+				8C252435160E2B15002651B8 /* Lobster 1.4.otf */,
+				8C252436160E2B15002651B8 /* tt1018m_.ttf */,
 				8C252431160E2B15002651B8 /* BALLW__.TTF */,
 				8C2523BD160E1573002651B8 /* Pictograph-Info.plist */,
 				8C2523BE160E1573002651B8 /* InfoPlist.strings */,
@@ -833,11 +838,6 @@
 		8C252430160E2B15002651B8 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				8C252432160E2B15002651B8 /* collegiateHeavyOutline Medium.ttf */,
-				8C252433160E2B15002651B8 /* Complete in Him.ttf */,
-				8C252434160E2B15002651B8 /* Helvetica.ttf */,
-				8C252435160E2B15002651B8 /* Lobster 1.4.otf */,
-				8C252436160E2B15002651B8 /* tt1018m_.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1287,7 +1287,6 @@
 				8C25242A160E17E9002651B8 /* Filters_Menu@2x.png in Resources */,
 				8C252437160E2B15002651B8 /* BALLW__.TTF in Resources */,
 				8C252438160E2B15002651B8 /* collegiateHeavyOutline Medium.ttf in Resources */,
-				8C252439160E2B15002651B8 /* Complete in Him.ttf in Resources */,
 				8C25243A160E2B15002651B8 /* Helvetica.ttf in Resources */,
 				8C25243B160E2B15002651B8 /* Lobster 1.4.otf in Resources */,
 				8C25243C160E2B15002651B8 /* tt1018m_.ttf in Resources */,
@@ -1334,6 +1333,7 @@
 				8C800DF4160F43FC001F7CFD /* PGProcessImageViewController.xib in Resources */,
 				8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */,
 				8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */,
+				8C5256C916148FC100A2EEE8 /* Complete_in_Him.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

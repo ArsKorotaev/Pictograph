@@ -42,7 +42,8 @@
         //[self.imageView setImage:img];
     
         currentFilterName = filterName;
-        captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0,0,self.imageView.frame.size.width, self.imageView.frame.size.height)];
+        //captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0,0,self.imageView.frame.size.width, self.imageView.frame.size.height)];
+        
     //		mBottomPartOfMainBackgroundView = [[UIImageView alloc] initWithFrame:self.view.frame];
 //        [mBottomPartOfMainBackgroundView setImage:[UIImage imageNamed:@"Filters_Menu.png"]];
         isCaptionMode = NO;
@@ -198,6 +199,9 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 
+    
+    //перехват лейблов
+ 
 }
 
 -(void) keyboardWillShow:(id) sender
@@ -227,6 +231,16 @@
 }
 
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+   // activeField = textField;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+   // activeField = nil;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -243,6 +257,8 @@
     captionView = nil;
     [self setCaptionButton:nil];
 
+    [self setDownText:nil];
+    [self setUpText:nil];
     [super viewDidUnload];
 }
 

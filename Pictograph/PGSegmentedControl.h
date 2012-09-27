@@ -19,6 +19,7 @@
     NSInteger selectedBtn;
     
     NSMutableArray *buttonArray;
+    NSArray *buttonFonts;
 }
 
 @end
