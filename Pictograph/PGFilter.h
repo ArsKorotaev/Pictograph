@@ -18,7 +18,9 @@
     GPUImagePicture* sourcePicture;
 }
 @property (readonly) GPUImageFilter *lastFilter;
+
 -(void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view;
 -(void) removeFilter;
 - (void) filterForImage:(UIImage*) image andView:(GPUImageView*) view;
+- (UIImage*) image;
 @end

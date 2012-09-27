@@ -28,10 +28,16 @@
         [sourcePicture removeAllTargets];
     }
     
+    
+    
     cam = nil;
     sourcePicture = nil;
 }
 
+-(UIImage*) image
+{
+    return [sourcePicture imageFromCurrentlyProcessedOutput];
+}
 - (void) filterForImage:(UIImage *)image andView:(GPUImageView *)view
 {
     imgView = view;

@@ -12,6 +12,7 @@
 @class PGFilter;
 @class GPUImageView;
 @class PGCaptionTextView;
+@class PGSegmentedControl;
 @interface PGProcessImageViewController : UIViewController <UIScrollViewDelegate>
 {
     UIImage *picketImage;
@@ -41,7 +42,7 @@
     
     
     //Caption
-    UISegmentedControl *segmentedControl;
+    PGSegmentedControl *segmentedControl;
     UITextField *textField;
     PGCaptionTextView *captionTextView;
     
@@ -56,4 +57,6 @@
 -(id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
 - (IBAction)cancelButtonPressed:(id)sender;
 - (IBAction)captionButtonPressed:(id)sender;
+- (IBAction)saveButtonPressed:(id)sender;
+
 @end

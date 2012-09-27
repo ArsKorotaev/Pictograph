@@ -11,8 +11,8 @@
 @implementation PGProcessImageViewController (Caption)
 -(void) finishInitCaptionView
 {
-    textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, 290, 30)];
-    segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectMake(10, 43, 290, 30)];
+    textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, 300, 30)];
+    segmentedControl = [[PGSegmentedControl alloc] initWithFrame:CGRectMake(10, 43, 300, 30)];
 
     captionView.userInteractionEnabled = YES;
     [self customizeTextField];

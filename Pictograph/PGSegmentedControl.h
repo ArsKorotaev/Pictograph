@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PGSegmentedControl : UISegmentedControl
+@interface PGSegmentedControl : UIView
+{
+    UIImage *leftPartImage, *rightPartImage;
+    UIImage *leftPartActiveImage, *rightPartActiveImage;
+    UIImage *bgImage, *bgActiveImage;
+    NSInteger segmentLength;
+    
+
+    NSInteger selectedBtn;
+    
+    NSMutableArray *buttonArray;
+}
 
 @end

@@ -61,7 +61,7 @@
 
     if (!isCaptionMode)
     {
-       
+       isCaptionMode = YES;
         CGRect newPhotoFrame = self.imageView.frame;
         CGRect filterFrame = filterView.frame;
         
@@ -78,13 +78,14 @@
         [UIView setAnimationDuration:0.2];
         captionView.alpha = 1.0;
         [UIView commitAnimations];
-        isCaptionMode = YES;
+        
         
         [(UIButton*)sender setBackgroundImage:buttonActiveImg forState:UIControlStateNormal];
     }
     
     else
     {
+        isCaptionMode = NO;
         CGRect newPhotoFrame = self.imageView.frame;
         CGRect filterFrame = filterView.frame;
         
@@ -97,10 +98,18 @@
         filterView.frame = filterFrame;
         captionView.alpha = 0;
         [UIView commitAnimations];
-        isCaptionMode = NO;
+        
         [(UIButton*)sender setBackgroundImage:buttonNormalImg forState:UIControlStateNormal];
     }
     
+}
+
+- (IBAction)saveButtonPressed:(id)sender {
+
+    UIImage *imageToSave = [filterObject image];
+
+    assert(imageToSave);
+    UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, NULL);
 }
 
 
@@ -177,8 +186,45 @@
     [self.imageView addSubview:captionTextView];
     [captionTextView setNeedsDisplay];
     
+    
+    //Реакция на клавиатуру
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+
 }
 
+-(void) keyboardWillShow:(id) sender
+{
+    CGRect newViewFrame = self.view.frame;
+    
+    newViewFrame.origin.y -= 215;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.3];
+    self.view.frame = newViewFrame;
+    [UIView commitAnimations];
+
+}
+
+
+-(void)keyboardWillHide:(id) sender
+{
+    CGRect newViewFrame = self.view.frame;
+    
+    newViewFrame.origin.y += 215;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.3];
+    self.view.frame = newViewFrame;
+    [UIView commitAnimations];
+}
 
 
 
@@ -196,6 +242,7 @@
  
     captionView = nil;
     [self setCaptionButton:nil];
+
     [super viewDidUnload];
 }
 
