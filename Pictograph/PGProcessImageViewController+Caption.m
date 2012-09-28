@@ -14,7 +14,7 @@
     textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, 300, 30)];
     textField.delegate = self;
     segmentedControl = [[PGSegmentedControl alloc] initWithFrame:CGRectMake(10, 43, 300, 30)];
-
+    segmentedControl.delegate = self;
     captionView.userInteractionEnabled = YES;
     [self customizeTextField];
     [self customizeSegmentedControl];
@@ -67,9 +67,13 @@
 
 }
 
+
+
+
 -(void) keyPressed:(NSNotification *) sender
 {
     UITextField *tf = sender.object;
+    NSString *textString = tf.text;
     
     self.downText.text = tf.text;
 }

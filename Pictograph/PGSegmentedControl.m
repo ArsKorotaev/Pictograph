@@ -132,6 +132,9 @@
     if (btn.tag != selectedBtn)
     {
 
+        [self.delegate segmentedControl:self setActiveTab:btn.tag withFontName:[buttonFonts objectAtIndex:btn.tag]];
+         
+
         [btn setBackgroundImage:[self selectedImageForBtnAtIndex:btn.tag] forState:UIControlStateNormal];
         [btn setBackgroundImage:[self selectedImageForBtnAtIndex:btn.tag] forState:UIControlStateHighlighted];
         

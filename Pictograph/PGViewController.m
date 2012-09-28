@@ -67,6 +67,9 @@
     [self.recentImages addGestureRecognizer:tapGesture];
 }
 
+/*
+ Добавляет фото из галереи в нижний скрол
+ */
 - (void) addImages
 {
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -77,14 +80,9 @@
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         
         // Within the group enumeration block, filter to enumerate just photos.
-        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+    [group setAssetsFilter:[ALAssetsFilter allPhotos]];
     
         
-        // Chooses the photo at the last index
-        //[group numberOfAssets]
-//        NSRange rangeOfPhotos;
-//        rangeOfPhotos.length = MAX_RECENT_IMAGES;
-//        rangeOfPhotos.location = [group numberOfAssets] - 1 - MAX_RECENT_IMAGES;
         NSRange rangeOfPhotos;
         
         if ([group numberOfAssets] < MAX_RECENT_IMAGES)
@@ -133,6 +131,7 @@
 
 }
 
+/*Идентификация жеста по уменьшенной иконке с последними фото*/
 - (void) handleGesture:(UIGestureRecognizer *)sender
 {
     

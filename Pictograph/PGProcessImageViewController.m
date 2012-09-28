@@ -12,6 +12,10 @@
 #import "PGProcessImageViewController+Caption.h"
 #import "PGCaptionTextView.h"
 #import "UIImage+FixOrientation.h"
+#import "PGSegmentedControl.h"
+
+
+#define IMAGE_SIZE 640
 #define ANIMATION_DISTANCE 75
 @interface PGProcessImageViewController () <PGFilterViewDelegate>
 
@@ -47,6 +51,7 @@
     //		mBottomPartOfMainBackgroundView = [[UIImageView alloc] initWithFrame:self.view.frame];
 //        [mBottomPartOfMainBackgroundView setImage:[UIImage imageNamed:@"Filters_Menu.png"]];
         isCaptionMode = NO;
+       // [(UIScrollView*)self.view setContentSize:self.view.frame.size];
     }
     
     return self;
@@ -107,11 +112,63 @@
 
 - (IBAction)saveButtonPressed:(id)sender {
 
-    UIImage *imageToSave = [filterObject image];
-
+    UIImage *imageToSave;
+    if (filterObject.lastFilter != nil)
+    {
+        imageToSave = [[filterObject.lastFilter imageFromCurrentlyProcessedOutput] fixOrientation];
+    }
+    else
+    {
+        imageToSave = picketImage;
+    }
     assert(imageToSave);
-    UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, NULL);
+  
+    imageToSave = [UIImage imageWithCGImage:[imageToSave CGImage] scale:imageArea.zoomScale orientation:UIImageOrientationUp];
+   
+    CGRect myImageArea = CGRectMake (imageArea.contentOffset.x*2, imageArea.contentOffset.y*2, IMAGE_SIZE, IMAGE_SIZE);
+    CGImageRef mySubimage = CGImageCreateWithImageInRect ([imageToSave CGImage], myImageArea);
+    
+    UIImage *rezult = [UIImage imageWithCGImage:mySubimage];
+    
+    UIImageWriteToSavedPhotosAlbum(rezult, nil, nil, NULL);
+    
+//    UIImage *finalImage = [UIImage imageWithCGImage:mySubimage];
+//
+//    CGSize imageSize = CGSizeMake(IMAGE_SIZE, IMAGE_SIZE);
+//    UIGraphicsBeginImageContext(imageSize);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    
+////    CGContextTranslateCTM (context, IMAGE_SIZE, IMAGE_SIZE);
+////    CGContextRotateCTM (context, M_PI);
+//    
+//    CGContextDrawImage(context, CGRectMake(0, 0, IMAGE_SIZE, IMAGE_SIZE), mySubimage);
+//    
+//    
+//    
+//    NSString *text = @"Wa aw";
+//    
+//    [text drawInRect:CGRectMake(0, 0, IMAGE_SIZE, IMAGE_SIZE) withFont:[UIFont systemFontOfSize:40]];
+//    
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationDown];
+//    
+//    UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, NULL);
 }
+
+-(UIImage*) captureView:(UIView*) viewToCapture
+{
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    UIGraphicsBeginImageContext(rect.size);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [viewToCapture.layer renderInContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 
 
 - (void) customizeInterface
@@ -200,7 +257,13 @@
                                                object:nil];
 
     
-    //перехват лейблов
+    //инициализация лейблов
+    self.downText = [[UILabel alloc] initWithFrame:CGRectMake(20, 220, 280, 80)];
+    self.downText.textAlignment = NSTextAlignmentCenter;
+    self.downText.numberOfLines = 3;
+    
+    [self.imageView addSubview:self.downText];
+    
  
 }
 
@@ -259,12 +322,22 @@
 
     [self setDownText:nil];
     [self setUpText:nil];
+    activityIndicator = nil;
     [super viewDidUnload];
+}
+#pragma mark - PGViewControllerDelegate methods
+- (void) segmentedControl:(PGSegmentedControl *)control setActiveTab:(NSInteger)tabIndex withFontName:(NSString *)font
+{
+    UIFont *newFont = [UIFont fontWithName:font size:self.downText.font.pointSize];
+    
+    self.downText.font = newFont;
+    
 }
 
 #pragma mark - UIScrollViewDelegate methods
 
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    
     [scrollView setContentOffset:scrollView.contentOffset animated:YES];
 }
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -276,17 +349,22 @@
 #pragma mark - PGFilterViewDelegate methods
 -(void) setFilterNamed:(NSString *)filterName
 {
+    
+    [activityIndicator startAnimating];
     currentFilterName = filterName;
     if (filterObject != nil)
     {
         [filterObject removeFilter];
     }
     filterObject = [[NSClassFromString(filterName) alloc] init];
-    
     [filterObject filterForImage:picketImage andView:dispImageView];
-   
- 
+    [activityIndicator stopAnimating];
+    
+    
 }
+
+
+
 
 
 @end

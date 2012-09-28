@@ -5,13 +5,14 @@
 //  Created by Арсений Коротаев on 22.09.12.
 //  Copyright (c) 2012 Арсений Коротаев. All rights reserved.
 //
+// Главный экран приложения
 
 #import <UIKit/UIKit.h>
 
 @interface PGViewController : UIViewController
 {
-    NSInteger startIndex;
-    NSInteger rangeLength;
+    NSInteger startIndex; //Номер первой фотографии из альбома
+    NSInteger rangeLength; //Диапозон фотографий
 }
 @property (strong, nonatomic) IBOutlet UIButton *takePhoto;
 @property (strong, nonatomic) IBOutlet UIButton *cameraRoll;

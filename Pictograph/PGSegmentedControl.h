@@ -7,6 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PGSegmentedControl;
+
+@protocol PGSegmentedControlDelegate <NSObject>
+
+-(void) segmentedControl:(PGSegmentedControl*) control setActiveTab:(NSInteger) tabIndex withFontName:(NSString*) font;
+
+@end
 
 @interface PGSegmentedControl : UIView
 {
@@ -20,6 +27,9 @@
     
     NSMutableArray *buttonArray;
     NSArray *buttonFonts;
+    
 }
+
+@property (unsafe_unretained) id<PGSegmentedControlDelegate> delegate;
 
 @end

@@ -23,13 +23,17 @@
     sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
     [sourcePicture addTarget:view];
     [sourcePicture processImage];
+    
 }
 
 -(GPUImageFilter*) lastFilter
 {
     return nil;
 }
-
+-(UIImage*) image
+{
+    return [sourcePicture imageFromCurrentlyProcessedOutput];
+}
 - (void) removeFilter
 {
     [super removeFilter];

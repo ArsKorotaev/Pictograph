@@ -82,7 +82,7 @@
 
 -(GPUImageFilter*) lastFilter
 {
-    return filter1;
+    return filter2;
 }
 
 - (void) removeFilter

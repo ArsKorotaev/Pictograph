@@ -5,6 +5,7 @@
 //  Created by Арсений Коротаев on 23.09.12.
 //  Copyright (c) 2012 Арсений Коротаев. All rights reserved.
 //
+//Вью для просмотра пяти фильтров
 
 #import <UIKit/UIKit.h>
 
@@ -17,12 +18,14 @@
 
 @interface PGFilterView : UIView
 {
-    GPUImageView *view1, *view2, *view3, *view4, *view5;
+    //GPUImageView *view1, *view2, *view3, *view4, *view5;
     
     NSMutableArray *viewsArray;
     
     NSArray *filterNames;
     NSInteger oldeSelectedView;
+    
+    NSArray *thumbnailImages;//Именя картинок с изображением фильтра
     
 }
 @property BOOL isAdded;

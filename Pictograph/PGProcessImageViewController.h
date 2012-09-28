@@ -13,7 +13,10 @@
 @class GPUImageView;
 @class PGCaptionTextView;
 @class PGSegmentedControl;
-@interface PGProcessImageViewController : UIViewController <UIScrollViewDelegate, UITextFieldDelegate>
+@protocol PGSegmentedControlDelegate;
+
+
+@interface PGProcessImageViewController : UIViewController <UIScrollViewDelegate, UITextFieldDelegate, PGSegmentedControlDelegate>
 {
     UIImage *picketImage;
     
@@ -32,6 +35,7 @@
     
     
     
+    IBOutlet UIActivityIndicatorView *activityIndicator;
     IBOutlet UIImageView *captionView;
     IBOutlet UIImageView *mBottomPartOfMainBackgroundView;
     UIImageView *mFolderView;
@@ -46,14 +50,15 @@
     UITextField *textField;
     PGCaptionTextView *captionTextView;
     
+
     
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;
 @property (strong, nonatomic) IBOutlet UIButton *cancelButton;
 @property (strong, nonatomic) IBOutlet UIButton *captionButton;
-@property (strong, nonatomic) IBOutlet UILabel *downText;
-@property (strong, nonatomic) IBOutlet UILabel *upText;
+@property (strong, nonatomic) UILabel *downText;
+@property (strong, nonatomic) UILabel *upText;
 
 
 -(id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
