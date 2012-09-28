@@ -14,7 +14,8 @@
 #import "UIImage+FixOrientation.h"
 #import "PGSegmentedControl.h"
 
-
+#include <stdlib.h>
+#include <stdio.h>
 #define IMAGE_SIZE 640
 #define ANIMATION_DISTANCE 75
 @interface PGProcessImageViewController () <PGFilterViewDelegate>
@@ -123,15 +124,35 @@
     }
     assert(imageToSave);
   
-    imageToSave = [UIImage imageWithCGImage:[imageToSave CGImage] scale:imageArea.zoomScale orientation:UIImageOrientationUp];
-   
+   // imageToSave = [UIImage imageWithCGImage:[imageToSave CGImage] scale:imageArea.zoomScale orientation:UIImageOrientationUp];
+    
+    //scale
+    CGSize newSize = CGSizeMake(picketImage.size.width*imageArea.zoomScale, picketImage.size.height*imageArea.zoomScale);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [imageToSave drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    
+    NSLog(@"Zoom scale %f", imageArea.zoomScale);
     CGRect myImageArea = CGRectMake (imageArea.contentOffset.x*2, imageArea.contentOffset.y*2, IMAGE_SIZE, IMAGE_SIZE);
-    CGImageRef mySubimage = CGImageCreateWithImageInRect ([imageToSave CGImage], myImageArea);
+    CGImageRef mySubimage = CGImageCreateWithImageInRect ([newImage CGImage], myImageArea);
     
-    UIImage *rezult = [UIImage imageWithCGImage:mySubimage];
+    CGRect myRect = CGRectMake(0, 0, IMAGE_SIZE, IMAGE_SIZE);
+    CGContextRef context = MyCreateBitmapContext(IMAGE_SIZE,IMAGE_SIZE);
+    CGContextDrawImage(context, myRect, mySubimage);
     
-    UIImageWriteToSavedPhotosAlbum(rezult, nil, nil, NULL);
+    CGContextScaleCTM(context, imageArea.zoomScale, imageArea.zoomScale);
     
+    CGImageRef myImage;
+    myImage = CGBitmapContextCreateImage (context);
+    
+    UIImage *scaledImage = [UIImage imageWithCGImage:myImage];
+//    
+//    UIImage *rezult = [UIImage imageWithCGImage:mySubimage];
+//    
+//    UIImageWriteToSavedPhotosAlbum(rezult, nil, nil, NULL);
+//    
 //    UIImage *finalImage = [UIImage imageWithCGImage:mySubimage];
 //
 //    CGSize imageSize = CGSizeMake(IMAGE_SIZE, IMAGE_SIZE);
@@ -153,8 +174,46 @@
 //    UIGraphicsEndImageContext();
 //    
 //    UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationDown];
-//    
-//    UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, NULL);
+    
+    UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, NULL);
+}
+
+
+CGContextRef MyCreateBitmapContext (int pixelsWide,
+                                    int pixelsHigh)
+{
+    CGContextRef    context = NULL;
+    CGColorSpaceRef colorSpace;
+    void *          bitmapData;
+    int             bitmapByteCount;
+    int             bitmapBytesPerRow;
+    
+    bitmapBytesPerRow   = (pixelsWide * 4);// 1
+    bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+    
+    colorSpace = CGColorSpaceCreateDeviceRGB();// 2
+    bitmapData = calloc( bitmapByteCount , sizeof(Byte));//3
+    if (bitmapData == NULL)
+    {
+        fprintf (stderr, "Memory not allocated!");
+        return NULL;
+    }
+    context = CGBitmapContextCreate (bitmapData,// 4
+                                     pixelsWide,
+                                     pixelsHigh,
+                                     8,      // bits per component
+                                     bitmapBytesPerRow,
+                                     colorSpace,
+                                     kCGImageAlphaPremultipliedLast);
+    if (context== NULL)
+    {
+        free (bitmapData);// 5
+        fprintf (stderr, "Context not created!");
+        return NULL;
+    }
+    CGColorSpaceRelease( colorSpace );// 6
+    
+    return context;// 7
 }
 
 -(UIImage*) captureView:(UIView*) viewToCapture
