@@ -51,6 +51,7 @@
     PGCaptionTextView *captionTextView;
     
 
+    NSString *activeFontName;
     
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;

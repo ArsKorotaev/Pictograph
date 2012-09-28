@@ -10,6 +10,15 @@
 
 
 @interface PGCaptionTextView : UIView
+{
+  //  NSString *textToDraw;
+    NSString *_fontName;
+}
 
+@property  NSString *textToDraw;
+-(void) drawText:(NSString*) text withFont:(NSString*) fontName;
 
 @end
+
+
+void DrawText (CGContextRef myContext, CGRect contextRect, const char *text, unsigned int length, const char *fontName, char upsidedown);

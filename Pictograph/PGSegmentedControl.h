@@ -29,7 +29,7 @@
     NSArray *buttonFonts;
     
 }
-
+@property (readonly) NSString *curentFontName;
 @property (unsafe_unretained) id<PGSegmentedControlDelegate> delegate;
 
 @end

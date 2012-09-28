@@ -8,6 +8,7 @@
 
 #import "PGProcessImageViewController+Caption.h"
 #import "PGSegmentedControl.h"
+#import "PGCaptionTextView.h"
 @implementation PGProcessImageViewController (Caption) 
 -(void) finishInitCaptionView
 {
@@ -75,6 +76,6 @@
     UITextField *tf = sender.object;
     NSString *textString = tf.text;
     
-    self.downText.text = tf.text;
+    [captionTextView drawText:textString withFont:activeFontName];
 }
 @end

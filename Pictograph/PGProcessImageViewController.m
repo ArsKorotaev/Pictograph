@@ -13,7 +13,7 @@
 #import "PGCaptionTextView.h"
 #import "UIImage+FixOrientation.h"
 #import "PGSegmentedControl.h"
-
+#import "PGCaptionTextView.h"
 #include <stdlib.h>
 #include <stdio.h>
 #define IMAGE_SIZE 640
@@ -53,6 +53,9 @@
 //        [mBottomPartOfMainBackgroundView setImage:[UIImage imageNamed:@"Filters_Menu.png"]];
         isCaptionMode = NO;
        // [(UIScrollView*)self.view setContentSize:self.view.frame.size];
+        
+        
+        activeFontName = @"Freehand521BT-RegularC";
     }
     
     return self;
@@ -141,13 +144,15 @@
     CGRect myRect = CGRectMake(0, 0, IMAGE_SIZE, IMAGE_SIZE);
     CGContextRef context = MyCreateBitmapContext(IMAGE_SIZE,IMAGE_SIZE);
     CGContextDrawImage(context, myRect, mySubimage);
-    
-    CGContextScaleCTM(context, imageArea.zoomScale, imageArea.zoomScale);
-    
+
+   // CGContextScaleCTM(context, imageArea.zoomScale, imageArea.zoomScale);
+    //MyDrawText(context, CGRectMake(0, 20, IMAGE_SIZE, 300), "Hellow every body!", 18);
+    DrawText(context, captionTextView.frame, [captionTextView.textToDraw UTF8String], [captionTextView.textToDraw length],[segmentedControl.curentFontName UTF8String], 'N');
     CGImageRef myImage;
     myImage = CGBitmapContextCreateImage (context);
     
     UIImage *scaledImage = [UIImage imageWithCGImage:myImage];
+    
 //    
 //    UIImage *rezult = [UIImage imageWithCGImage:mySubimage];
 //    
@@ -178,6 +183,24 @@
     UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, NULL);
 }
 
+void MyDrawText (CGContextRef myContext, CGRect contextRect, char *text, unsigned int length) // 1
+{
+    float w, h;
+    w = contextRect.size.width;
+    h = contextRect.size.height;
+    
+    CGContextSelectFont (myContext, // 3
+                         "Helvetica-Bold",
+                         h,
+                         kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing (myContext, 10); // 4
+    CGContextSetTextDrawingMode (myContext, kCGTextFillStroke); // 5
+    
+    CGContextSetRGBFillColor (myContext, 0, 1, 0, .5); // 6
+    CGContextSetRGBStrokeColor (myContext, 0, 0, 1, 1); // 7
+    
+    CGContextShowTextAtPoint (myContext, 40, 0, text, length); // 10
+}
 
 CGContextRef MyCreateBitmapContext (int pixelsWide,
                                     int pixelsHigh)
@@ -317,11 +340,11 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 
     
     //инициализация лейблов
-    self.downText = [[UILabel alloc] initWithFrame:CGRectMake(20, 220, 280, 80)];
-    self.downText.textAlignment = NSTextAlignmentCenter;
-    self.downText.numberOfLines = 3;
+    captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 240, 320, 80)];
+//    self.downText.textAlignment = NSTextAlignmentCenter;
+//    self.downText.numberOfLines = 3;
     
-    [self.imageView addSubview:self.downText];
+    [self.imageView addSubview:captionTextView];
     
  
 }
@@ -387,10 +410,11 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 #pragma mark - PGViewControllerDelegate methods
 - (void) segmentedControl:(PGSegmentedControl *)control setActiveTab:(NSInteger)tabIndex withFontName:(NSString *)font
 {
-    UIFont *newFont = [UIFont fontWithName:font size:self.downText.font.pointSize];
-    
-    self.downText.font = newFont;
-    
+//    UIFont *newFont = [UIFont fontWithName:font size:self.downText.font.pointSize];
+//    
+//    self.downText.font = newFont;
+    activeFontName = font;
+    [captionTextView drawText:nil withFont:activeFontName];
 }
 
 #pragma mark - UIScrollViewDelegate methods
@@ -421,6 +445,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     
 }
+
 
 
 

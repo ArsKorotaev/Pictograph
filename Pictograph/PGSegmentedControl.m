@@ -51,7 +51,10 @@
         [[buttonArray objectAtIndex:0]  setBackgroundImage:leftPartActiveImage forState:UIControlStateHighlighted];
         
         self.backgroundColor = [UIColor clearColor];
+        
+        _curentFontName = @"Freehand521BT-RegularC";
     }
+    
     
     
 
@@ -70,7 +73,7 @@
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
 
     btn.titleLabel.font = [UIFont fontWithName:[buttonFonts objectAtIndex:index] size:19];
-    
+    NSLog(@"Font: %@",btn.titleLabel.font.fontName);
     [btn setTag:index];
     
     return btn;
@@ -132,7 +135,8 @@
     if (btn.tag != selectedBtn)
     {
 
-        [self.delegate segmentedControl:self setActiveTab:btn.tag withFontName:[buttonFonts objectAtIndex:btn.tag]];
+        _curentFontName = btn.titleLabel.font.fontName;
+        [self.delegate segmentedControl:self setActiveTab:btn.tag withFontName:_curentFontName];
          
 
         [btn setBackgroundImage:[self selectedImageForBtnAtIndex:btn.tag] forState:UIControlStateNormal];
