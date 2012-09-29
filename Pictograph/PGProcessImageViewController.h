@@ -70,6 +70,7 @@
 @property (strong, nonatomic) UILabel *downText;
 @property (strong, nonatomic) UILabel *upText;
 @property (unsafe_unretained) id <PGProcessImageDelegate> delegate;
+@property NSString* cancelButtonCaption;
 
 -(id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
 - (IBAction)cancelButtonPressed:(id)sender;

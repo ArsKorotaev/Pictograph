@@ -195,6 +195,8 @@
     [stillCamera removeInputsAndOutputs];
     
     PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy] andFilterName:NSStringFromClass([filterObject class])];
+    pivc.delegate = self;
+    [pivc setCancelButtonCaption:@"Retake"];
     [self presentModalViewController:pivc animated:YES];
     
 }
@@ -338,8 +340,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     }
     else
     {
-        self.view.alpha = 0;
-        [self dismissModalViewControllerAnimated:YES];
+        //self.view.alpha = 0;
+        [self dismissModalViewControllerAnimated:NO];
         [self.delegate PGCameraViewController:self tookImage:image];
     }
 }

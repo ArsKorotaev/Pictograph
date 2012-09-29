@@ -213,6 +213,8 @@
 //    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:image andFilterName:@"FilterNone"];
+    pivc.delegate = self;
+    [pivc setCancelButtonCaption:@"Cancel"];
     [self dismissModalViewControllerAnimated:NO];
     
     UIViewAnimationTransition trans = UIViewAnimationTransitionCurlDown;
@@ -230,7 +232,7 @@
 #pragma mark - PGCameraDelegate methods
 -(void) PGCameraViewController:(PGCameraViewController *)controller tookImage:(UIImage *)image
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:NO];
     if (image!=nil)
     {
         [self saveImage:image];
@@ -273,6 +275,7 @@
 }
 - (IBAction)takePhotoButtonPressed:(id)sender {
     PGCameraViewController *cvc = [[PGCameraViewController alloc] initWithNibName:@"PGCameraViewController" bundle:nil];
+    
     cvc.delegate = self;
 //    PGAppDelegate *del = (PGAppDelegate*)[UIApplication sharedApplication].delegate;
 //    [del transitionToViewController:cvc withTransition:nil];

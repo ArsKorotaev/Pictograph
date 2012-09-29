@@ -11,7 +11,7 @@
 @interface HipsterFilter : PGFilter
 {
 
-    GPUImageFilter *filter1, *filter2;
+    id filter1, filter2;
 }
 
 @end

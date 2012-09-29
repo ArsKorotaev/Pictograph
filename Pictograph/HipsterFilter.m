@@ -9,35 +9,24 @@
 #import "HipsterFilter.h"
 #import "GPUImage.h"
 @implementation HipsterFilter
-
 - (void) filterForCamer:(GPUImageStillCamera *)camera andView:(GPUImageView *)view
 {
     
     [super filterForCamer:camera andView:view];
     
-
-    //filter1 = [[GPUImageGaussianBlurFilter alloc] init];
-    filter1 = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"HipsterFilterShader"];
-    filter2 = [[GPUImageFastBlurFilter alloc] init];
+    [self processFilterInitialization];
+    filter1 = [[GPUImageSoftEleganceFilter alloc] init];
     
     [filter1 prepareForImageCapture];
-    [filter2 prepareForImageCapture];
-  //  [(GPUImageGaussianBlurFilter*)filter1 setBlurSize:0.16];
-   // filter2 = [[GPUImageToneCurveFilter alloc] init];
-
+    //[filter2 prepareForImageCapture];
     
-   // GPUImagePicture *pict = [GPUImagePicture alloc] initWith
-    
-    //filter1 = [[GPUImageGaussianBlurFilter alloc] init];
-    //[filter1 prepareForImageCapture];
     [camera addTarget:filter1];
-    [filter1 addTarget:filter2];
+    [filter1 addTarget:view];
     
-    [filter2 addTarget:view];
+    //[filter2 addTarget:view];
     
     
 }
-
 
 - (void) filterForImage:(UIImage *)image andView:(GPUImageView *)view
 {
@@ -52,47 +41,42 @@
     
     //return [filter2 imageFromCurrentlyProcessedOutput];
     sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-    filter1 = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"HipsterFilterShader"];
-    filter2 = [[GPUImageFastBlurFilter alloc] init];
+    filter1 = [[GPUImageSoftEleganceFilter alloc] init];
     
+    // filter1 =  [[GPUImageFilter alloc] initWithVertexShaderFromString:kCustomFilterShaderString];
+    // fragmentShaderFromString://[[GPUImageVignetteFilter alloc] init];
     
     GPUImageView *imageView = view;
     [filter1 forceProcessingAtSize:imageView.sizeInPixels]; // This is now needed to make the filter run at the smaller output size
-    [filter2 forceProcessingAtSize:imageView.sizeInPixels];
     
     [sourcePicture addTarget:filter1];
-    [filter1 addTarget:filter2];
-    [filter2 addTarget:imageView];
-    
+    [filter1 addTarget:imageView];
+    NSLog(@"Start processing");
     [sourcePicture processImage];
     
     
 }
 
-// -(UIImage*) filterForImage:(UIImage *)image
-//{
-//    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
-//    GPUImageFilter *filter1 = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"HipsterFilterShader"];
-//    
-//    [stillImageSource addTarget:filter1];
-//    [stillImageSource processImage];
-//    
-//    return [filter1 imageFromCurrentlyProcessedOutput];
-//}
+-(void) processFilterInitialization
+{
+    filter1 = [[GPUImageGaussianBlurFilter alloc] init];
+    // filter2 = [[GPUImageVignetteFilter alloc] init];
+}
 
 -(GPUImageFilter*) lastFilter
 {
-    return filter2;
+    return filter1;
 }
 
-- (void) removeFilter
+-(void) removeFilter
 {
+    [super removeFilter];
+    //  [filter2 removeAllTargets];
     [filter1 removeAllTargets];
-    [filter2 removeAllTargets];
     
-    [filter2 deleteOutputTexture];
     [filter1 deleteOutputTexture];
-    [cam removeAllTargets];
+    // [filter2 deleteOutputTexture];
+    
 }
 
 @end

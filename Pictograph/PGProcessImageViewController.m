@@ -354,6 +354,9 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     [self.imageView addSubview:captionTextView];
     
+    
+    [self.cancelButton setTitle:self.cancelButtonCaption forState:UIControlStateNormal];
+    [self.cancelButton setTitle:self.cancelButtonCaption forState:UIControlStateHighlighted];
  
 }
 
@@ -446,7 +449,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 {
     
    
-    [activityIndicator startAnimating];
+    //[activityIndicator startAnimating];
     currentFilterName = filterName;
     if (filterObject != nil)
     {
