@@ -13,7 +13,7 @@
 #import "PGAppDelegate.h"
 #import "PGProcessImageViewController.h"
 #define MAX_RECENT_IMAGES 10
-@interface PGViewController ()
+@interface PGViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -58,7 +58,7 @@
     UIImage *recentImagesImg = [UIImage imageNamed:@"HomeBottomRoll.png"];
     self.recentImages.backgroundColor = [UIColor colorWithPatternImage:recentImagesImg];
     [self.recentImages setContentSize:CGSizeMake(MAX_RECENT_IMAGES*75+10, self.recentImages.frame.size.height)];
-    [self addImages];
+    //[self addImages];
     
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
@@ -67,21 +67,33 @@
     [self.recentImages addGestureRecognizer:tapGesture];
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self addImages];
+}
+
 /*
  Добавляет фото из галереи в нижний скрол
  */
 - (void) addImages
 {
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    
+    for (UIView *viewToDelete in  self.recentImages.subviews) {
+        [viewToDelete removeFromSuperview];
+    }
     
     
     // Enumerate just the photos and videos group by using ALAssetsGroupSavedPhotos.
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         
         // Within the group enumeration block, filter to enumerate just photos.
-    [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-    
+        if (group == nil)
+        {
+            return;
+        }
+        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        
         
         NSRange rangeOfPhotos;
         
@@ -99,8 +111,10 @@
         
         startIndex = rangeOfPhotos.location;
         rangeLength = rangeOfPhotos.length;
+        NSLog(@"Old width : %f ",self.recentImages.contentSize.width);
         
-        
+        [self.recentImages setContentSize:CGSizeMake(rangeOfPhotos.length*75+10, self.recentImages.frame.size.height)];
+        NSLog(@"New width : %f ",self.recentImages.contentSize.width);
         [group enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:rangeOfPhotos]
                                 options:0
                              usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
@@ -113,9 +127,9 @@
                                      // Do something interesting with the AV asset.
                                      //[self sendTweet:latestPhoto];
                                      
-                                     UIImageView *phView = [[UIImageView alloc] initWithFrame:CGRectMake((10 + (index-startIndex)*75), 10, 70, 70)];
+                                     UIImageView *phView = [[UIImageView alloc] initWithFrame:CGRectMake((10 + (rangeLength - index - 1)*75), 5, 70, 70)];
                                      [phView setImage:latestPhoto];
-                                    // [self.view addSubview:phView];
+                                     // [self.view addSubview:phView];
                                      
                                      [self.recentImages addSubview:phView];
                                      
@@ -127,8 +141,9 @@
                          failureBlock: ^(NSError *error) {
                              // Typically you should handle an error more gracefully than this.
                              NSLog(@"No groups");
-                         }];
-
+                         }
+     ];
+    
 }
 
 /*Идентификация жеста по уменьшенной иконке с последними фото*/
@@ -186,6 +201,28 @@
     [self setRecentImages:nil];
     [super viewDidUnload];
 }
+#pragma mark - UIImagePickerControllerDelegate methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+//    NSURL *imageUrl = [info objectForKey:UIImagePickerControllerReferenceURL];
+////    UIImage *image = [UIImage imageNamed:imageUrl];
+//    
+//    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:image andFilterName:@"FilterNone"];
+    [self dismissModalViewControllerAnimated:NO];
+    
+    UIViewAnimationTransition trans = UIViewAnimationTransitionCurlDown;
+    [UIView beginAnimations: nil context: nil];
+
+    [UIView setAnimationTransition: trans forView: self.view cache: YES];
+    [self presentModalViewController:pivc animated: NO];
+    [UIView commitAnimations];
+
+    
+    //[self presentModalViewController:pivc animated:YES];
+}
 - (IBAction)takePhotoButtonPressed:(id)sender {
     PGCameraViewController *cvc = [[PGCameraViewController alloc] initWithNibName:@"PGCameraViewController" bundle:nil];
     
@@ -195,6 +232,6 @@
 }
 
 - (IBAction)cameraRollButtonPressed:(id)sender {
-    [self startMediaBrowserFromViewController:self usingDelegate:nil];
+    [self startMediaBrowserFromViewController:self usingDelegate:self];
 }
 @end

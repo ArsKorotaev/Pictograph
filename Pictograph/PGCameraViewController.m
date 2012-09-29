@@ -111,6 +111,7 @@
     [self setFlashSwitch:nil];
     [self setPhotoCaptureButton:nil];
     [filterView setDel:nil];
+    flashStatusLabel = nil;
     [super viewDidUnload];
 }
 
@@ -143,18 +144,19 @@
     
     if (stillCamera.inputCamera.flashMode == AVCaptureFlashModeOff)
     {
-        self.flashSwitch.titleLabel.text = @"On";
+        flashStatusLabel.text = @"On";
         [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
     } else if (stillCamera.inputCamera.flashMode == AVCaptureFlashModeOff)
     {
-        self.flashSwitch.titleLabel.text = @"Auto";
+        flashStatusLabel.text = @"Auto";
         [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeAuto];
     } else
     {
-        self.flashSwitch.titleLabel.text = @"Off";
+        flashStatusLabel.text = @"Off";
         [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
     }
     
+   
 }
 
 - (IBAction)filtersButtonPressed:(id)sender {

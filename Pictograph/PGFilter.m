@@ -10,6 +10,19 @@
 #import "GPUImage.h"
 @implementation PGFilter
 
+-(void) initializeFilterChain
+{
+    if (filterChain != nil)
+    {
+        for (int i = 0; i < [filterChain count]-1; i++)
+        {
+            GPUImageOutput *setter = [filterChain objectAtIndex:i];
+            id<GPUImageInput> getter = [filterChain objectAtIndex:i+1];
+            [setter addTarget:getter];
+            
+        }
+    }
+}
 
 -(void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view
 {

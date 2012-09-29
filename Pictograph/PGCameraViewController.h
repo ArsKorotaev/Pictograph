@@ -19,6 +19,7 @@
     
     PGFilterView *filterView;
     PGFilter *filterObject;
+    IBOutlet UILabel *flashStatusLabel;
 }
 - (IBAction)changeCamera:(id)sender;
 - (IBAction)flashButtonPressed:(id)sender;

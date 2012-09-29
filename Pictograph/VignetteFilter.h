@@ -14,7 +14,7 @@
 
 @class GPUImageFilter;
 
-@interface WarmFilter : PGFilter
+@interface VignetteFilter : PGFilter
 {
     GPUImageFilter *filter1, *filter2;
 }

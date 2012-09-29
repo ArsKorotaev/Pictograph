@@ -15,7 +15,7 @@ void main()
     
     lowp vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
     lowp vec4 outputColor;
-    lowp vec4 blendText  = vec4(0.027, 0.269, 0.457, 0.5);
+    lowp vec4 blendText  = vec4(0.028, 0.273, 0.41, 0.5);
     
     outputColor = max(textureColor, blendText);
 

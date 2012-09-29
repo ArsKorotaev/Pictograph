@@ -143,6 +143,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{0, 382}, {320, 78}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -162,7 +163,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">You can choose on of your recent photos</string>
+						<string key="IBUIText">You can choose one of your recent photos</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC41NDYyNzcxMDQ2IDAuNTQ2Mjc3MTA0NiAwLjU0NjI3NzEwNDYAA</bytes>
