@@ -39,6 +39,7 @@
     
     if (self)
     {
+        
         assert(img != nil);
         picketImage = [img fixOrientation];
         
@@ -55,6 +56,7 @@
        // [(UIScrollView*)self.view setContentSize:self.view.frame.size];
         
         
+
         activeFontName = @"Freehand521BT-RegularC";
     }
     
@@ -63,7 +65,8 @@
 
 - (IBAction)cancelButtonPressed:(id)sender {
     [filterObject removeFilter];
-    [[self presentingViewController] dismissModalViewControllerAnimated:YES];
+    [self.delegate PGProcessImageViewController:self processedImage:nil];
+    //[[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)captionButtonPressed:(id)sender {
@@ -180,7 +183,8 @@
 //    
 //    UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationDown];
     
-    UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, NULL);
+    [self.delegate PGProcessImageViewController:self processedImage:scaledImage];
+    //UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, NULL);
 }
 
 void MyDrawText (CGContextRef myContext, CGRect contextRect, char *text, unsigned int length) // 1
@@ -339,6 +343,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
                                                object:nil];
 
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applyFilter:)
+                                                 name:@"FinishProcessing"
+                                               object:nil];
     //инициализация лейблов
     captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 240, 320, 80)];
 //    self.downText.textAlignment = NSTextAlignmentCenter;
@@ -406,6 +414,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [self setUpText:nil];
     activityIndicator = nil;
     [super viewDidUnload];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FinishProcessing" object:nil];
 }
 #pragma mark - PGViewControllerDelegate methods
 - (void) segmentedControl:(PGSegmentedControl *)control setActiveTab:(NSInteger)tabIndex withFontName:(NSString *)font
@@ -433,6 +445,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 -(void) setFilterNamed:(NSString *)filterName
 {
     
+   
     [activityIndicator startAnimating];
     currentFilterName = filterName;
     if (filterObject != nil)
@@ -441,11 +454,21 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     }
     filterObject = [[NSClassFromString(filterName) alloc] init];
     [filterObject filterForImage:picketImage andView:dispImageView];
-    [activityIndicator stopAnimating];
     
     
 }
 
+-(void) applyFilter:(id) filter
+{
+    
+    [activityIndicator stopAnimating];
+   
+    
+}
+-(void) unlockThread
+{
+    [lockFilter unlock];
+}
 
 
 

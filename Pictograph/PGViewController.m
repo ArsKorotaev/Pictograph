@@ -12,8 +12,9 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "PGAppDelegate.h"
 #import "PGProcessImageViewController.h"
+#import "PGCameraViewController.h"
 #define MAX_RECENT_IMAGES 10
-@interface PGViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface PGViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, PGCameraDelegate, PGProcessImageDelegate>
 
 @end
 
@@ -127,7 +128,7 @@
                                      // Do something interesting with the AV asset.
                                      //[self sendTweet:latestPhoto];
                                      
-                                     UIImageView *phView = [[UIImageView alloc] initWithFrame:CGRectMake((10 + (rangeLength - index - 1)*75), 5, 70, 70)];
+                                     UIImageView *phView = [[UIImageView alloc] initWithFrame:CGRectMake((10 + (rangeLength - index - 1 + startIndex)*75), 5, 70, 70)];
                                      [phView setImage:latestPhoto];
                                      // [self.view addSubview:phView];
                                      
@@ -157,7 +158,7 @@
         {
             UIImage *image = [(UIImageView*)imView image];
             PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:image andFilterName:@"FilterNone"];
-            
+            pivc.delegate = self;
             [self presentModalViewController:pivc animated:YES];
             break;
         }
@@ -199,6 +200,7 @@
     [self setCameraRoll:nil];
     [self setTitleLabel:nil];
     [self setRecentImages:nil];
+    savingPhotoProcess = nil;
     [super viewDidUnload];
 }
 #pragma mark - UIImagePickerControllerDelegate methods
@@ -223,9 +225,55 @@
     
     //[self presentModalViewController:pivc animated:YES];
 }
+
+
+#pragma mark - PGCameraDelegate methods
+-(void) PGCameraViewController:(PGCameraViewController *)controller tookImage:(UIImage *)image
+{
+    [self dismissModalViewControllerAnimated:YES];
+    if (image!=nil)
+    {
+        [self saveImage:image];
+    }
+}
+
+#pragma mark - PGProcessImageDelegate methods
+- (void) PGProcessImageViewController:(PGProcessImageViewController *)controller processedImage:(UIImage *)image
+{
+    [self dismissModalViewControllerAnimated:YES];
+    if (image!=nil)
+    {
+        
+        [self saveImage:image];
+        
+    }
+}
+
+-(void) saveImage:(UIImage*) image
+{
+    assert(image);
+    [savingPhotoProcess startAnimating];
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    NSLog(@"Image saved");
+}
+- (void) image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo;
+{
+    if (error)
+    {
+       // UIAlertView *allertView = [
+        
+        NSLog(@"Ошибка сохранения!");
+    }
+    else
+    {
+        [self addImages];
+        
+    }
+    [savingPhotoProcess stopAnimating];
+}
 - (IBAction)takePhotoButtonPressed:(id)sender {
     PGCameraViewController *cvc = [[PGCameraViewController alloc] initWithNibName:@"PGCameraViewController" bundle:nil];
-    
+    cvc.delegate = self;
 //    PGAppDelegate *del = (PGAppDelegate*)[UIApplication sharedApplication].delegate;
 //    [del transitionToViewController:cvc withTransition:nil];
     [self presentModalViewController:cvc animated:YES];

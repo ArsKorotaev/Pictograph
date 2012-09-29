@@ -113,7 +113,7 @@
     if (self)
     {
         self.isAdded = NO;
-        filterNames = @[@"FilterNone", @"HipsterFilter", @"SepiaFilter", @"VignetteFilter", @"WarmFilter"];
+        filterNames = @[@"FilterNone", @"HipsterFilter", @"SepiaFilter", @"AmatorkaFilter", @"MissEtikateFilter"];
         //_thread = [[NSThread alloc] initWithTarget:self selector:@selector(addFilterViews:) object:nil];
         [self addFilterViews:nil];
         //[_thread start];

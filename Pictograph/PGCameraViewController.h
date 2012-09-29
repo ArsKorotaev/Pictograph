@@ -11,6 +11,13 @@
 #import "PGFilterView.h"
 @class PGFilterView;
 @class PGFilter;
+@class PGCameraViewController;
+
+@protocol PGCameraDelegate <NSObject>
+
+-(void) PGCameraViewController:(PGCameraViewController*) controller tookImage:(UIImage*) image;
+
+@end
 
 @interface PGCameraViewController : UIViewController <PGFilterViewDelegate>
 {
@@ -30,6 +37,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *filtersButton;
 @property (strong, nonatomic) IBOutlet UIButton *flashSwitch;
 @property (strong, nonatomic) IBOutlet UIButton *photoCaptureButton;
-
+@property (unsafe_unretained) id<PGCameraDelegate> delegate;
 
 @end

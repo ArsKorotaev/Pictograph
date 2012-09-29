@@ -14,9 +14,9 @@
 
 @class GPUImageFilter;
 
-@interface VignetteFilter : PGFilter
+@interface AmatorkaFilter : PGFilter
 {
-    GPUImageFilter *filter1, *filter2;
+    id filter1, filter2;
 }
 
 

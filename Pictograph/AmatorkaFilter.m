@@ -6,10 +6,28 @@
 //  Copyright (c) 2012 Арсений Коротаев. All rights reserved.
 //
 
-#import "VignetteFilter.h"
+#import "AmatorkaFilter.h"
 #import "GPUImage.h"
 
-@implementation VignetteFilter
+NSString *const kCustomFilterShaderString = SHADER_STRING
+(
+ uniform sampler2D inputImageTexture;
+ varying highp vec2 textureCoordinate;
+ 
+ uniform highp float vignetteStart;
+ uniform highp float vignetteEnd;
+ 
+ void main()
+ {
+     lowp vec3 rgb = texture2D(inputImageTexture, textureCoordinate).rgb;
+     lowp float d = distance(textureCoordinate, vec2(0.5,0.5));
+     rgb *= smoothstep(vignetteEnd, vignetteStart, d);
+     gl_FragColor = vec4(rgb.r, rgb.g, 0 ,1.0);
+ }
+ );
+
+
+@implementation AmatorkaFilter
 
 - (void) filterForCamer:(GPUImageStillCamera *)camera andView:(GPUImageView *)view
 {
@@ -17,7 +35,7 @@
     [super filterForCamer:camera andView:view];
     
     [self processFilterInitialization];
-    filter1 = [[GPUImageVignetteFilter alloc] init];
+    filter1 = [[GPUImageAmatorkaFilter alloc] init];
 
     [filter1 prepareForImageCapture];
     //[filter2 prepareForImageCapture];
@@ -43,7 +61,10 @@
     
     //return [filter2 imageFromCurrentlyProcessedOutput];
     sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-    filter1 = [[GPUImageVignetteFilter alloc] init];
+    filter1 = [[GPUImageAmatorkaFilter alloc] init];
+ 
+    // filter1 =  [[GPUImageFilter alloc] initWithVertexShaderFromString:kCustomFilterShaderString];
+    // fragmentShaderFromString://[[GPUImageVignetteFilter alloc] init];
 
     GPUImageView *imageView = view;
     [filter1 forceProcessingAtSize:imageView.sizeInPixels]; // This is now needed to make the filter run at the smaller output size

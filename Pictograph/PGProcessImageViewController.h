@@ -15,6 +15,13 @@
 @class PGSegmentedControl;
 @protocol PGSegmentedControlDelegate;
 
+@class PGProcessImageViewController;
+
+@protocol PGProcessImageDelegate <NSObject>
+
+-(void) PGProcessImageViewController:(PGProcessImageViewController*) controller processedImage:(UIImage*) image;
+
+@end
 
 @interface PGProcessImageViewController : UIViewController <UIScrollViewDelegate, UITextFieldDelegate, PGSegmentedControlDelegate>
 {
@@ -53,6 +60,8 @@
 
     NSString *activeFontName;
     
+    NSLock *lockFilter;
+    NSThread *filterThread;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;
@@ -60,7 +69,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *captionButton;
 @property (strong, nonatomic) UILabel *downText;
 @property (strong, nonatomic) UILabel *upText;
-
+@property (unsafe_unretained) id <PGProcessImageDelegate> delegate;
 
 -(id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
 - (IBAction)cancelButtonPressed:(id)sender;

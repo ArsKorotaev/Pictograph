@@ -65,7 +65,7 @@
 		8C25243C160E2B15002651B8 /* tt1018m_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252436160E2B15002651B8 /* tt1018m_.ttf */; };
 		8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */; };
 		8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9BC161074AA00597A4E /* FilterMask-2.png */; };
-		8C32A9C1161076B000597A4E /* VignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9C0161076B000597A4E /* VignetteFilter.m */; };
+		8C32A9C1161076B000597A4E /* AmatorkaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9C0161076B000597A4E /* AmatorkaFilter.m */; };
 		8C32A9D116107C0400597A4E /* HipsterFilterShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9C21610778100597A4E /* HipsterFilterShader.fsh */; };
 		8C32A9D216107C0A00597A4E /* HipsterFilterShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9C4161078A100597A4E /* HipsterFilterShader.vsh */; };
 		8C32A9D51610846600597A4E /* PGFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9D41610846600597A4E /* PGFilter.m */; };
@@ -260,6 +260,9 @@
 		8C4CD9FE160F0F2B00890DDB /* PGFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */; };
 		8C5256C916148FC100A2EEE8 /* Complete_in_Him.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C5256C816148FC100A2EEE8 /* Complete_in_Him.ttf */; };
 		8C745FC016171C17002085A7 /* SepiaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C745FBF16171C17002085A7 /* SepiaFilter.m */; };
+		8C745FC31617275A002085A7 /* lookup_amatorka.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C745FC21617275A002085A7 /* lookup_amatorka.png */; };
+		8C745FC516173E30002085A7 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C745FC416173E2F002085A7 /* lookup_miss_etikate.png */; };
+		8C745FC816173E51002085A7 /* MissEtikateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C745FC716173E51002085A7 /* MissEtikateFilter.m */; };
 		8C800DE3160F366D001F7CFD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */; };
 		8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */; };
 		8C800DF4160F43FC001F7CFD /* PGProcessImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */; };
@@ -333,8 +336,8 @@
 		8C252436160E2B15002651B8 /* tt1018m_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = tt1018m_.ttf; path = Fonts/tt1018m_.ttf; sourceTree = "<group>"; };
 		8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2@2x.png"; sourceTree = "<group>"; };
 		8C32A9BC161074AA00597A4E /* FilterMask-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2.png"; sourceTree = "<group>"; };
-		8C32A9BF161076B000597A4E /* VignetteFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VignetteFilter.h; sourceTree = "<group>"; };
-		8C32A9C0161076B000597A4E /* VignetteFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VignetteFilter.m; sourceTree = "<group>"; };
+		8C32A9BF161076B000597A4E /* AmatorkaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmatorkaFilter.h; sourceTree = "<group>"; };
+		8C32A9C0161076B000597A4E /* AmatorkaFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmatorkaFilter.m; sourceTree = "<group>"; };
 		8C32A9C21610778100597A4E /* HipsterFilterShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HipsterFilterShader.fsh; sourceTree = "<group>"; };
 		8C32A9C4161078A100597A4E /* HipsterFilterShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HipsterFilterShader.vsh; sourceTree = "<group>"; };
 		8C32A9D31610846600597A4E /* PGFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFilter.h; sourceTree = "<group>"; };
@@ -676,6 +679,10 @@
 		8C5256C816148FC100A2EEE8 /* Complete_in_Him.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Complete_in_Him.ttf; path = Fonts/Complete_in_Him.ttf; sourceTree = "<group>"; };
 		8C745FBE16171C17002085A7 /* SepiaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SepiaFilter.h; sourceTree = "<group>"; };
 		8C745FBF16171C17002085A7 /* SepiaFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SepiaFilter.m; sourceTree = "<group>"; };
+		8C745FC21617275A002085A7 /* lookup_amatorka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_amatorka.png; sourceTree = "<group>"; };
+		8C745FC416173E2F002085A7 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
+		8C745FC616173E51002085A7 /* MissEtikateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissEtikateFilter.h; sourceTree = "<group>"; };
+		8C745FC716173E51002085A7 /* MissEtikateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissEtikateFilter.m; sourceTree = "<group>"; };
 		8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProcessImageViewController.h; sourceTree = "<group>"; };
 		8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGProcessImageViewController.m; sourceTree = "<group>"; };
@@ -861,6 +868,8 @@
 		8C4CD7F4160EE0CC00890DDB /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8C745FC416173E2F002085A7 /* lookup_miss_etikate.png */,
+				8C745FC21617275A002085A7 /* lookup_amatorka.png */,
 				8C4CD7F5160EE0CC00890DDB /* GLProgram.h */,
 				8C4CD7F6160EE0CC00890DDB /* GLProgram.m */,
 				8C4CD7F7160EE0CC00890DDB /* GPUImage-Prefix.pch */,
@@ -1193,8 +1202,8 @@
 			children = (
 				8C32A9D31610846600597A4E /* PGFilter.h */,
 				8C32A9D41610846600597A4E /* PGFilter.m */,
-				8C32A9BF161076B000597A4E /* VignetteFilter.h */,
-				8C32A9C0161076B000597A4E /* VignetteFilter.m */,
+				8C32A9BF161076B000597A4E /* AmatorkaFilter.h */,
+				8C32A9C0161076B000597A4E /* AmatorkaFilter.m */,
 				8C32A9C21610778100597A4E /* HipsterFilterShader.fsh */,
 				8C32A9C4161078A100597A4E /* HipsterFilterShader.vsh */,
 				8C32A9D6161093DE00597A4E /* HipsterFilter.h */,
@@ -1203,6 +1212,8 @@
 				8C32A9DA1610A2EE00597A4E /* FilterNone.m */,
 				8C745FBE16171C17002085A7 /* SepiaFilter.h */,
 				8C745FBF16171C17002085A7 /* SepiaFilter.m */,
+				8C745FC616173E51002085A7 /* MissEtikateFilter.h */,
+				8C745FC716173E51002085A7 /* MissEtikateFilter.m */,
 			);
 			name = "Custom filters classes";
 			sourceTree = "<group>";
@@ -1352,6 +1363,8 @@
 				8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */,
 				8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */,
 				8C5256C916148FC100A2EEE8 /* Complete_in_Him.ttf in Resources */,
+				8C745FC31617275A002085A7 /* lookup_amatorka.png in Resources */,
+				8C745FC516173E30002085A7 /* lookup_miss_etikate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1505,7 +1518,7 @@
 				8C4CD991160EE0CC00890DDB /* GPUImageXYDerivativeFilter.m in Sources */,
 				8C4CD9FE160F0F2B00890DDB /* PGFilterView.m in Sources */,
 				8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */,
-				8C32A9C1161076B000597A4E /* VignetteFilter.m in Sources */,
+				8C32A9C1161076B000597A4E /* AmatorkaFilter.m in Sources */,
 				8C32A9D51610846600597A4E /* PGFilter.m in Sources */,
 				8C32A9D8161093DF00597A4E /* HipsterFilter.m in Sources */,
 				8C32A9DB1610A2EE00597A4E /* FilterNone.m in Sources */,
@@ -1516,6 +1529,7 @@
 				8C345784161336B2009CFAB5 /* UIImage+FixOrientation.m in Sources */,
 				8C43DC3C1615770700B7FCA1 /* PGFiltersAndBordersAndAditionalView.m in Sources */,
 				8C745FC016171C17002085A7 /* SepiaFilter.m in Sources */,
+				8C745FC816173E51002085A7 /* MissEtikateFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

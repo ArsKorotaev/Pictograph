@@ -13,8 +13,8 @@
 #import "PGViewController.h"
 
 #import "PGFilter.h"
-
-@interface PGCameraViewController ()
+#import "PGProcessImageViewController.h"
+@interface PGCameraViewController () <PGProcessImageDelegate>
 
 @end
 
@@ -326,5 +326,21 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
     
     return image;
+}
+
+#pragma marek - PGProcessImageDelegate methods
+-(void) PGProcessImageViewController:(PGProcessImageViewController *)controller processedImage:(UIImage *)image
+{
+    if (image == nil)
+    {
+        //Убрать окно обработки
+        [self dismissModalViewControllerAnimated:YES];
+    }
+    else
+    {
+        self.view.alpha = 0;
+        [self dismissModalViewControllerAnimated:YES];
+        [self.delegate PGCameraViewController:self tookImage:image];
+    }
 }
 @end
