@@ -31,7 +31,7 @@
     
     UIImageView *dispImage;
     
-    GPUImageView *dispImageView;
+    UIImageView *dispImageView;
     
     PGFilterView *filterView;
     PGFilter *filterObject;
@@ -60,6 +60,7 @@
 
     NSString *activeFontName;
     
+    NSMutableDictionary *filtersDic;
     NSLock *lockFilter;
     NSThread *filterThread;
 }

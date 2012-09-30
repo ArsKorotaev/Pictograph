@@ -47,12 +47,20 @@
     sourcePicture = nil;
 }
 
+-(UIImage*) processImage
+{
+    return nil;
+}
 -(UIImage*) image
 {
-    return [sourcePicture imageFromCurrentlyProcessedOutput];
+    return processedImage;
 }
-- (void) filterForImage:(UIImage *)image andView:(GPUImageView *)view
+- (void) filterForImage:(UIImage *)image andView:(UIImageView *)view
 {
-    imgView = view;
+    //imgView = view;
+    if (processedImage != nil)
+    {
+        [view setImage:processedImage];
+    }
 }
 @end

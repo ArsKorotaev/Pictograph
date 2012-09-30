@@ -17,12 +17,16 @@
     
 }
 
--(void) filterForImage:(UIImage *)image andView:(GPUImageView *)view
+-(void) filterForImage:(UIImage *)image andView:(UIImageView *)view
 {
+    processedImage = image;
     [super filterForImage:image andView:view];
-    sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-    [sourcePicture addTarget:view];
-    [sourcePicture processImage];
+//    sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+//    [sourcePicture addTarget:view];
+//    [sourcePicture processImage];
+    
+    
+    
     
 }
 

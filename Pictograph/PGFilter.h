@@ -18,12 +18,15 @@
     GPUImagePicture* sourcePicture;
     
     NSArray *filterChain;
+    
+    UIImage *processedImage;
 }
 @property (readonly) GPUImageFilter *lastFilter;
 @property BOOL isBlurEnable;
--(void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view;
--(void) removeFilter;
-- (void) filterForImage:(UIImage*) image andView:(GPUImageView*) view;
+- (void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view;
+- (void) removeFilter;
+- (void) filterForImage:(UIImage*) image andView:(UIImageView*) view;
 - (void) initializeFilterChain;
 - (UIImage*) image;
+- (UIImage *) processImage;
 @end

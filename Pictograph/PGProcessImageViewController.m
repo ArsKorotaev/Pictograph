@@ -55,7 +55,7 @@
         isCaptionMode = NO;
        // [(UIScrollView*)self.view setContentSize:self.view.frame.size];
         
-        
+        filtersDic = [[NSMutableDictionary alloc] init];
 
         activeFontName = @"Freehand521BT-RegularC";
     }
@@ -119,15 +119,15 @@
 
 - (IBAction)saveButtonPressed:(id)sender {
 
-    UIImage *imageToSave;
-    if (filterObject.lastFilter != nil)
-    {
-        imageToSave = [[filterObject.lastFilter imageFromCurrentlyProcessedOutput] fixOrientation];
-    }
-    else
-    {
-        imageToSave = picketImage;
-    }
+    UIImage *imageToSave = [filterObject image];
+//    if (filterObject.lastFilter != nil)
+//    {
+//        imageToSave = [[filterObject.lastFilter imageFromCurrentlyProcessedOutput] fixOrientation];
+//    }
+//    else
+//    {
+//        imageToSave = picketImage;
+//    }
     assert(imageToSave);
   
    // imageToSave = [UIImage imageWithCGImage:[imageToSave CGImage] scale:imageArea.zoomScale orientation:UIImageOrientationUp];
@@ -304,7 +304,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     imageArea.delegate = self;
     
    // dispImage = [[UIImageView alloc] initWithImage:picketImage];
-    dispImageView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, picketImage.size.width, picketImage.size.height)];
+    dispImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, picketImage.size.width, picketImage.size.height)];
     [self setFilterNamed:currentFilterName];
    // [imageArea addSubview:dispImage];
     [imageArea addSubview:dispImageView];
@@ -450,12 +450,16 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
    
     //[activityIndicator startAnimating];
+    
     currentFilterName = filterName;
-    if (filterObject != nil)
-    {
-        [filterObject removeFilter];
+    
+    filterObject = [filtersDic objectForKey:filterName];
+    if (filterObject == nil) {
+        filterObject = [[NSClassFromString(filterName) alloc] init];
+        [filtersDic setObject:filterObject forKey:filterName];
     }
-    filterObject = [[NSClassFromString(filterName) alloc] init];
+    
+  
     [filterObject filterForImage:picketImage andView:dispImageView];
     
     
