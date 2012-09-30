@@ -78,6 +78,16 @@
     return self;
 }
 
+
+//- (void)loadView
+//{
+//    NSLog(@"Load view");
+//    
+//    CGRect rect = [[UIScreen mainScreen] bounds];
+//    UIScrollView *primaryView = [[UIScrollView alloc] initWithFrame:rect];
+//    primaryView.contentSize = rect.size;
+//    self.view = primaryView;
+//}
 - (IBAction)cancelButtonPressed:(id)sender {
     [filterObject removeFilter];
     [self.delegate PGProcessImageViewController:self processedImage:nil];
@@ -499,20 +509,21 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 -(void) setFilterNamed:(NSString *)filterName
 {
     
-   
     //[activityIndicator startAnimating];
     pthread_mutex_lock(&mutxFilter);
-    currentFilterName = filterName;
-    
-    filterObject = [filtersDic objectForKey:filterName];
-    if (filterObject == nil) {
-        filterObject = [[NSClassFromString(filterName) alloc] init];
-        [filtersDic setObject:filterObject forKey:filterName];
+    if (picketImage != nil)
+    {
+        currentFilterName = filterName;
+        
+        filterObject = [filtersDic objectForKey:filterName];
+        if (filterObject == nil) {
+            filterObject = [[NSClassFromString(filterName) alloc] init];
+            [filtersDic setObject:filterObject forKey:filterName];
+        }
+        
+      
+        [filterObject filterForImage:picketImage andView:dispImageView];
     }
-    
-  
-    [filterObject filterForImage:picketImage andView:dispImageView];
-    
     pthread_mutex_unlock(&mutxFilter);
 }
 

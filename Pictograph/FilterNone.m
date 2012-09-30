@@ -58,10 +58,7 @@
 {
     return nil;
 }
--(UIImage*) image
-{
-    return [sourcePicture imageFromCurrentlyProcessedOutput];
-}
+
 - (void) removeFilter
 {
     [super removeFilter];

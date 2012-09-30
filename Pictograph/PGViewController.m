@@ -232,14 +232,25 @@
     
     //
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
-                   {
-  
-                       UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-                       [pivc addPicketImage:image];
-                   });
-    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
+//                   {
+//  
+//                       UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//                       [pivc addPicketImage:image];
+//                   });
+    NSArray *addThreadInfo = @[info, pivc];
+    NSThread *th = [[NSThread alloc] initWithTarget:self selector:@selector(createPhotoEditImage:) object:addThreadInfo];
+    [th start];
     //[self presentModalViewController:pivc animated:YES];
+}
+
+-(void) createPhotoEditImage:(id) sender
+{
+    NSArray *inf = sender;
+    PGProcessImageViewController *pivc = [inf objectAtIndex:1];
+    UIImage *image = [[inf objectAtIndex:0] objectForKey:UIImagePickerControllerOriginalImage];
+
+    [pivc addPicketImage:image];
 }
 
 #pragma mark - PGCameraDelegate methods
