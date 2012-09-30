@@ -30,16 +30,24 @@
 
 - (void) filterForImage:(UIImage *)image andView:(UIImageView *)view
 {
+    pthread_mutex_lock(&mutex);
     [super filterForImage:image andView:view];
     
     if (processedImage == nil)
     {
-        GPUImageMissEtikateFilter *stillImageFilter2 = [[GPUImageMissEtikateFilter alloc] init];
-        processedImage = [stillImageFilter2 imageByFilteringImage:image];
+        [self createProcessedImageForImage:image];
         [view setImage:processedImage];
     }
+    
+    pthread_mutex_unlock(&mutex);
 }
 
+-(void) createProcessedImageForImage:(UIImage *)image
+{
+    GPUImageMissEtikateFilter *stillImageFilter2 = [[GPUImageMissEtikateFilter alloc] init];
+    processedImage = [stillImageFilter2 imageByFilteringImage:image];
+
+}
 -(void) processFilterInitialization
 {
     filter1 = [[GPUImageGaussianBlurFilter alloc] init];

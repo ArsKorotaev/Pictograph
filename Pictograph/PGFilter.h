@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <pthread.h>
 @class GPUImageStillCamera;
 @class GPUImageView;
 @class GPUImageFilter;
@@ -20,6 +21,7 @@
     NSArray *filterChain;
     
     UIImage *processedImage;
+    pthread_mutex_t mutex;
 }
 @property (readonly) GPUImageFilter *lastFilter;
 @property BOOL isBlurEnable;
@@ -28,5 +30,5 @@
 - (void) filterForImage:(UIImage*) image andView:(UIImageView*) view;
 - (void) initializeFilterChain;
 - (UIImage*) image;
-- (UIImage *) processImage;
+- (void) createProcessedImageForImage:(UIImage*) image;
 @end

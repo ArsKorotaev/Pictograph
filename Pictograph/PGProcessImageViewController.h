@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <pthread.h>
 
 @class PGFilterView;
 @class PGFilter;
@@ -63,6 +64,8 @@
     NSMutableDictionary *filtersDic;
     NSLock *lockFilter;
     NSThread *filterThread;
+    
+    pthread_mutex_t mutxFilter;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;

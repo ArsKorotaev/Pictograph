@@ -10,6 +10,17 @@
 #import "GPUImage.h"
 @implementation PGFilter
 
+
+-(id) init
+{
+    self = [super init];
+    if (self) {
+        
+        pthread_mutex_init(&mutex, NULL);
+    }
+    
+    return self;
+}
 -(void) initializeFilterChain
 {
     if (filterChain != nil)
@@ -47,9 +58,9 @@
     sourcePicture = nil;
 }
 
--(UIImage*) processImage
+- (void) createProcessedImageForImage:(UIImage *)image
 {
-    return nil;
+    
 }
 -(UIImage*) image
 {
@@ -62,5 +73,11 @@
     {
         [view setImage:processedImage];
     }
+}
+
+-(void) dealloc
+{
+    NSLog(@"Destroy filter");
+    pthread_mutex_destroy(&mutex);
 }
 @end

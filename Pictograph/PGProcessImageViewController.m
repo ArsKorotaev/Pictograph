@@ -58,6 +58,9 @@
         filtersDic = [[NSMutableDictionary alloc] init];
 
         activeFontName = @"Freehand521BT-RegularC";
+        
+        pthread_mutex_init(&mutxFilter, NULL);
+      
     }
     
     return self;
@@ -155,7 +158,9 @@
     myImage = CGBitmapContextCreateImage (context);
     
     UIImage *scaledImage = [UIImage imageWithCGImage:myImage];
-    
+    CGImageRelease(myImage);
+    CGImageRelease(mySubimage);
+    CGContextRelease(context);
 //    
 //    UIImage *rezult = [UIImage imageWithCGImage:mySubimage];
 //    
@@ -306,19 +311,20 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
    // dispImage = [[UIImageView alloc] initWithImage:picketImage];
     dispImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, picketImage.size.width, picketImage.size.height)];
     [self setFilterNamed:currentFilterName];
+   
    // [imageArea addSubview:dispImage];
     [imageArea addSubview:dispImageView];
     [self.imageView addSubview:imageArea];
     [imageArea setZoomScale:320.f / picketImage.size.width];
-    
+
     //Инициализация фильтров
     filterView = [[PGFilterView alloc] initFilterView];
     filterView.frame = CGRectMake(0, 1, filterView.frame.size.width, filterView.frame.size.height);
     filterView.del = self;
     [self.view addSubview:filterView];
     // Do any additional setup after loading the view from its nib.
-    
-    
+//
+//    
     //папка
     [self.view addSubview:mFolderView];
     [self customizeInterface];
@@ -357,7 +363,11 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     [self.cancelButton setTitle:self.cancelButtonCaption forState:UIControlStateNormal];
     [self.cancelButton setTitle:self.cancelButtonCaption forState:UIControlStateHighlighted];
- 
+//
+//    
+//    //Запуск фоновой обработки
+    filterThread = [[NSThread alloc] initWithTarget:self selector:@selector(initializeFilterBg:) object:currentFilterName];
+    [filterThread start];
 }
 
 -(void) keyboardWillShow:(id) sender
@@ -450,7 +460,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
    
     //[activityIndicator startAnimating];
-    
+    pthread_mutex_lock(&mutxFilter);
     currentFilterName = filterName;
     
     filterObject = [filtersDic objectForKey:filterName];
@@ -462,9 +472,25 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
   
     [filterObject filterForImage:picketImage andView:dispImageView];
     
-    
+    pthread_mutex_unlock(&mutxFilter);
 }
 
+-(void) initializeFilterBg:(NSString*) ignoreFilter
+{
+    NSArray *avialableFiltrerNames = filterView.avialebleFilterNames;
+    PGFilter *filter;
+    for (NSString *curentFilterName in avialableFiltrerNames) {
+        pthread_mutex_lock(&mutxFilter);
+        if (![curentFilterName isEqualToString:ignoreFilter] && [filtersDic objectForKey:curentFilterName] == nil)
+        {
+            filter = [[NSClassFromString(curentFilterName) alloc] init];
+            [filtersDic setObject:filter forKey:curentFilterName];
+            [filter createProcessedImageForImage:picketImage];
+        }
+        pthread_mutex_unlock(&mutxFilter);
+        
+    }
+}
 -(void) applyFilter:(id) filter
 {
     
@@ -477,7 +503,14 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [lockFilter unlock];
 }
 
-
+-(void) dealloc
+{
+    pthread_mutex_destroy(&mutxFilter);
+    [filterThread cancel];
+    filterThread = nil;
+    [filtersDic removeAllObjects];
+    NSLog(@"Processed image dealoc");
+}
 
 
 

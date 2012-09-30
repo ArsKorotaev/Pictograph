@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "GPUImage.h"
+
 //@class PGFilterView;
 
 @protocol  PGFilterViewDelegate
@@ -27,10 +28,12 @@
     
     NSArray *thumbnailImages;//Именя картинок с изображением фильтра
     
+    
 }
 @property BOOL isAdded;
 @property (readonly) NSThread *thread;
-@property (strong) id<PGFilterViewDelegate> del;
+@property (unsafe_unretained) id<PGFilterViewDelegate> del;
+@property (readonly) NSArray *avialebleFilterNames;
 - (id) initFilterView;
 
 @end

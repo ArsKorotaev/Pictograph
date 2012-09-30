@@ -19,15 +19,26 @@
 
 -(void) filterForImage:(UIImage *)image andView:(UIImageView *)view
 {
-    processedImage = image;
+    pthread_mutex_lock(&mutex);
+   
     [super filterForImage:image andView:view];
+    if (processedImage == nil)
+    {
+        [self createProcessedImageForImage:image];
+        [view setImage:processedImage];
+    }
 //    sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
 //    [sourcePicture addTarget:view];
 //    [sourcePicture processImage];
     
     
+     pthread_mutex_unlock(&mutex);
     
-    
+}
+
+-(void) createProcessedImageForImage:(UIImage *)image
+{
+     processedImage = image;
 }
 
 -(GPUImageFilter*) lastFilter
