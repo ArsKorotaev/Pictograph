@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <pthread.h>
-
+#import <semaphore.h>
 @class PGFilterView;
 @class PGFilter;
 @class GPUImageView;
@@ -63,9 +63,13 @@
     
     NSMutableDictionary *filtersDic;
     NSLock *lockFilter;
-    NSThread *filterThread;
     
+    
+    NSThread *filterThread;
     pthread_mutex_t mutxFilter;
+    sem_t *viewLoadSemaphore;
+    sem_t *picketImageSem;
+    
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;
@@ -76,7 +80,8 @@
 @property (unsafe_unretained) id <PGProcessImageDelegate> delegate;
 @property NSString* cancelButtonCaption;
 
--(id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
+- (id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
+- (void) addPicketImage:(UIImage*) image;
 - (IBAction)cancelButtonPressed:(id)sender;
 - (IBAction)captionButtonPressed:(id)sender;
 - (IBAction)saveButtonPressed:(id)sender;

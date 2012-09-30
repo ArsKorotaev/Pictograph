@@ -25,6 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        isBlured = NO;
     }
     return self;
 }
@@ -112,6 +113,7 @@
     [self setPhotoCaptureButton:nil];
     [filterView setDel:nil];
     flashStatusLabel = nil;
+
     [super viewDidUnload];
 }
 
@@ -121,7 +123,7 @@
     stillCamera = [[GPUImageStillCamera alloc] init];
     stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     filterObject = [[NSClassFromString(@"FilterNone") alloc] init];
-    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view];
+    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view bloorEnable:NO];
     
     [stillCamera startCameraCapture];
 
@@ -270,6 +272,19 @@
     [[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
+- (IBAction)blurButtonPressed:(id)sender {
+    
+    [filterObject removeFilter];
+    if (isBlured) {
+        isBlured = NO;
+    }
+    else
+    {
+        isBlured = YES;
+    }
+    [self setFilterNamed:NSStringFromClass([filterObject class])];
+}
+
 -(void) setFilterNamed:(NSString *)filterName
 {
 
@@ -278,7 +293,7 @@
     [filterObject removeFilter];
    
     filterObject  = [[NSClassFromString(filterName) alloc] init];
-    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view];
+    [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view bloorEnable:isBlured];
     stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     [stillCamera resumeCameraCapture];
 

@@ -29,10 +29,10 @@ NSString *const kCustomFilterShaderString = SHADER_STRING
 
 @implementation AmatorkaFilter
 
-- (void) filterForCamer:(GPUImageStillCamera *)camera andView:(GPUImageView *)view
+- (void) filterForCamer:(GPUImageStillCamera *)camera andView:(GPUImageView *)view bloorEnable:(BOOL)blur
 {
     
-    [super filterForCamer:camera andView:view];
+    [super filterForCamer:camera andView:view bloorEnable:blur];
     
     [self processFilterInitialization];
     filter1 = [[GPUImageAmatorkaFilter alloc] init];
@@ -40,7 +40,20 @@ NSString *const kCustomFilterShaderString = SHADER_STRING
     [filter1 prepareForImageCapture];
     //[filter2 prepareForImageCapture];
     
-    [camera addTarget:filter1];
+    
+    
+    if (!blur)
+    {
+        [camera addTarget:filter1];
+    }
+    else
+    {
+        blurEffect = [[GPUImageFastBlurFilter alloc] init];
+        blurEffect.blurSize = 2;
+        [blurEffect prepareForImageCapture];
+        [camera addTarget:blurEffect];
+        [blurEffect addTarget:filter1];
+    }
     [filter1 addTarget:view];
     
     //[filter2 addTarget:view];

@@ -27,16 +27,22 @@
     PGFilterView *filterView;
     PGFilter *filterObject;
     IBOutlet UILabel *flashStatusLabel;
+    
+    BOOL isBlured;
 }
 - (IBAction)changeCamera:(id)sender;
 - (IBAction)flashButtonPressed:(id)sender;
 - (IBAction)filtersButtonPressed:(id)sender;
 - (IBAction)shot:(id)sender;
 - (IBAction)cancelButtonPressed:(id)sender;
+- (IBAction)blurButtonPressed:(id)sender;
+
+
 @property (strong, nonatomic) IBOutlet UIButton *cancelButton;
 @property (strong, nonatomic) IBOutlet UIButton *filtersButton;
 @property (strong, nonatomic) IBOutlet UIButton *flashSwitch;
 @property (strong, nonatomic) IBOutlet UIButton *photoCaptureButton;
 @property (unsafe_unretained) id<PGCameraDelegate> delegate;
+
 
 @end

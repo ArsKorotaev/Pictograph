@@ -159,6 +159,7 @@
             UIImage *image = [(UIImageView*)imView image];
             PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:image andFilterName:@"FilterNone"];
             pivc.delegate = self;
+            [pivc setCancelButtonCaption:@"Cancel"];
             [self presentModalViewController:pivc animated:YES];
             break;
         }
@@ -211,9 +212,13 @@
 ////    UIImage *image = [UIImage imageNamed:imageUrl];
 //    
 //    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:image andFilterName:@"FilterNone"];
+    //UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+   
+    PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:nil andFilterName:@"FilterNone"];
     pivc.delegate = self;
+    
+    
+    
     [pivc setCancelButtonCaption:@"Cancel"];
     [self dismissModalViewControllerAnimated:NO];
     
@@ -225,9 +230,17 @@
     [UIView commitAnimations];
 
     
+    //
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
+                   {
+  
+                       UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+                       [pivc addPicketImage:image];
+                   });
+    
     //[self presentModalViewController:pivc animated:YES];
 }
-
 
 #pragma mark - PGCameraDelegate methods
 -(void) PGCameraViewController:(PGCameraViewController *)controller tookImage:(UIImage *)image

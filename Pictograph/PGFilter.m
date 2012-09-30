@@ -35,8 +35,9 @@
     }
 }
 
--(void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view
+-(void) filterForCamer:(GPUImageStillCamera*) camera andView:(GPUImageView*) view bloorEnable:(BOOL)blur
 {
+    self.isBlurEnable = blur;
     cam = camera;
     imgView = view;
 }
@@ -53,7 +54,8 @@
     }
     
     
-    
+    [blurEffect removeAllTargets];
+    [blurEffect deleteOutputTexture];
     cam = nil;
     sourcePicture = nil;
 }
@@ -73,6 +75,11 @@
     {
         [view setImage:processedImage];
     }
+}
+
+-(void) addBlur
+{
+    
 }
 
 -(void) dealloc

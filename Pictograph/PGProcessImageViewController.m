@@ -40,7 +40,7 @@
     if (self)
     {
         
-        assert(img != nil);
+        //assert(img != nil);
         picketImage = [img fixOrientation];
         
         //UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
@@ -60,7 +60,19 @@
         activeFontName = @"Freehand521BT-RegularC";
         
         pthread_mutex_init(&mutxFilter, NULL);
-      
+        sem_unlink("Picket image status semaphore");
+        sem_unlink("View load semaphore");
+        
+        if (picketImage != nil) {
+            picketImageSem = sem_open("Picket image status semaphore", O_CREAT,0,2);
+        }
+        else
+        {
+            picketImageSem = sem_open("Picket image status semaphore", O_CREAT,0,0);
+        }
+       
+        viewLoadSemaphore = sem_open("View load semaphore", O_CREAT,0,0);
+        
     }
     
     return self;
@@ -290,10 +302,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     
 }
-- (void)viewDidLoad
+
+
+-(void) createImageView
 {
-    [super viewDidLoad];
-  
     //инициализация области с изображением
     imageArea = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 6, 320, 320)];
     imageArea.contentSize = picketImage.size;
@@ -308,15 +320,45 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     imageArea.bouncesZoom = NO;
     imageArea.delegate = self;
     
-   // dispImage = [[UIImageView alloc] initWithImage:picketImage];
+    // dispImage = [[UIImageView alloc] initWithImage:picketImage];
     dispImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, picketImage.size.width, picketImage.size.height)];
-    [self setFilterNamed:currentFilterName];
-   
-   // [imageArea addSubview:dispImage];
+    
+    if (picketImage != nil)
+    {
+        
+        [self setFilterNamed:currentFilterName];
+    }
+    else
+    {
+        [activityIndicator startAnimating];
+    }
+    
+    // [imageArea addSubview:dispImage];
     [imageArea addSubview:dispImageView];
     [self.imageView addSubview:imageArea];
     [imageArea setZoomScale:320.f / picketImage.size.width];
-
+    
+    captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 240, 320, 80)];
+    //    self.downText.textAlignment = NSTextAlignmentCenter;
+    //    self.downText.numberOfLines = 3;
+    
+    [self.imageView addSubview:captionTextView];
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+  
+    
+    if (picketImage != nil)
+    {
+        [self createImageView];
+        [self setFilterNamed:currentFilterName];
+    }
+    else
+    {
+        [activityIndicator startAnimating];
+    }
+    
     //Инициализация фильтров
     filterView = [[PGFilterView alloc] initFilterView];
     filterView.frame = CGRectMake(0, 1, filterView.frame.size.width, filterView.frame.size.height);
@@ -333,8 +375,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     
     //Коментарий
-    [self.imageView addSubview:captionTextView];
-    [captionTextView setNeedsDisplay];
+//    [self.imageView addSubview:captionTextView];
+//    [captionTextView setNeedsDisplay];
     
     
     //Реакция на клавиатуру
@@ -349,16 +391,12 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
                                                object:nil];
 
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applyFilter:)
-                                                 name:@"FinishProcessing"
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(applyFilter:)
+//                                                 name:@"FinishProcessing"
+//                                               object:nil];
     //инициализация лейблов
-    captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 240, 320, 80)];
-//    self.downText.textAlignment = NSTextAlignmentCenter;
-//    self.downText.numberOfLines = 3;
     
-    [self.imageView addSubview:captionTextView];
     
     
     [self.cancelButton setTitle:self.cancelButtonCaption forState:UIControlStateNormal];
@@ -368,6 +406,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 //    //Запуск фоновой обработки
     filterThread = [[NSThread alloc] initWithTarget:self selector:@selector(initializeFilterBg:) object:currentFilterName];
     [filterThread start];
+    
+    sem_post(viewLoadSemaphore);
 }
 
 -(void) keyboardWillShow:(id) sender
@@ -426,11 +466,12 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [self setDownText:nil];
     [self setUpText:nil];
     activityIndicator = nil;
+    filterView = nil;
     [super viewDidUnload];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FinishProcessing" object:nil];
+   // [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FinishProcessing" object:nil];
 }
 #pragma mark - PGViewControllerDelegate methods
 - (void) segmentedControl:(PGSegmentedControl *)control setActiveTab:(NSInteger)tabIndex withFontName:(NSString *)font
@@ -477,6 +518,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 
 -(void) initializeFilterBg:(NSString*) ignoreFilter
 {
+    sem_wait(picketImageSem);
     NSArray *avialableFiltrerNames = filterView.avialebleFilterNames;
     PGFilter *filter;
     for (NSString *curentFilterName in avialableFiltrerNames) {
@@ -503,12 +545,24 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [lockFilter unlock];
 }
 
+
+-(void) addPicketImage:(UIImage *)image
+{
+    sem_wait(viewLoadSemaphore);
+    picketImage = image;
+    [self createImageView];
+    [self setFilterNamed:currentFilterName];
+    [activityIndicator stopAnimating];
+    sem_post(picketImageSem);
+}
 -(void) dealloc
 {
     pthread_mutex_destroy(&mutxFilter);
     [filterThread cancel];
     filterThread = nil;
     [filtersDic removeAllObjects];
+    sem_close(picketImageSem);
+    sem_close(viewLoadSemaphore);
     NSLog(@"Processed image dealoc");
 }
 

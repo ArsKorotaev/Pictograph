@@ -9,11 +9,24 @@
 #import "FilterNone.h"
 #import "GPUImage.h"
 @implementation FilterNone
-- (void) filterForCamer:(GPUImageStillCamera *)camera andView:(GPUImageView *)view
+- (void) filterForCamer:(GPUImageStillCamera *)camera andView:(GPUImageView *)view bloorEnable:(BOOL)blur
 {
     
-    [super filterForCamer:camera andView:view];
-    [camera addTarget:view];
+    [super filterForCamer:camera andView:view bloorEnable:blur];
+    
+    if (!blur)
+    {
+        [camera addTarget:view];
+    }
+    else
+    {
+        blurEffect = [[GPUImageFastBlurFilter alloc] init];
+        blurEffect.blurSize = 2;
+        [blurEffect prepareForImageCapture];
+        [camera addTarget:blurEffect];
+        [blurEffect addTarget:view];
+    }
+    
     
 }
 

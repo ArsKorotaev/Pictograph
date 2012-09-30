@@ -126,4 +126,8 @@ void DrawText (CGContextRef myContext, CGRect contextRect, const char *text, uns
     
 }
 
+-(void) dealloc
+{
+    NSLog(@"PGCaptionTextView - dealloc");
+}
 @end
