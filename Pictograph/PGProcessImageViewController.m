@@ -180,6 +180,7 @@
    // CGContextScaleCTM(context, imageArea.zoomScale, imageArea.zoomScale);
     //MyDrawText(context, CGRectMake(0, 20, IMAGE_SIZE, 300), "Hellow every body!", 18);
     DrawText(context, captionTextView.frame, [captionTextView.textToDraw UTF8String], [captionTextView.textToDraw length],[segmentedControl.curentFontName UTF8String], 'N');
+    DrawUpText(context, captionTextViewUp.frame, [captionTextViewUp.textToDraw UTF8String], [captionTextViewUp.textToDraw length],[segmentedControl.curentFontName UTF8String], 'N');
     CGImageRef myImage;
     myImage = CGBitmapContextCreateImage (context);
     

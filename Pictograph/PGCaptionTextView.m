@@ -127,6 +127,64 @@ void DrawText (CGContextRef myContext, CGRect contextRect, const char *text, uns
     
 }
 
+void DrawUpText(CGContextRef myContext, CGRect contextRect, const char *text, unsigned int length, const char *fontName, char upsidedown)
+{
+    float w, h;
+    if (text == NULL)
+    {
+        return;
+    }
+    
+    
+    
+    w = contextRect.size.width;
+    h = contextRect.size.height;
+    
+    int fontSize = GetFontSize(text, fontName, w);
+    
+    CGSize stringSize = LenghtForString(text, fontName, fontSize);
+    
+    
+    
+    if (upsidedown == 'Y') {
+        CGContextSelectFont (myContext, // 3
+                             fontName,
+                             fontSize,
+                             kCGEncodingMacRoman);
+    }
+    else
+    {
+        CGContextSelectFont (myContext, // 3
+                             fontName,
+                             fontSize*2,
+                             kCGEncodingMacRoman);
+    }
+    
+    CGContextSetCharacterSpacing (myContext, 0); // 4
+    CGContextSetTextDrawingMode (myContext, kCGTextFill); // 5
+    
+    CGContextSetRGBFillColor (myContext, 1, 1, 1, 1); // 6
+    CGContextSetShadowWithColor(myContext,
+                                CGSizeMake(1, 1),
+                                3,
+                                [UIColor blackColor].CGColor);
+    
+    CGAffineTransform transform;
+    if (upsidedown == 'Y')
+    {
+        transform = CGAffineTransformConcat(CGContextGetTextMatrix(myContext),
+                                            CGAffineTransformMake(1.0, 0.0, 0.0,
+                                                                  -1.0, 0.0, 0.0));
+        CGContextSetTextMatrix(myContext, transform);
+        CGContextShowTextAtPoint (myContext, w / 2 - stringSize.width / 2, h-10, text, length); // 10
+    }
+    else
+    {
+        CGContextShowTextAtPoint (myContext, w*2 / 2 - stringSize.width*2 / 2, h / 2 - 10 + 580, text, length); // 10
+    }
+
+}
+
 -(void) dealloc
 {
     NSLog(@"PGCaptionTextView - dealloc");

@@ -20,5 +20,5 @@
 
 @end
 
-
+void DrawUpText(CGContextRef myContext, CGRect contextRect, const char *text, unsigned int length, const char *fontName, char upsidedown);
 void DrawText (CGContextRef myContext, CGRect contextRect, const char *text, unsigned int length, const char *fontName, char upsidedown);
