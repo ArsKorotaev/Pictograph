@@ -568,12 +568,14 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 
 -(void) addPicketImage:(UIImage *)image
 {
+    NSLog(@"Add picet image enter");
     sem_wait(viewLoadSemaphore);
     picketImage = image;
     [self createImageView];
     [self setFilterNamed:currentFilterName];
     [activityIndicator stopAnimating];
     sem_post(picketImageSem);
+    NSLog(@"Add picet image exit");
 }
 -(void) dealloc
 {

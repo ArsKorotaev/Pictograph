@@ -124,7 +124,7 @@
     stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     filterObject = [[NSClassFromString(@"FilterNone") alloc] init];
     [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view bloorEnable:NO];
-    
+    isBlured = NO;
     [stillCamera startCameraCapture];
 
    
@@ -188,7 +188,7 @@
 
 -(void) endCamera:(id) sender
 {
-    UIImage *image;
+    //UIImage *image;
     //GPUImageView gpuView =    (GPUImageView *)self.view;
     
     [stillCamera stopCameraCapture];
@@ -201,17 +201,22 @@
     [pivc setCancelButtonCaption:@"Retake"];
     [self presentModalViewController:pivc animated:YES];
     
-    if  (isBlured)
-    {
-        GPUImageFastBlurFilter *stillImageFilter2 = [[GPUImageFastBlurFilter alloc] init];
-        image = [stillImageFilter2 imageByFilteringImage:sender];
-    }
-    else
-    {
-        image = sender;
-    }
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^()
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^()
                    {
+                       UIImage *image;
+                       if  (isBlured)
+                       {
+                           NSLog(@"Start Blur");
+                           GPUImageFastBlurFilter *stillImageFilter2 = [[GPUImageFastBlurFilter alloc] init];
+                           image = [stillImageFilter2 imageByFilteringImage:sender];
+                           NSLog(@"End Blur");
+                       }
+                       else
+                       {
+                           image = sender;
+                       }
+                       
                        [pivc addPicketImage:image];
                    });
 
