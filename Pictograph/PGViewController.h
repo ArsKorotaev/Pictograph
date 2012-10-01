@@ -14,6 +14,9 @@
     NSInteger startIndex; //Номер первой фотографии из альбома
     NSInteger rangeLength; //Диапозон фотографий
     IBOutlet UIActivityIndicatorView *savingPhotoProcess;
+    
+    NSMutableArray *assetsUrls;
+    NSMutableDictionary *assetsUrlDic;
 }
 @property (strong, nonatomic) IBOutlet UIButton *takePhoto;
 @property (strong, nonatomic) IBOutlet UIButton *cameraRoll;

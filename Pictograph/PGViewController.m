@@ -66,6 +66,14 @@
     tapGesture.numberOfTapsRequired = 1;
     tapGesture.numberOfTouchesRequired = 1;
     [self.recentImages addGestureRecognizer:tapGesture];
+    
+    assetsUrls = [[NSMutableArray alloc] initWithCapacity:20];
+    for (int i = 0; i < 20; i++) {
+        [assetsUrls insertObject:[[NSObject alloc] init] atIndex: i];
+    }
+    
+    assetsUrlDic = [[NSMutableDictionary alloc] init];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -112,27 +120,42 @@
         
         startIndex = rangeOfPhotos.location;
         rangeLength = rangeOfPhotos.length;
-        NSLog(@"Old width : %f ",self.recentImages.contentSize.width);
+        
+        
+        //NSLog(@"Old width : %f ",self.recentImages.contentSize.width);
         
         [self.recentImages setContentSize:CGSizeMake(rangeOfPhotos.length*75+10, self.recentImages.frame.size.height)];
-        NSLog(@"New width : %f ",self.recentImages.contentSize.width);
+        //NSLog(@"New width : %f ",self.recentImages.contentSize.width);
         [group enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:rangeOfPhotos]
                                 options:0
                              usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
                                  
                                  // The end of the enumeration is signaled by asset == nil.
                                  if (alAsset) {
-                                     ALAssetRepresentation *representation = [alAsset defaultRepresentation];
-                                     UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
+                                     //ALAssetRepresentation *representation = [alAsset defaultRepresentation];
+                                     
+                                   
+                                     UIImage *latestPhoto = [UIImage imageWithCGImage:[alAsset thumbnail]];
                                      
                                      // Do something interesting with the AV asset.
                                      //[self sendTweet:latestPhoto];
                                      
                                      UIImageView *phView = [[UIImageView alloc] initWithFrame:CGRectMake((10 + (rangeLength - index - 1 + startIndex)*75), 5, 70, 70)];
+                                     phView.alpha = 0;
                                      [phView setImage:latestPhoto];
                                      // [self.view addSubview:phView];
+                                     [assetsUrlDic setObject:alAsset.defaultRepresentation.url forKey:[NSNumber numberWithInteger:[phView hash]]];
                                      
+                                     
+                                     //[assetsUrls insertObject:alAsset.defaultRepresentation.url atIndex:phView.tag];
                                      [self.recentImages addSubview:phView];
+                                     
+                                     [UIView beginAnimations:nil context:nil];
+                                     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+                                     [UIView setAnimationDuration:0.3*(rangeLength - index - 1 + startIndex)+0.3];
+                                     phView.alpha = 1.f;
+                                     [UIView commitAnimations];
+                                     
                                      
                                      
                                      
@@ -156,10 +179,25 @@
     {
         if (CGRectContainsPoint(imView.frame, touchLocation))
         {
-            UIImage *image = [(UIImageView*)imView image];
-            PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:image andFilterName:@"FilterNone"];
+            //UIImage *image = [(UIImageView*)imView image];
+            PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:nil andFilterName:@"FilterNone"];
             pivc.delegate = self;
             [pivc setCancelButtonCaption:@"Cancel"];
+            ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+            NSURL *asseturl = [assetsUrlDic objectForKey:[NSNumber numberWithInteger:[imView hash]]];
+            
+            [assetslibrary assetForURL:asseturl
+                           resultBlock:^(ALAsset *asset)
+                            {
+                                UIImage *latestPhoto = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
+                                [pivc addPicketImage:latestPhoto];
+                            }
+                          failureBlock:^(NSError *error)
+                            {
+                              NSLog(@"error couldn't get photo");
+                            }
+             ];
+            
             [self presentModalViewController:pivc animated:YES];
             break;
         }
