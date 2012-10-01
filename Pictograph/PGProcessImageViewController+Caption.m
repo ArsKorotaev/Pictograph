@@ -68,7 +68,11 @@
 
 }
 
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField1
+{
+    [textField1 resignFirstResponder];
+    return YES;
+}
 
 
 -(void) keyPressed:(NSNotification *) sender

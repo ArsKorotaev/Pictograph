@@ -442,22 +442,26 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.3];
     self.view.frame = newViewFrame;
-    [(UIScrollView*)self.view setContentOffset:contentOfset animated:YES];
     [UIView commitAnimations];
 
+    [(UIScrollView*)self.view setContentOffset:contentOfset animated:YES];
 }
 
 
 -(void)keyboardWillHide:(id) sender
 {
     CGRect newViewFrame = self.view.frame;
- 
+    CGPoint contentOfset = [(UIScrollView*)self.view contentOffset];
+    contentOfset.y = 0;
+    
     newViewFrame.size.height += 215;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.3];
     self.view.frame = newViewFrame;
     [UIView commitAnimations];
+    
+    [(UIScrollView*)self.view setContentOffset:contentOfset animated:YES];
 }
 
 
@@ -495,6 +499,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object: nil];
    // [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FinishProcessing" object:nil];
 }
 #pragma mark - PGViewControllerDelegate methods
