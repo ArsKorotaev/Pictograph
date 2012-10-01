@@ -127,7 +127,6 @@
 						<string key="NSFrame">{{229, 412}, {84, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -877,8 +876,8 @@
 						<string key="activityIndicator">UIActivityIndicatorView</string>
 						<string key="cancelButton">UIButton</string>
 						<string key="captionButton">UIButton</string>
-						<string key="captionView">UIImageView</string>
 						<string key="imageView">UIImageView</string>
+						<string key="interfaceScroll">UIScrollView</string>
 						<string key="mBottomPartOfMainBackgroundView">UIImageView</string>
 						<string key="saveBtn">UIButton</string>
 					</dictionary>
@@ -895,13 +894,13 @@
 							<string key="name">captionButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="captionView">
-							<string key="name">captionView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="imageView">
 							<string key="name">imageView</string>
 							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="interfaceScroll">
+							<string key="name">interfaceScroll</string>
+							<string key="candidateClassName">UIScrollView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="mBottomPartOfMainBackgroundView">
 							<string key="name">mBottomPartOfMainBackgroundView</string>

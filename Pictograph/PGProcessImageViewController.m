@@ -358,6 +358,15 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 {
     [super viewDidLoad];
   
+    //Окно для подписи
+//    captionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 314, 320, 92)];
+//    UIImage *captionBgImage = [UIImage imageNamed:@"Filters_Menu.png"];
+//    [captionView setImage:captionBgImage];
+//    captionView.alpha = 0;
+//    [interfaceScroll addSubview:captionView];
+//    [interfaceScroll sendSubviewToBack:captionView];
+    
+   // [(UIScrollView*)self.view setContentSize:self.view.frame.size];
     
     if (picketImage != nil)
     {

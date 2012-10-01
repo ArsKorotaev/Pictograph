@@ -43,8 +43,9 @@
     
     
     
+    IBOutlet UIScrollView *interfaceScroll;
     IBOutlet UIActivityIndicatorView *activityIndicator;
-    IBOutlet UIImageView *captionView;
+    UIImageView *captionView;
     IBOutlet UIImageView *mBottomPartOfMainBackgroundView;
     UIImageView *mFolderView;
     UIImageView *mSelectedArrowTipView;
