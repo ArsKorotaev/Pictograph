@@ -139,7 +139,10 @@
         [UIView commitAnimations];
         
         [(UIButton*)sender setBackgroundImage:buttonNormalImg forState:UIControlStateNormal];
+        [textField resignFirstResponder];
     }
+    
+    
     
 }
 
