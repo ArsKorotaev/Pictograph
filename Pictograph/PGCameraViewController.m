@@ -188,7 +188,7 @@
 
 -(void) endCamera:(id) sender
 {
-    UIImage *image = sender;
+    UIImage *image;
     //GPUImageView gpuView =    (GPUImageView *)self.view;
     
     [stillCamera stopCameraCapture];
@@ -196,10 +196,25 @@
     [stillCamera deleteOutputTexture];
     [stillCamera removeInputsAndOutputs];
     
-    PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[image copy] andFilterName:NSStringFromClass([filterObject class])];
+    PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:nil andFilterName:NSStringFromClass([filterObject class])];
     pivc.delegate = self;
     [pivc setCancelButtonCaption:@"Retake"];
     [self presentModalViewController:pivc animated:YES];
+    
+    if  (isBlured)
+    {
+        GPUImageFastBlurFilter *stillImageFilter2 = [[GPUImageFastBlurFilter alloc] init];
+        image = [stillImageFilter2 imageByFilteringImage:sender];
+    }
+    else
+    {
+        image = sender;
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^()
+                   {
+                       [pivc addPicketImage:image];
+                   });
+
     
 }
 
