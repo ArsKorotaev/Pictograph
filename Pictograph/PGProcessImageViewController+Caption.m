@@ -9,11 +9,13 @@
 #import "PGProcessImageViewController+Caption.h"
 #import "PGSegmentedControl.h"
 #import "PGCaptionTextView.h"
+#define DEVIDE_CHAR 0x21B0
 @implementation PGProcessImageViewController (Caption) 
 -(void) finishInitCaptionView
 {
     textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, 300, 30)];
     textField.delegate = self;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
     segmentedControl = [[PGSegmentedControl alloc] initWithFrame:CGRectMake(10, 43, 300, 30)];
     segmentedControl.delegate = self;
     captionView.userInteractionEnabled = YES;
@@ -70,6 +72,24 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField1
 {
+    NSString *enteredText = textField.text;
+    UniChar chars[] = {DEVIDE_CHAR};
+    NSString *string = [[NSString alloc] initWithCharacters:chars
+                                                     length:sizeof(chars) / sizeof(UniChar)];
+    NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:string];
+    NSRange charRange = [enteredText rangeOfCharacterFromSet:characterSet];
+    if (charRange.location == NSNotFound)
+    {
+        textField1.text = [enteredText stringByAppendingString:string];
+        return NO;
+    }
+    else if (charRange.location == enteredText.length - 1)
+    {
+        NSRange stringRange = {0, enteredText.length - 1};
+        textField.text = [enteredText substringWithRange:stringRange];
+    }
+    
+    
     [textField1 resignFirstResponder];
     return YES;
 }
@@ -78,8 +98,31 @@
 -(void) keyPressed:(NSNotification *) sender
 {
     UITextField *tf = sender.object;
-    NSString *textString = tf.text;
+    NSString *enteredText = tf.text;
     
-    [captionTextView drawText:textString withFont:activeFontName];
+    UniChar chars[] = {DEVIDE_CHAR};
+    NSString *string = [[NSString alloc] initWithCharacters:chars
+                                                     length:sizeof(chars) / sizeof(UniChar)];
+    NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:string];
+    
+    NSRange stringsRange = [enteredText rangeOfCharacterFromSet:characterSet];
+    if (stringsRange.location != NSNotFound)
+    {
+        NSRange upStringRange = {0,stringsRange.location};
+        NSString *upString = [enteredText substringWithRange:upStringRange];
+        NSRange downStringRange = {stringsRange.location+1, enteredText.length - upString.length - 1};
+        NSString *downString = [enteredText substringWithRange:downStringRange];
+        
+        [captionTextViewUp drawText:upString withFont:activeFontName];
+        [captionTextView drawText:downString withFont:activeFontName];
+    }
+    else
+    {
+        [captionTextViewUp drawText:nil withFont:activeFontName];
+        [captionTextView drawText:enteredText withFont:activeFontName];
+    }
+    
+    
+   
 }
 @end

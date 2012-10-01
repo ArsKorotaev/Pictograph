@@ -25,10 +25,10 @@
 
 - (void) drawText:(NSString *)text withFont:(NSString *)fontName
 {
-    if (text != nil)
-    {
+//    if (text != nil)
+//    {
         self.textToDraw = text;
-    }
+//    }
     _fontName = fontName;
     [self setNeedsDisplay];
 }
@@ -38,9 +38,10 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    const char * text = [self.textToDraw UTF8String];
     
-    DrawText(context, self.frame, [self.textToDraw UTF8String], [self.textToDraw length],[_fontName UTF8String], 'Y');
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    DrawText(context, self.frame, text, [self.textToDraw length],[_fontName UTF8String], 'Y');
 
     
 }

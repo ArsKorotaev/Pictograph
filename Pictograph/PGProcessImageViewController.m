@@ -355,8 +355,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 240, 320, 80)];
     //    self.downText.textAlignment = NSTextAlignmentCenter;
     //    self.downText.numberOfLines = 3;
+    captionTextViewUp = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 5, 320, 40)];
     
     [self.imageView addSubview:captionTextView];
+    [self.imageView addSubview:captionTextViewUp];
 }
 - (void)viewDidLoad
 {
@@ -513,6 +515,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 //    self.downText.font = newFont;
     activeFontName = font;
     [captionTextView drawText:nil withFont:activeFontName];
+    [captionTextViewUp drawText:nil withFont:activeFontName];
 }
 
 #pragma mark - UIScrollViewDelegate methods

@@ -59,6 +59,7 @@
     UITextField *textField;
     PGCaptionTextView *captionTextView;
     
+    PGCaptionTextView *captionTextViewUp;
 
     NSString *activeFontName;
     
