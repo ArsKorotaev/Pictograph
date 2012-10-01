@@ -90,6 +90,7 @@
 //}
 - (IBAction)cancelButtonPressed:(id)sender {
     [filterObject removeFilter];
+    picketImage = nil;
     [self.delegate PGProcessImageViewController:self processedImage:nil];
     //[[self presentingViewController] dismissModalViewControllerAnimated:YES];
 }
@@ -426,18 +427,22 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     filterThread = [[NSThread alloc] initWithTarget:self selector:@selector(initializeFilterBg:) object:currentFilterName];
     [filterThread start];
     
+    [(UIScrollView*)self.view setContentSize:self.view.frame.size];
+    
     sem_post(viewLoadSemaphore);
 }
 
 -(void) keyboardWillShow:(id) sender
 {
     CGRect newViewFrame = self.view.frame;
-    
-    newViewFrame.origin.y -= 215;
+    CGPoint contentOfset = [(UIScrollView*)self.view contentOffset];
+    contentOfset.y = 215;
+    newViewFrame.size.height -= 215;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.3];
     self.view.frame = newViewFrame;
+    [(UIScrollView*)self.view setContentOffset:contentOfset animated:YES];
     [UIView commitAnimations];
 
 }
@@ -446,8 +451,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 -(void)keyboardWillHide:(id) sender
 {
     CGRect newViewFrame = self.view.frame;
-    
-    newViewFrame.origin.y += 215;
+ 
+    newViewFrame.size.height += 215;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.3];
@@ -545,6 +550,13 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
         pthread_mutex_lock(&mutxFilter);
         if (![curentFilterName isEqualToString:ignoreFilter] && [filtersDic objectForKey:curentFilterName] == nil)
         {
+            if (picketImage == nil)
+            {
+                NSLog(@"Terminate thread");
+                [NSThread exit];
+                
+                pthread_mutex_unlock(&mutxFilter);
+            }
             filter = [[NSClassFromString(curentFilterName) alloc] init];
             [filtersDic setObject:filter forKey:curentFilterName];
             [filter createProcessedImageForImage:picketImage];
