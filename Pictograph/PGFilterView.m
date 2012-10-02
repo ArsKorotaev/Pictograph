@@ -7,94 +7,9 @@
 //
 
 #import "PGFilterView.h"
+#import "FilterMicroView.h"
 #define VIEW_COUNT 5
 #define standartImageTag 1
-
-@interface FilterMicroView : NSObject
-{
-    UIImageView *standartImage;
-    UIImageView *selectedImage;
-}
-- (void) select;
-- (void) deselect;
-- (void) selectNoAnimation;
-@property UIView *view;
-@property (readonly) BOOL isSelected;
-@property NSString *filterName;
-@end
-
-@implementation FilterMicroView
-- (id) init
-{
-    self = [super init];
-    
-    if (self) {
-        UIImage *standartImg = [UIImage imageNamed:@"FilterMask.png"];
-        UIImage *selectedImg = [UIImage imageNamed:@"FilterMask_Active.png"];
-        
-        //Добавление маски
-        UIImage *_maskingImage = [UIImage imageNamed:@"FilterMask-2.png"];
-        CALayer *_maskingLayer = [CALayer layer];
-        _maskingLayer.frame = self.view.bounds;
-        [_maskingLayer setContents:(id)[_maskingImage CGImage]];
-        [self.view.layer setMask:_maskingLayer];
-        
-        standartImage = [[UIImageView alloc] initWithImage:standartImg];
-        selectedImage = [[UIImageView alloc] initWithImage:selectedImg];
-        standartImage.tag = 1;
-        selectedImage.alpha = 0;
-        [self.view addSubview:standartImage];
-        
-        
-        //Инициализация масиива с именами фильтров
-
-        //= @[@"Standart", @"Sepia", @"Warm", @"Cool", @"Retro"];
-        
-    }
-    
-    return self;
-}
-
- -(void) select
-{
-    if (!_isSelected)
-    {
-        _isSelected = YES;
-        [standartImage removeFromSuperview];
-        [self.view addSubview:selectedImage];
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [UIView setAnimationDuration:0.2];
-        selectedImage.alpha = 1.f;
-        [UIView commitAnimations];
-    }
-}
-
-- (void) selectNoAnimation
-{
-    if (!_isSelected)
-    {
-        _isSelected = YES;
-        [standartImage removeFromSuperview];
-        selectedImage.alpha = 1.f;
-        [self.view addSubview:selectedImage];
-    }
-}
-
--(void) deselect
-{
-    if (_isSelected)
-    {
-        _isSelected = NO;
-        [selectedImage removeFromSuperview];
-        [self.view addSubview:standartImage];
-        selectedImage.alpha = 0;
-    }
-}
-
-@end
-
-
 
 @implementation PGFilterView
 @synthesize avialebleFilterNames = filterNames;
@@ -120,6 +35,24 @@
         
         oldeSelectedView = 0;
             
+    }
+    
+    return self;
+}
+
+- (id) initFilterViewWithFilterNames:(NSArray *) names
+{
+    self = [super initWithFrame:CGRectMake(0, 340, 320, 70)];
+    if (self)
+    {
+        self.isAdded = NO;
+        filterNames = names;
+        //_thread = [[NSThread alloc] initWithTarget:self selector:@selector(addFilterViews:) object:nil];
+        [self addFilterViews:nil];
+        //[_thread start];
+        
+        oldeSelectedView = 0;
+        
     }
     
     return self;

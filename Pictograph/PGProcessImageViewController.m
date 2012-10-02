@@ -14,6 +14,8 @@
 #import "UIImage+FixOrientation.h"
 #import "PGSegmentedControl.h"
 #import "PGCaptionTextView.h"
+#import "PGFiltersAndBordersAndAditionalView.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #define IMAGE_SIZE 640
@@ -102,7 +104,7 @@
     {
        isCaptionMode = YES;
         CGRect newPhotoFrame = self.imageView.frame;
-        CGRect filterFrame = filterView.frame;
+        CGRect filterFrame = mulitiFilterView.frame;
         
         newPhotoFrame.origin.y -= ANIMATION_DISTANCE;
         filterFrame.origin.y -= ANIMATION_DISTANCE;
@@ -110,7 +112,7 @@
         [UIView setAnimationDuration:0.45];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         self.imageView.frame = newPhotoFrame;
-        filterView.frame = filterFrame;
+        mulitiFilterView.frame = filterFrame;
         [UIView commitAnimations];
         
         [UIView beginAnimations:@"FolderOpenView" context:NULL];
@@ -126,7 +128,7 @@
     {
         isCaptionMode = NO;
         CGRect newPhotoFrame = self.imageView.frame;
-        CGRect filterFrame = filterView.frame;
+        CGRect filterFrame = mulitiFilterView.frame;
         
         newPhotoFrame.origin.y += ANIMATION_DISTANCE;
         filterFrame.origin.y += ANIMATION_DISTANCE;
@@ -134,7 +136,7 @@
         [UIView setAnimationDuration:0.45];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         self.imageView.frame = newPhotoFrame;
-        filterView.frame = filterFrame;
+        mulitiFilterView.frame = filterFrame;
         captionView.alpha = 0;
         [UIView commitAnimations];
         
@@ -386,10 +388,13 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     }
     
     //Инициализация фильтров
-    filterView = [[PGFilterView alloc] initFilterView];
-    filterView.frame = CGRectMake(0, 1, filterView.frame.size.width, filterView.frame.size.height);
-    filterView.del = self;
-    [self.view addSubview:filterView];
+    mulitiFilterView = [[PGFiltersAndBordersAndAditionalView alloc] initWithFrame:CGRectMake(0, 1, 320, 70)];
+  //  mulitiFilterView.frame = CGRectMake(0, 1, mulitiFilterView.frame.size.width, mulitiFilterView.frame.size.height);
+    //filterView.del = self;
+    
+    [self.view addSubview:mulitiFilterView];
+    mulitiFilterView.filtersView.del = self;
+    filterView = mulitiFilterView.filtersView;
     // Do any additional setup after loading the view from its nib.
 //
 //    
@@ -501,6 +506,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [self setUpText:nil];
     activityIndicator = nil;
     filterView = nil;
+     mulitiFilterView = nil;
     [super viewDidUnload];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
@@ -515,8 +521,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 //    
 //    self.downText.font = newFont;
     activeFontName = font;
-    [captionTextView drawText:nil withFont:activeFontName];
-    [captionTextViewUp drawText:nil withFont:activeFontName];
+    [captionTextView changeFontTo:activeFontName];
+    [captionTextViewUp changeFontTo:activeFontName];
 }
 
 #pragma mark - UIScrollViewDelegate methods
@@ -536,21 +542,32 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 {
     
     //[activityIndicator startAnimating];
-    pthread_mutex_lock(&mutxFilter);
-    if (picketImage != nil)
+    if ([filterName hasPrefix:@"B_"])
     {
-        currentFilterName = filterName;
         
-        filterObject = [filtersDic objectForKey:filterName];
-        if (filterObject == nil) {
-            filterObject = [[NSClassFromString(filterName) alloc] init];
-            [filtersDic setObject:filterObject forKey:filterName];
-        }
-        
-      
-        [filterObject filterForImage:picketImage andView:dispImageView];
     }
-    pthread_mutex_unlock(&mutxFilter);
+    else if ([filterName hasPrefix:@"F_"])
+    {
+        
+    }
+    else
+    {
+        pthread_mutex_lock(&mutxFilter);
+        if (picketImage != nil)
+        {
+            currentFilterName = filterName;
+            
+            filterObject = [filtersDic objectForKey:filterName];
+            if (filterObject == nil) {
+                filterObject = [[NSClassFromString(filterName) alloc] init];
+                [filtersDic setObject:filterObject forKey:filterName];
+            }
+            
+          
+            [filterObject filterForImage:picketImage andView:dispImageView];
+        }
+        pthread_mutex_unlock(&mutxFilter);
+    }
 }
 
 -(void) initializeFilterBg:(NSString*) ignoreFilter

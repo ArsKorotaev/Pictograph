@@ -25,10 +25,16 @@
 
 - (void) drawText:(NSString *)text withFont:(NSString *)fontName
 {
-//    if (text != nil)
-//    {
+    if (text != nil)
+    {
         self.textToDraw = text;
-//    }
+    }
+    _fontName = fontName;
+    [self setNeedsDisplay];
+}
+
+- (void) changeFontTo:(NSString *)fontName
+{
     _fontName = fontName;
     [self setNeedsDisplay];
 }

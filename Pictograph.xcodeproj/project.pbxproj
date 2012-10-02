@@ -63,6 +63,7 @@
 		8C25243A160E2B15002651B8 /* Helvetica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252434160E2B15002651B8 /* Helvetica.ttf */; };
 		8C25243B160E2B15002651B8 /* Lobster 1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252435160E2B15002651B8 /* Lobster 1.4.otf */; };
 		8C25243C160E2B15002651B8 /* tt1018m_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C252436160E2B15002651B8 /* tt1018m_.ttf */; };
+		8C2D609A161ABFF800E8E58F /* FilterMicroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2D6099161ABFF800E8E58F /* FilterMicroView.m */; };
 		8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */; };
 		8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9BC161074AA00597A4E /* FilterMask-2.png */; };
 		8C32A9C1161076B000597A4E /* AmatorkaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9C0161076B000597A4E /* AmatorkaFilter.m */; };
@@ -336,6 +337,8 @@
 		8C252434160E2B15002651B8 /* Helvetica.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Helvetica.ttf; path = Fonts/Helvetica.ttf; sourceTree = "<group>"; };
 		8C252435160E2B15002651B8 /* Lobster 1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lobster 1.4.otf"; path = "Fonts/Lobster 1.4.otf"; sourceTree = "<group>"; };
 		8C252436160E2B15002651B8 /* tt1018m_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = tt1018m_.ttf; path = Fonts/tt1018m_.ttf; sourceTree = "<group>"; };
+		8C2D6098161ABFF700E8E58F /* FilterMicroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterMicroView.h; sourceTree = "<group>"; };
+		8C2D6099161ABFF800E8E58F /* FilterMicroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterMicroView.m; sourceTree = "<group>"; };
 		8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2@2x.png"; sourceTree = "<group>"; };
 		8C32A9BC161074AA00597A4E /* FilterMask-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2.png"; sourceTree = "<group>"; };
 		8C32A9BF161076B000597A4E /* AmatorkaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmatorkaFilter.h; sourceTree = "<group>"; };
@@ -768,6 +771,8 @@
 				8C4CD9FF160F143800890DDB /* Custom filters classes */,
 				8C4CD9FC160F0F2B00890DDB /* PGFilterView.h */,
 				8C4CD9FD160F0F2B00890DDB /* PGFilterView.m */,
+				8C2D6098161ABFF700E8E58F /* FilterMicroView.h */,
+				8C2D6099161ABFF800E8E58F /* FilterMicroView.m */,
 				8C43DC381615768800B7FCA1 /* Processing */,
 				8C345782161336B2009CFAB5 /* UIImage+FixOrientation.h */,
 				8C345783161336B2009CFAB5 /* UIImage+FixOrientation.m */,
@@ -1538,6 +1543,7 @@
 				8C43DC3C1615770700B7FCA1 /* PGFiltersAndBordersAndAditionalView.m in Sources */,
 				8C745FC016171C17002085A7 /* SepiaFilter.m in Sources */,
 				8C745FC816173E51002085A7 /* MissEtikateFilter.m in Sources */,
+				8C2D609A161ABFF800E8E58F /* FilterMicroView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

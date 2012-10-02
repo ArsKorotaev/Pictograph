@@ -16,8 +16,8 @@
 }
 
 @property  NSString *textToDraw;
--(void) drawText:(NSString*) text withFont:(NSString*) fontName;
-
+- (void) drawText:(NSString*) text withFont:(NSString*) fontName;
+- (void) changeFontTo:(NSString*) fontName;
 @end
 
 void DrawUpText(CGContextRef myContext, CGRect contextRect, const char *text, unsigned int length, const char *fontName, char upsidedown);

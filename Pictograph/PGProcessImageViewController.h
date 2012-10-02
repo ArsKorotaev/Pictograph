@@ -17,6 +17,7 @@
 @protocol PGSegmentedControlDelegate;
 
 @class PGProcessImageViewController;
+@class PGFiltersAndBordersAndAditionalView;
 
 @protocol PGProcessImageDelegate <NSObject>
 
@@ -40,6 +41,7 @@
     
     BOOL isCaptionMode;
     
+    PGFiltersAndBordersAndAditionalView *mulitiFilterView;
     
     
     
