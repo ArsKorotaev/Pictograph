@@ -181,8 +181,25 @@
     CGContextRef context = MyCreateBitmapContext(IMAGE_SIZE,IMAGE_SIZE);
     CGContextDrawImage(context, myRect, mySubimage);
 
-   // CGContextScaleCTM(context, imageArea.zoomScale, imageArea.zoomScale);
-    //MyDrawText(context, CGRectMake(0, 20, IMAGE_SIZE, 300), "Hellow every body!", 18);
+//    //Рисоавание рамки
+//    UIImage *bImage;
+//    if (borderView.contentOffset.x == 0)
+//    {
+//        bImage = [(UIImageView*)[borderView viewWithTag:LEFT_IMAGE] image];
+//    }
+//    else
+//    {
+//        bImage = [(UIImageView*)[borderView viewWithTag:RIGHT_IMAGE] image];
+//
+//    }
+    if (activeBorderImage != nil)
+    {
+        CGImageRef borderImg = CGImageCreateWithImageInRect([activeBorderImage CGImage], myRect);
+        CGContextDrawImage(context, myRect, borderImg);
+        CGImageRelease(borderImg);
+    }
+    
+    //Рисование текста
     DrawText(context, captionTextView.frame, [captionTextView.textToDraw UTF8String], [captionTextView.textToDraw length],[segmentedControl.curentFontName UTF8String], 'N');
     DrawUpText(context, captionTextViewUp.frame, [captionTextViewUp.textToDraw UTF8String], [captionTextViewUp.textToDraw length],[segmentedControl.curentFontName UTF8String], 'N');
     CGImageRef myImage;
@@ -192,35 +209,8 @@
     CGImageRelease(myImage);
     CGImageRelease(mySubimage);
     CGContextRelease(context);
-//    
-//    UIImage *rezult = [UIImage imageWithCGImage:mySubimage];
-//    
-//    UIImageWriteToSavedPhotosAlbum(rezult, nil, nil, NULL);
-//    
-//    UIImage *finalImage = [UIImage imageWithCGImage:mySubimage];
-//
-//    CGSize imageSize = CGSizeMake(IMAGE_SIZE, IMAGE_SIZE);
-//    UIGraphicsBeginImageContext(imageSize);
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
-////    CGContextTranslateCTM (context, IMAGE_SIZE, IMAGE_SIZE);
-////    CGContextRotateCTM (context, M_PI);
-//    
-//    CGContextDrawImage(context, CGRectMake(0, 0, IMAGE_SIZE, IMAGE_SIZE), mySubimage);
-//    
-//    
-//    
-//    NSString *text = @"Wa aw";
-//    
-//    [text drawInRect:CGRectMake(0, 0, IMAGE_SIZE, IMAGE_SIZE) withFont:[UIFont systemFontOfSize:40]];
-//    
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationDown];
     
     [self.delegate PGProcessImageViewController:self processedImage:scaledImage];
-    //UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, NULL);
 }
 
 void MyDrawText (CGContextRef myContext, CGRect contextRect, char *text, unsigned int length) // 1
@@ -387,6 +377,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 {
     [super viewDidLoad];
   
+    
     //Окно для подписи
 //    captionView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 314, 320, 92)];
 //    UIImage *captionBgImage = [UIImage imageNamed:@"Filters_Menu.png"];
@@ -515,6 +506,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 }
 
 - (void)viewDidUnload {
+   
+    isExitFromProcessing = YES;
     [self setImageView:nil];
     [self setSaveBtn:nil];
     [self setCancelButton:nil];
@@ -568,20 +561,22 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
         NSRange prefixRange = {0,2};
         NSString *fileName = [[filterName stringByReplacingCharactersInRange:prefixRange withString:@""] stringByAppendingPathExtension:@"png"];
     
-        UIImage *borderImage = [UIImage imageNamed:fileName];
+        activeBorderImage = [UIImage imageNamed:fileName];
         
         if (borderView.contentOffset.x == 0)
         {
             UIImageView *imageView = (UIImageView*)[borderView viewWithTag:RIGHT_IMAGE];
-            [imageView setImage:borderImage];
+            [imageView setImage:activeBorderImage];
             [borderView setContentOffset:CGPointMake(borderView.frame.size.width / 2, 0) animated:YES];
         }
         else
         {
             UIImageView *imageView = (UIImageView*)[borderView viewWithTag:LEFT_IMAGE];
-            [imageView setImage:borderImage];
+            [imageView setImage:activeBorderImage];
             [borderView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
+        
+        //activeBorderImage = borderImage;
     }
     else if ([filterName hasPrefix:@"F_"])
     {
@@ -609,25 +604,31 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 
 -(void) initializeFilterBg:(NSString*) ignoreFilter
 {
+    NSLog(@"Start wait");
     sem_wait(picketImageSem);
+    NSLog(@"Stop wait");
+    [NSThread setThreadPriority:1.0];
     NSArray *avialableFiltrerNames = filterView.avialebleFilterNames;
     PGFilter *filter;
     for (NSString *curentFilterName in avialableFiltrerNames) {
         pthread_mutex_lock(&mutxFilter);
         if (![curentFilterName isEqualToString:ignoreFilter] && [filtersDic objectForKey:curentFilterName] == nil)
         {
-            if (picketImage == nil)
+            if (isExitFromProcessing == NO)
             {
-                NSLog(@"Terminate thread");
+                filter = [[NSClassFromString(curentFilterName) alloc] init];
+                [filtersDic setObject:filter forKey:curentFilterName];
+                [filter createProcessedImageForImage:picketImage];
+            }
+            else{
+                 pthread_mutex_unlock(&mutxFilter);
                 [NSThread exit];
                 
-                pthread_mutex_unlock(&mutxFilter);
             }
-            filter = [[NSClassFromString(curentFilterName) alloc] init];
-            [filtersDic setObject:filter forKey:curentFilterName];
-            [filter createProcessedImageForImage:picketImage];
+            
         }
         pthread_mutex_unlock(&mutxFilter);
+       
         
     }
 }

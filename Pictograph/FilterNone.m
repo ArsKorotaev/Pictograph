@@ -51,6 +51,7 @@
 
 -(void) createProcessedImageForImage:(UIImage *)image
 {
+    [super createProcessedImageForImage:image];
      processedImage = image;
 }
 

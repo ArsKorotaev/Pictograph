@@ -16,7 +16,7 @@
     if (self) {
         _filtersView = [[PGFilterView alloc] initFilterViewWithFilterNames:@[@"FilterNone", @"HipsterFilter", @"SepiaFilter", @"AmatorkaFilter", @"MissEtikateFilter"]];
         _filtersView.frame = frame;
-        _boredersView = [[PGFilterView alloc] initFilterViewWithFilterNames:@[@"B_None", @"B_Demotivator", @"B_Polaroid", @"B_Caption_Mask", @"B_BlackCorners"]];
+        _boredersView = [[PGFilterView alloc] initFilterViewWithFilterNames:@[@"B_None", @"B_Demotivator", @"B_Polaroid", @"B_DownCaption", @"B_BlackCorners"]];
         CGRect bordersViewFrame = _filtersView.frame;
         bordersViewFrame.origin.x += _filtersView.frame.size.width;
         [_boredersView setFrame:bordersViewFrame];

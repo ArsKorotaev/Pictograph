@@ -55,6 +55,7 @@
 
 -(void) createProcessedImageForImage:(UIImage *)image
 {
+    [super createProcessedImageForImage:image];
     GPUImageMissEtikateFilter *stillImageFilter2 = [[GPUImageMissEtikateFilter alloc] init];
     processedImage = [stillImageFilter2 imageByFilteringImage:image];
 

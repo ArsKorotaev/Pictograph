@@ -91,7 +91,7 @@
     }
 }
 
--(void) addViewWithAnimation:(UIView*) view atIndex:(NSInteger) index
+- (void) addViewWithAnimation:(UIView*) view atIndex:(NSInteger) index
 {
     [self addSubview:view];
     [UIView beginAnimations:nil context:nil];

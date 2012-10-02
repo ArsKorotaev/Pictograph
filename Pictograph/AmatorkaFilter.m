@@ -78,6 +78,7 @@ NSString *const kCustomFilterShaderString = SHADER_STRING
 
 -(void) createProcessedImageForImage:(UIImage *)image
 {
+    [super createProcessedImageForImage:image];
     GPUImageAmatorkaFilter *stillImageFilter2 = [[GPUImageAmatorkaFilter alloc] init];
     processedImage = [stillImageFilter2 imageByFilteringImage:image];
 }

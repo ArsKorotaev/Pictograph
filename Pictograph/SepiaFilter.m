@@ -50,6 +50,7 @@
 
 -(void) createProcessedImageForImage:(UIImage *)image
 {
+    [super createProcessedImageForImage:image];
     GPUImageSepiaFilter *stillImageFilter2 = [[GPUImageSepiaFilter alloc] init];
     processedImage = [stillImageFilter2 imageByFilteringImage:image];
 

@@ -27,14 +27,17 @@
 
 @interface PGProcessImageViewController : UIViewController <UIScrollViewDelegate, UITextFieldDelegate, PGSegmentedControlDelegate>
 {
-    UIImage *picketImage;
     
-    UIScrollView *imageArea;
+    UIImage *picketImage; //Толькочто сделанное фото или полученное из библиотеки
+    UIImage *activeBorderImage; //Текущая рамка изображения
+    
+    UIScrollView *imageArea;//Вью на котором расположена фотография
     
     UIImageView *dispImage;
     
     UIImageView *dispImageView;
-    UIScrollView *borderView;
+    
+    UIScrollView *borderView;//Скрол для хранения рамок
     
     PGFilterView *filterView;
     PGFilter *filterObject;
@@ -42,9 +45,12 @@
     
     BOOL isCaptionMode;
     
+    BOOL isExitFromProcessing;
+    
     PGFiltersAndBordersAndAditionalView *mulitiFilterView;
     
-    
+    //Лица добавленные на фото
+    NSArray *facesArray;
     
     IBOutlet UIScrollView *interfaceScroll;
     IBOutlet UIActivityIndicatorView *activityIndicator;

@@ -71,6 +71,8 @@
 		8C2D60A5161ADBD100E8E58F /* SepiaFilter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D60A0161ADBD100E8E58F /* SepiaFilter@2x.png */; };
 		8C2D60A8161ADE2000E8E58F /* FilterMask-2-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D60A6161ADE2000E8E58F /* FilterMask-2-1@2x.png */; };
 		8C2D60A9161ADE2000E8E58F /* FilterMask-2-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D60A7161ADE2000E8E58F /* FilterMask-2-2@2x.png */; };
+		8C2D60AB161B02AC00E8E58F /* DownCaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D60AA161B02AC00E8E58F /* DownCaption.png */; };
+		8C2D60AD161B046600E8E58F /* BlackCorners.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D60AC161B046500E8E58F /* BlackCorners.png */; };
 		8C32A9BA1610749E00597A4E /* FilterMask-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */; };
 		8C32A9BD161074AA00597A4E /* FilterMask-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C32A9BC161074AA00597A4E /* FilterMask-2.png */; };
 		8C32A9C1161076B000597A4E /* AmatorkaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C32A9C0161076B000597A4E /* AmatorkaFilter.m */; };
@@ -353,6 +355,8 @@
 		8C2D60A0161ADBD100E8E58F /* SepiaFilter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SepiaFilter@2x.png"; sourceTree = "<group>"; };
 		8C2D60A6161ADE2000E8E58F /* FilterMask-2-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2-1@2x.png"; sourceTree = "<group>"; };
 		8C2D60A7161ADE2000E8E58F /* FilterMask-2-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2-2@2x.png"; sourceTree = "<group>"; };
+		8C2D60AA161B02AC00E8E58F /* DownCaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownCaption.png; sourceTree = "<group>"; };
+		8C2D60AC161B046500E8E58F /* BlackCorners.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackCorners.png; sourceTree = "<group>"; };
 		8C32A9B91610749E00597A4E /* FilterMask-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2@2x.png"; sourceTree = "<group>"; };
 		8C32A9BC161074AA00597A4E /* FilterMask-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterMask-2.png"; sourceTree = "<group>"; };
 		8C32A9BF161076B000597A4E /* AmatorkaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmatorkaFilter.h; sourceTree = "<group>"; };
@@ -819,6 +823,8 @@
 		8C2523DE160E1695002651B8 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				8C2D60AC161B046500E8E58F /* BlackCorners.png */,
+				8C2D60AA161B02AC00E8E58F /* DownCaption.png */,
 				8C2D60A6161ADE2000E8E58F /* FilterMask-2-1@2x.png */,
 				8C2D60A7161ADE2000E8E58F /* FilterMask-2-2@2x.png */,
 				8C2D609B161ADBD100E8E58F /* Filters Images */,
@@ -1414,6 +1420,8 @@
 				8C2D60A5161ADBD100E8E58F /* SepiaFilter@2x.png in Resources */,
 				8C2D60A8161ADE2000E8E58F /* FilterMask-2-1@2x.png in Resources */,
 				8C2D60A9161ADE2000E8E58F /* FilterMask-2-2@2x.png in Resources */,
+				8C2D60AB161B02AC00E8E58F /* DownCaption.png in Resources */,
+				8C2D60AD161B046600E8E58F /* BlackCorners.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1649,7 +1657,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Arseny Korotaev";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1658,6 +1666,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4D2F9221-7B48-4D96-88C9-CEE0A4D80F8B";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

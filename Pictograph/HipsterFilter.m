@@ -54,7 +54,7 @@
 
 -(void) createProcessedImageForImage:(UIImage *)image
 {
-    
+    [super createProcessedImageForImage:image];
     GPUImageSoftEleganceFilter *stillImageFilter2 = [[GPUImageSoftEleganceFilter alloc] init];
     processedImage = [stillImageFilter2 imageByFilteringImage:image];
 }

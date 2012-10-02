@@ -62,7 +62,7 @@
 
 - (void) createProcessedImageForImage:(UIImage *)image
 {
-    
+    NSLog(@"Start processed: %@",NSStringFromClass([self class]));
 }
 -(UIImage*) image
 {
@@ -84,7 +84,7 @@
 
 -(void) dealloc
 {
-    NSLog(@"Destroy filter");
-    pthread_mutex_destroy(&mutex);
+    NSLog(@"Destroy filter: %@",NSStringFromClass([self class]));
+    pthread_mutex_destroy(&mutex); 
 }
 @end
