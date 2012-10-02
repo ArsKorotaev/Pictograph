@@ -17,12 +17,7 @@
         UIImage *standartImg = [UIImage imageNamed:@"FilterMask.png"];
         UIImage *selectedImg = [UIImage imageNamed:@"FilterMask_Active.png"];
         
-        //Добавление маски
-        UIImage *_maskingImage = [UIImage imageNamed:@"FilterMask-2.png"];
-        CALayer *_maskingLayer = [CALayer layer];
-        _maskingLayer.frame = self.view.bounds;
-        [_maskingLayer setContents:(id)[_maskingImage CGImage]];
-        [self.view.layer setMask:_maskingLayer];
+        
         
         standartImage = [[UIImageView alloc] initWithImage:standartImg];
         selectedImage = [[UIImageView alloc] initWithImage:selectedImg];
@@ -43,7 +38,16 @@
 
 -(void) setImage:(UIImage *)image
 {
+        
     mainImage = [[UIImageView alloc] initWithImage:image];
+    
+    //Добавление маски
+    UIImage *_maskingImage = [UIImage imageNamed:@"FilterMask-2-1.png"];
+    CALayer *_maskingLayer = [CALayer layer];
+    _maskingLayer.frame = self.view.bounds;
+    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
+    [mainImage.layer setMask:_maskingLayer];
+
     [self.view addSubview:mainImage];
 }
 -(void) select

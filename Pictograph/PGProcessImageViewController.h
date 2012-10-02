@@ -34,6 +34,7 @@
     UIImageView *dispImage;
     
     UIImageView *dispImageView;
+    UIScrollView *borderView;
     
     PGFilterView *filterView;
     PGFilter *filterObject;

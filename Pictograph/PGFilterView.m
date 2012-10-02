@@ -69,6 +69,8 @@
             viewToAdd.view = [self createSubviewForIndex:i];
             viewToAdd.view.tag = i;
             viewToAdd.filterName = [filterNames objectAtIndex:i];
+            NSString *imageName = [viewToAdd.filterName stringByAppendingString:@".png"];
+            viewToAdd.image = [UIImage imageNamed:imageName];
             //[self performSelectorOnMainThread:@selector(addViewWithAnimation:) withObject:viewToAdd waitUntilDone:NO];
             //[NSThread sleepForTimeInterval:0.25];
             [viewsArray insertObject:viewToAdd atIndex:i];

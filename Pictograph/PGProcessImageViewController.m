@@ -20,6 +20,8 @@
 #include <stdio.h>
 #define IMAGE_SIZE 640
 #define ANIMATION_DISTANCE 75
+#define LEFT_IMAGE 1
+#define RIGHT_IMAGE 2
 @interface PGProcessImageViewController () <PGFilterViewDelegate>
 
 @end
@@ -360,6 +362,24 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     //    self.downText.numberOfLines = 3;
     captionTextViewUp = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 5, 320, 40)];
     
+  
+    
+    
+    //Рамки
+    CGRect borderViewFrame = CGRectMake(0, 6, imageArea.frame.size.width * 2, imageArea.frame.size.height);
+    borderView = [[UIScrollView alloc] initWithFrame:borderViewFrame];
+    borderView.userInteractionEnabled = NO;
+    borderView.contentSize = self.imageView.frame.size;
+    UIImageView *leftImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageArea.frame.size.width, imageArea.frame.size.height)];
+    leftImage.tag = LEFT_IMAGE;
+    UIImageView *rightImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageArea.frame.size.width, 0, imageArea.frame.size.width, self.imageView.frame.size.height)];
+    rightImage.tag = RIGHT_IMAGE;
+    [borderView addSubview:leftImage];
+    [borderView addSubview:rightImage];
+    
+    [self.imageView addSubview:borderView];
+    
+    
     [self.imageView addSubview:captionTextView];
     [self.imageView addSubview:captionTextViewUp];
 }
@@ -394,6 +414,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     [self.view addSubview:mulitiFilterView];
     mulitiFilterView.filtersView.del = self;
+    mulitiFilterView.boredersView.del = self;
     filterView = mulitiFilterView.filtersView;
     // Do any additional setup after loading the view from its nib.
 //
@@ -544,7 +565,23 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     //[activityIndicator startAnimating];
     if ([filterName hasPrefix:@"B_"])
     {
+        NSRange prefixRange = {0,2};
+        NSString *fileName = [[filterName stringByReplacingCharactersInRange:prefixRange withString:@""] stringByAppendingPathExtension:@"png"];
+    
+        UIImage *borderImage = [UIImage imageNamed:fileName];
         
+        if (borderView.contentOffset.x == 0)
+        {
+            UIImageView *imageView = (UIImageView*)[borderView viewWithTag:RIGHT_IMAGE];
+            [imageView setImage:borderImage];
+            [borderView setContentOffset:CGPointMake(borderView.frame.size.width / 2, 0) animated:YES];
+        }
+        else
+        {
+            UIImageView *imageView = (UIImageView*)[borderView viewWithTag:LEFT_IMAGE];
+            [imageView setImage:borderImage];
+            [borderView setContentOffset:CGPointMake(0, 0) animated:YES];
+        }
     }
     else if ([filterName hasPrefix:@"F_"])
     {
