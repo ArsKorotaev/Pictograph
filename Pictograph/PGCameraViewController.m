@@ -144,6 +144,13 @@
 
 - (IBAction)flashButtonPressed:(id)sender {
     
+    NSError *error = nil;
+    if (![stillCamera.inputCamera lockForConfiguration:&error])
+    {
+        NSLog(@"Error locking for configuration: %@", error);
+        return;
+    }
+    
     if (stillCamera.inputCamera.flashMode == AVCaptureFlashModeOff)
     {
         flashStatusLabel.text = @"On";
@@ -158,6 +165,7 @@
         [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
     }
     
+    [stillCamera.inputCamera unlockForConfiguration];
    
 }
 
