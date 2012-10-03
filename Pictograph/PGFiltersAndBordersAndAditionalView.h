@@ -24,6 +24,6 @@
 }
 @property (readonly) PGFilterView *filtersView;
 @property (readonly) PGFilterView *boredersView;
-
+@property (readonly) PGFilterView *facesView;
 @property NSArray *contentList;
 @end

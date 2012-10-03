@@ -10,6 +10,7 @@
 		8C0FDD3B1612EEE400B6CA34 /* PGProcessImageViewController+Caption.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0FDD3A1612EEE200B6CA34 /* PGProcessImageViewController+Caption.m */; };
 		8C0FDD3F161302F500B6CA34 /* PGSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0FDD3E161302F400B6CA34 /* PGSegmentedControl.m */; };
 		8C0FDD4216130A9700B6CA34 /* PGCaptionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0FDD4116130A9600B6CA34 /* PGCaptionTextView.m */; };
+		8C23AB2F161B3748003ED0B6 /* PGFacesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C23AB2E161B3748003ED0B6 /* PGFacesView.m */; };
 		8C2523B6160E1573002651B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2523B5160E1573002651B8 /* UIKit.framework */; };
 		8C2523B8160E1573002651B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2523B7160E1573002651B8 /* Foundation.framework */; };
 		8C2523BA160E1573002651B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2523B9160E1573002651B8 /* CoreGraphics.framework */; };
@@ -288,6 +289,8 @@
 		8C0FDD3E161302F400B6CA34 /* PGSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSegmentedControl.m; sourceTree = "<group>"; };
 		8C0FDD4016130A9500B6CA34 /* PGCaptionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCaptionTextView.h; sourceTree = "<group>"; };
 		8C0FDD4116130A9600B6CA34 /* PGCaptionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCaptionTextView.m; sourceTree = "<group>"; };
+		8C23AB2D161B3748003ED0B6 /* PGFacesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFacesView.h; sourceTree = "<group>"; };
+		8C23AB2E161B3748003ED0B6 /* PGFacesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGFacesView.m; sourceTree = "<group>"; };
 		8C2523B1160E1573002651B8 /* Pictograph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pictograph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2523B5160E1573002651B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8C2523B7160E1573002651B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -905,6 +908,8 @@
 				8C0FDD4116130A9600B6CA34 /* PGCaptionTextView.m */,
 				8C43DC3A1615770700B7FCA1 /* PGFiltersAndBordersAndAditionalView.h */,
 				8C43DC3B1615770700B7FCA1 /* PGFiltersAndBordersAndAditionalView.m */,
+				8C23AB2D161B3748003ED0B6 /* PGFacesView.h */,
+				8C23AB2E161B3748003ED0B6 /* PGFacesView.m */,
 			);
 			name = Processing;
 			sourceTree = "<group>";
@@ -1588,6 +1593,7 @@
 				8C745FC016171C17002085A7 /* SepiaFilter.m in Sources */,
 				8C745FC816173E51002085A7 /* MissEtikateFilter.m in Sources */,
 				8C2D609A161ABFF800E8E58F /* FilterMicroView.m in Sources */,
+				8C23AB2F161B3748003ED0B6 /* PGFacesView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

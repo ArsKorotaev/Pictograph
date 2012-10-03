@@ -15,6 +15,7 @@
 #import "PGSegmentedControl.h"
 #import "PGCaptionTextView.h"
 #import "PGFiltersAndBordersAndAditionalView.h"
+#import "PGFacesView.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -406,6 +407,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [self.view addSubview:mulitiFilterView];
     mulitiFilterView.filtersView.del = self;
     mulitiFilterView.boredersView.del = self;
+    mulitiFilterView.facesView.del = self;
     filterView = mulitiFilterView.filtersView;
     // Do any additional setup after loading the view from its nib.
 //
@@ -580,7 +582,9 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     }
     else if ([filterName hasPrefix:@"F_"])
     {
-        
+        UIImage *image = [UIImage imageNamed:@"ActionBtn.png"];
+        PGFacesView *face = [[PGFacesView alloc] initWithFaceImage:image];
+        [self.imageView addSubview:face];
     }
     else
     {

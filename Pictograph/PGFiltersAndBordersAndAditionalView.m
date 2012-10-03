@@ -21,11 +21,14 @@
         bordersViewFrame.origin.x += _filtersView.frame.size.width;
         [_boredersView setFrame:bordersViewFrame];
         
-        
+        _facesView = [[PGFilterView alloc] initFilterViewWithFilterNames:@[@"F_TrollFace", @"F_Pocker", @"F_Happy", @"F_LOL", @"F_Dog"]];
+        CGRect facesViewFrame = _boredersView.frame;
+        bordersViewFrame.origin.x += _filtersView.frame.size.width;
+        [_facesView setFrame:facesViewFrame];
         
         scrollView = [[UIScrollView alloc] initWithFrame:_filtersView.frame];
         scrollView.pagingEnabled = YES;
-        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * 2, scrollView.frame.size.height);
+        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * 3, scrollView.frame.size.height);
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.showsVerticalScrollIndicator = NO;
         scrollView.scrollsToTop = NO;
@@ -33,6 +36,7 @@
         
         [scrollView addSubview:_filtersView];
         [scrollView addSubview:_boredersView];
+        [scrollView addSubview:_facesView];
         
         [self addSubview:scrollView];
         
