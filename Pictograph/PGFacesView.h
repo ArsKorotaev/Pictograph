@@ -13,6 +13,9 @@
     UIImage *faceImage;
     UIImageView *faceImageView;
     UIPinchGestureRecognizer *pinchGestureRec;
+    
+    BOOL isMoved;
+    CGPoint prevTouchLocation;
 }
 
 - (id) initWithFaceImage:(UIImage*) image;

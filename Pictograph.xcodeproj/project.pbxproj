@@ -276,6 +276,7 @@
 		8C745FC816173E51002085A7 /* MissEtikateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C745FC716173E51002085A7 /* MissEtikateFilter.m */; };
 		8C745FCA16174150002085A7 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C745FC916174150002085A7 /* lookup_soft_elegance_1.png */; };
 		8C745FCC1617415E002085A7 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C745FCB1617415E002085A7 /* lookup_soft_elegance_2.png */; };
+		8C791FF7161C7DC400D2AEBC /* Dog.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C791FF6161C7DC300D2AEBC /* Dog.png */; };
 		8C800DE3160F366D001F7CFD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */; };
 		8C800DF3160F43FC001F7CFD /* PGProcessImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */; };
 		8C800DF4160F43FC001F7CFD /* PGProcessImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C800DF2160F43FC001F7CFD /* PGProcessImageViewController.xib */; };
@@ -711,6 +712,7 @@
 		8C745FC716173E51002085A7 /* MissEtikateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissEtikateFilter.m; sourceTree = "<group>"; };
 		8C745FC916174150002085A7 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_1.png; sourceTree = "<group>"; };
 		8C745FCB1617415E002085A7 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_2.png; sourceTree = "<group>"; };
+		8C791FF6161C7DC300D2AEBC /* Dog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dog.png; sourceTree = "<group>"; };
 		8C800DE2160F366D001F7CFD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8C800DF0160F43FC001F7CFD /* PGProcessImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProcessImageViewController.h; sourceTree = "<group>"; };
 		8C800DF1160F43FC001F7CFD /* PGProcessImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGProcessImageViewController.m; sourceTree = "<group>"; };
@@ -826,6 +828,7 @@
 		8C2523DE160E1695002651B8 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				8C791FF6161C7DC300D2AEBC /* Dog.png */,
 				8C2D60AC161B046500E8E58F /* BlackCorners.png */,
 				8C2D60AA161B02AC00E8E58F /* DownCaption.png */,
 				8C2D60A6161ADE2000E8E58F /* FilterMask-2-1@2x.png */,
@@ -1427,6 +1430,7 @@
 				8C2D60A9161ADE2000E8E58F /* FilterMask-2-2@2x.png in Resources */,
 				8C2D60AB161B02AC00E8E58F /* DownCaption.png in Resources */,
 				8C2D60AD161B046600E8E58F /* BlackCorners.png in Resources */,
+				8C791FF7161C7DC400D2AEBC /* Dog.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

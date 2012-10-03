@@ -582,7 +582,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     }
     else if ([filterName hasPrefix:@"F_"])
     {
-        UIImage *image = [UIImage imageNamed:@"ActionBtn.png"];
+        UIImage *image = [UIImage imageNamed:@"Dog.png"];
         PGFacesView *face = [[PGFacesView alloc] initWithFaceImage:image];
         [self.imageView addSubview:face];
     }

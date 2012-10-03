@@ -23,7 +23,7 @@
         
         _facesView = [[PGFilterView alloc] initFilterViewWithFilterNames:@[@"F_TrollFace", @"F_Pocker", @"F_Happy", @"F_LOL", @"F_Dog"]];
         CGRect facesViewFrame = _boredersView.frame;
-        bordersViewFrame.origin.x += _filtersView.frame.size.width;
+        facesViewFrame.origin.x *= 2;
         [_facesView setFrame:facesViewFrame];
         
         scrollView = [[UIScrollView alloc] initWithFrame:_filtersView.frame];
