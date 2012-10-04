@@ -7,16 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PGFacesView;
 
-@interface PGFacesView : UIView
+@protocol FaceViewDelegate <NSObject>
+- (void) faceViewAskForDelete:(PGFacesView*) faveView;
+@end
+
+
+@interface PGFacesView : UIView <UIAlertViewDelegate>
 {
     UIImage *faceImage;
     UIImageView *faceImageView;
     UIPinchGestureRecognizer *pinchGestureRec;
+    UILongPressGestureRecognizer *longPressGestureRec;
     
     BOOL isMoved;
-    CGPoint prevTouchLocation;
+    CGPoint lastTouchLocation;
+    
+    UIView *parent;
+    
+    UIAlertView *alert;
 }
 
+@property (unsafe_unretained) id <FaceViewDelegate> delegate;
+
 - (id) initWithFaceImage:(UIImage*) image;
+- (void) deleteFaceView;
 @end

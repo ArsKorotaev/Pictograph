@@ -16,14 +16,14 @@
 #import "PGCaptionTextView.h"
 #import "PGFiltersAndBordersAndAditionalView.h"
 #import "PGFacesView.h"
-
+#import "FacesViewController.h"
 #include <stdlib.h>
 #include <stdio.h>
 #define IMAGE_SIZE 640
 #define ANIMATION_DISTANCE 75
 #define LEFT_IMAGE 1
 #define RIGHT_IMAGE 2
-@interface PGProcessImageViewController () <PGFilterViewDelegate>
+@interface PGProcessImageViewController () <PGFilterViewDelegate, FaceViewDelegate>
 
 @end
 
@@ -78,6 +78,9 @@
        
         viewLoadSemaphore = sem_open("View load semaphore", O_CREAT,0,0);
         
+        
+        facesSet = [[NSMutableSet alloc] init];
+        
     }
     
     return self;
@@ -94,6 +97,7 @@
 //    self.view = primaryView;
 //}
 - (IBAction)cancelButtonPressed:(id)sender {
+    [filterThread cancel];
     [filterObject removeFilter];
     picketImage = nil;
     [self.delegate PGProcessImageViewController:self processedImage:nil];
@@ -354,6 +358,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     captionTextViewUp = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 5, 320, 40)];
     
   
+    facesView = [[FacesViewController alloc] initWithFrame:imageArea.frame];
+   
     
     
     //Рамки
@@ -368,9 +374,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [borderView addSubview:leftImage];
     [borderView addSubview:rightImage];
     
+    
+    [self.imageView addSubview:facesView];
+    
     [self.imageView addSubview:borderView];
-    
-    
     [self.imageView addSubview:captionTextView];
     [self.imageView addSubview:captionTextViewUp];
 }
@@ -530,6 +537,13 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object: nil];
    // [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FinishProcessing" object:nil];
 }
+#pragma mark - FacesViewDelegate methods
+- (void) faceViewAskForDelete:(PGFacesView *)faceView
+{
+    [faceView deleteFaceView];
+    [facesSet removeObject:faceView];
+
+}
 #pragma mark - PGViewControllerDelegate methods
 - (void) segmentedControl:(PGSegmentedControl *)control setActiveTab:(NSInteger)tabIndex withFontName:(NSString *)font
 {
@@ -584,7 +598,12 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     {
         UIImage *image = [UIImage imageNamed:@"Dog.png"];
         PGFacesView *face = [[PGFacesView alloc] initWithFaceImage:image];
-        [self.imageView addSubview:face];
+        face.delegate = self;
+        [facesSet addObject:face];
+       // [facesView addface:face];
+//        [facesArray addObject:face];
+         [self.imageView addSubview:face];
+        
     }
     else
     {
@@ -618,7 +637,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
         pthread_mutex_lock(&mutxFilter);
         if (![curentFilterName isEqualToString:ignoreFilter] && [filtersDic objectForKey:curentFilterName] == nil)
         {
-            if (isExitFromProcessing == NO)
+            if (isExitFromProcessing == NO && picketImage != nil)
             {
                 filter = [[NSClassFromString(curentFilterName) alloc] init];
                 [filtersDic setObject:filter forKey:curentFilterName];
@@ -647,6 +666,9 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 {
     [lockFilter unlock];
 }
+
+
+
 
 
 -(void) addPicketImage:(UIImage *)image

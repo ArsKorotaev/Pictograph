@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 @implementation PGFacesView
 
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -28,12 +29,49 @@
         [self addSubview:faceImageView];
         
         pinchGestureRec = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureHandel:)];
+        longPressGestureRec = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPresGestureHandle:)];
+        longPressGestureRec.minimumPressDuration = 1.5;
         [self addGestureRecognizer:pinchGestureRec];
-        //[action:@selector(imageTouch:withEvent:) forControlEvents:UIControlEventTouchDown];
-        
+        [self addGestureRecognizer:longPressGestureRec];
     }
     
     return self;
+}
+
+- (void) longPresGestureHandle:(UILongPressGestureRecognizer*) gesture
+{
+    if (alert == nil) {
+        alert = [[UIAlertView alloc] initWithTitle:@"Delete face?"
+                                           message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert show];
+    }
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self.delegate faceViewAskForDelete:self];
+    }
+    
+    alert = nil;
+}
+
+- (void) deleteFaceView
+{
+    //Анимация удаления, вызывает делегат
+    [UIView animateWithDuration:0.5 animations:^(void)
+     {
+         self.alpha = 0;
+         CGAffineTransform xSacale = CGAffineTransformMakeScale(0, 0);
+         self.transform = xSacale;
+         
+     }
+                        completion:^(BOOL succes)
+     {
+         [self removeFromSuperview];
+     }];
+
 }
 
 -(void) pinchGestureHandel:(UIPinchGestureRecognizer*) gesture
@@ -44,42 +82,77 @@
     self.transform = xSacale;
 }
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    isMoved = YES;
     UITouch *touch = [touches anyObject];
-    prevTouchLocation = [touch locationInView:self];
+    CGPoint touchLocation = [touch locationInView:self.superview];
+    lastTouchLocation = touchLocation;
+    isMoved = YES;
 }
 
--(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (isMoved)
-    {
-//        UITouch *touch = [touches anyObject];
-//        CGPoint touchLocation = [touch locationInView:self];
-//        CGFloat deltaX = touchLocation.x - prevTouchLocation.x;
-//        CGFloat deltaY = touchLocation.y - prevTouchLocation.y;
-//        
-//        self.center = CGPointMake(self.center.x + deltaX, self.center.y + deltaY);
-//        
-//        prevTouchLocation = touchLocation;
-        UITouch *touch = [[event touchesForView:self] anyObject];
-        
-        // get delta
-        CGPoint previousLocation = [touch previousLocationInView:self];
-        CGPoint location = [touch locationInView:self];
-        CGFloat delta_x = location.x - previousLocation.x;
-        CGFloat delta_y = location.y - previousLocation.y;
-        
-        self.center = CGPointMake(self.center.x + delta_x,
-                                           self.center.y + delta_y);
+    if (isMoved == YES) {
+        UITouch *touch = [touches anyObject];
+
+        CGPoint touchLocation = [touch locationInView:self.superview];
+        CGFloat delta_x = touchLocation.x - lastTouchLocation.x;
+        CGFloat delta_y = touchLocation.y - lastTouchLocation.y;
+
+        self.center = CGPointMake(self.center.x + delta_x, self.center.y + delta_y);
+
+        lastTouchLocation = touchLocation;
+
     }
 }
 
--(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    isMoved = NO;
+    if (isMoved == YES) {
+        isMoved = NO;
+    }
+
 }
+
+//-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    isMoved = YES;
+//    
+//    UITouch *touch = [touches anyObject];
+//    prevTouchLocation = [touch locationInView:self.superview];
+//    parent = self.superview;
+//}
+//
+//-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    if (isMoved)
+//    {
+////        UITouch *touch = [touches anyObject];
+////        CGPoint touchLocation = [touch locationInView:self];
+////        CGFloat deltaX = touchLocation.x - prevTouchLocation.x;
+////        CGFloat deltaY = touchLocation.y - prevTouchLocation.y;
+////        
+////        self.center = CGPointMake(self.center.x + deltaX, self.center.y + deltaY);
+////        
+////        prevTouchLocation = touchLocation;
+//        UITouch *touch = [[event touchesForView:parent] anyObject];
+//        
+//        // get delta
+//        //CGPoint previousLocation = [touch previousLocationInView:self];
+//        CGPoint location = [touch locationInView:parent];
+//        CGFloat delta_x = location.x - prevTouchLocation.x;
+//        CGFloat delta_y = location.y - prevTouchLocation.y;
+//        
+//        self.center = CGPointMake(self.center.x + delta_x,
+//                                           self.center.y + delta_y);
+//        prevTouchLocation = location;
+//    }
+//}
+//
+//-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    isMoved = NO;
+//}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

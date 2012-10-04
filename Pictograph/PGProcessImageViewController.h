@@ -18,6 +18,7 @@
 
 @class PGProcessImageViewController;
 @class PGFiltersAndBordersAndAditionalView;
+@class FacesViewController;
 
 @protocol PGProcessImageDelegate <NSObject>
 
@@ -49,8 +50,14 @@
     
     PGFiltersAndBordersAndAditionalView *mulitiFilterView;
     
+    
+    //=====ЛИЦА
+    FacesViewController *facesView;
     //Лица добавленные на фото
-    NSArray *facesArray;
+    NSMutableSet *facesSet;
+//    UIView *touchedFace;
+//    CGPoint lastTouchLocation;
+    
     
     IBOutlet UIScrollView *interfaceScroll;
     IBOutlet UIActivityIndicatorView *activityIndicator;
