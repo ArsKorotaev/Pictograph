@@ -40,61 +40,12 @@
     // Do any additional setup after loading the view from its nib.
     [self createInterface];
     
-   //    //    filter = [[GPUImageGammaFilter alloc] init];
-//   // filter = [[GPUImageSketchFilter alloc] init];
-//    
-//    
-//    //filter = [[GPUImageSepiaFilter alloc] init];
-//    filter = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"WarmCool"];
-//    
-//    //    [(GPUImageSketchFilter *)filter setTexelHeight:(1.0 / 1024.0)];
-//    //    [(GPUImageSketchFilter *)filter setTexelWidth:(1.0 / 768.0)];
-//    //    filter = [[GPUImageSmoothToonFilter alloc] init];
-//    //    filter = [[GPUImageSepiaFilter alloc] init];
-//    
-//	[filter prepareForImageCapture];
-//    
-//    [stillCamera addTarget:filter];
-//    GPUImageView *filteredView = (GPUImageView *)self.view;
-//    [filter addTarget:filteredView];
-//    
-//    //    [stillCamera.inputCamera lockForConfiguration:nil];
-//    //    [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
-//    //    [stillCamera.inputCamera unlockForConfiguration];
-    
        
     
     self.flashSwitch.titleLabel.text = @"Auto";
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToFocusGesture:)];
+    [self.view addGestureRecognizer:tapGesture];
     
-    
-    
-    
-    //add view
-    
-//     UIImage *filterMask = [UIImage imageNamed:@"FilterMask.png"];
-//    
-//    
-//    
-//    
-//    GPUImageView *addFilterView = [[GPUImageView alloc] initWithFrame:CGRectMake(10, 300, 66, 65)];
-//    [self.view addSubview:addFilterView];
-//    
-//    
-//    UIImage *_maskingImage = [UIImage imageNamed:@"FilterMask.png"];
-//    CALayer *_maskingLayer = [CALayer layer];
-//    _maskingLayer.frame = addFilterView.bounds;
-//    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
-//    [addFilterView.layer setMask:_maskingLayer];
-//
-//    
-//    [addFilterView addSubview:[[UIImageView alloc] initWithImage:filterMask]];
-//    
-//    GPUImageFilter *filter1 = [[GPUImageGaussianBlurFilter alloc] init];
-//    [filter1 forceProcessingAtSize:addFilterView.sizeInPixels];
-//    
-//    [stillCamera addTarget:filter1];
-//    
-//    [filter1 addTarget:addFilterView];
 
 }
 
@@ -144,28 +95,31 @@
 
 - (IBAction)flashButtonPressed:(id)sender {
     
-    NSError *error = nil;
-    if (![stillCamera.inputCamera lockForConfiguration:&error])
+    if (stillCamera.inputCamera.hasFlash)
     {
-        NSLog(@"Error locking for configuration: %@", error);
-        return;
+        NSError *error = nil;
+        if (![stillCamera.inputCamera lockForConfiguration:&error])
+        {
+            NSLog(@"Error locking for configuration: %@", error);
+            return;
+        }
+        
+        if (stillCamera.inputCamera.flashMode == AVCaptureFlashModeOff)
+        {
+            flashStatusLabel.text = @"On";
+            [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
+        } else if (stillCamera.inputCamera.flashMode == AVCaptureFlashModeOff)
+        {
+            flashStatusLabel.text = @"Auto";
+            [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeAuto];
+        } else
+        {
+            flashStatusLabel.text = @"Off";
+            [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
+        }
+        
+        [stillCamera.inputCamera unlockForConfiguration];
     }
-    
-    if (stillCamera.inputCamera.flashMode == AVCaptureFlashModeOff)
-    {
-        flashStatusLabel.text = @"On";
-        [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
-    } else if (stillCamera.inputCamera.flashMode == AVCaptureFlashModeOff)
-    {
-        flashStatusLabel.text = @"Auto";
-        [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeAuto];
-    } else
-    {
-        flashStatusLabel.text = @"Off";
-        [stillCamera.inputCamera setFlashMode:AVCaptureFlashModeOn];
-    }
-    
-    [stillCamera.inputCamera unlockForConfiguration];
    
 }
 
@@ -204,30 +158,39 @@
     [stillCamera deleteOutputTexture];
     [stillCamera removeInputsAndOutputs];
     
-    PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:nil andFilterName:NSStringFromClass([filterObject class])];
+    PGProcessImageViewController *pivc;
+    if (!isBlured)
+    {
+        pivc = [[PGProcessImageViewController alloc] initWithImage:sender andFilterName:NSStringFromClass([filterObject class])];
+    }
+    else
+    {
+         pivc = [[PGProcessImageViewController alloc] initWithImage:nil andFilterName:NSStringFromClass([filterObject class])];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^()
+                       {
+                           UIImage *image;
+                           if  (isBlured)
+                           {
+                               NSLog(@"Start Blur");
+                               GPUImageFastBlurFilter *stillImageFilter2 = [[GPUImageFastBlurFilter alloc] init];
+                               image = [stillImageFilter2 imageByFilteringImage:sender];
+                               NSLog(@"End Blur");
+                           }
+                           else
+                           {
+                               image = sender;
+                           }
+                           
+                           [pivc addPicketImage:image];
+                       });
+
+    }
     pivc.delegate = self;
     [pivc setCancelButtonCaption:@"Retake"];
     [self presentModalViewController:pivc animated:YES];
     
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^()
-                   {
-                       UIImage *image;
-                       if  (isBlured)
-                       {
-                           NSLog(@"Start Blur");
-                           GPUImageFastBlurFilter *stillImageFilter2 = [[GPUImageFastBlurFilter alloc] init];
-                           image = [stillImageFilter2 imageByFilteringImage:sender];
-                           NSLog(@"End Blur");
-                       }
-                       else
-                       {
-                           image = sender;
-                       }
-                       
-                       [pivc addPicketImage:image];
-                   });
-
+    
     
 }
 
@@ -241,10 +204,7 @@
         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:sampleBuffer];
 
         UIImage *image = [[UIImage alloc] initWithData:imageData];
-//        UIImage *image = imageFromSampleBuffer(sampleBuffer);
-//        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 100, 100)];
-//        [img setImage:image];
-//        [self.view addSubview:img];
+            
             [self performSelectorOnMainThread:@selector(endCamera:) withObject:image waitUntilDone:NO];
            
         
@@ -253,44 +213,6 @@
     }
      ];
     
-
-    
- 
-//    [stillCamera capturePhotoAsImageProcessedUpToFilter:filterObject.lastFilter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
-//        
-//        runOnMainQueueWithoutDeadlocking(^{
-//            NSLog(@"Size: %f", processedImage.size.width);
-//                            PGProcessImageViewController *pivc = [[PGProcessImageViewController alloc] initWithImage:[processedImage copy]];
-//                             [self presentModalViewController:pivc animated:YES];
-//                        });
-//        
-//    }];
-    
-
-//    
-//    [stillCamera capturePhotoAsJPEGProcessedUpToFilter:filter  withCompletionHandler:^(NSData *processedJPEG, NSError *error){
-//        
-//        
-//        // Save to assets library
-//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//        //        report_memory(@"After asset library creation");
-//        
-//        [library writeImageDataToSavedPhotosAlbum:processedJPEG metadata:nil completionBlock:^(NSURL *assetURL, NSError *error2)
-//         {
-//             //             report_memory(@"After writing to library");
-//             if (error2) {
-//                 NSLog(@"ERROR: the image failed to be written");
-//             }
-//             else {
-//                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
-//             }
-//			 
-//             runOnMainQueueWithoutDeadlocking(^{
-//                 //                 report_memory(@"Operation completed");
-//                 [self.photoCaptureButton setEnabled:YES];
-//             });
-//         }];
-//    }];
 
 }
 
@@ -311,6 +233,16 @@
         isBlured = YES;
     }
     [self setFilterNamed:NSStringFromClass([filterObject class])];
+}
+
+- (void)tapToFocusGesture:(UITapGestureRecognizer*)sender {
+    
+    CGPoint touchLocation = [sender locationInView:self.view];
+    if (stillCamera.inputCamera.focusPointOfInterestSupported)
+    {
+        CGPoint autofocusPoint = CGPointMake(touchLocation.x / self.view.frame.size.width, touchLocation.y / self.view.frame.size.height);
+        [stillCamera.inputCamera setFocusPointOfInterest:autofocusPoint];
+    }
 }
 
 -(void) setFilterNamed:(NSString *)filterName

@@ -430,7 +430,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     }
     
     //Инициализация фильтров
-    mulitiFilterView = [[PGFiltersAndBordersAndAditionalView alloc] initWithFrame:CGRectMake(0, 1, 320, 70)];
+    mulitiFilterView = [[PGFiltersAndBordersAndAditionalView alloc] initWithFrame:CGRectMake(0, 0, 320, 70)];
   //  mulitiFilterView.frame = CGRectMake(0, 1, mulitiFilterView.frame.size.width, mulitiFilterView.frame.size.height);
     //filterView.del = self;
     
@@ -537,6 +537,12 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     // Dispose of any resources that can be recreated.
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+   
+    [filtersDic removeAllObjects];
+}
 - (void)viewDidUnload {
    
     isExitFromProcessing = YES;
@@ -554,6 +560,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     filterView = nil;
      mulitiFilterView = nil;
     [super viewDidUnload];
+    
+    
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -710,7 +718,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     pthread_mutex_destroy(&mutxFilter);
     [filterThread cancel];
     filterThread = nil;
-    [filtersDic removeAllObjects];
+   // [filtersDic removeAllObjects];
     sem_close(picketImageSem);
     sem_close(viewLoadSemaphore);
     NSLog(@"Processed image dealoc");

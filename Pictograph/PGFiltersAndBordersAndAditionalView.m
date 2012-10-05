@@ -42,7 +42,7 @@
         
         pageControl = [[UIPageControl alloc] init];
         pageControl.numberOfPages = 3;
-        pageControl.center = CGPointMake(scrollView.frame.size.width / 2, scrollView.frame.size.height);
+        pageControl.center = CGPointMake(scrollView.frame.size.width / 2, scrollView.frame.size.height - 5);
         //[pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:pageControl];
         
