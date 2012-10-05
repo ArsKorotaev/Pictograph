@@ -196,13 +196,36 @@
 //    {
 //        bImage = [(UIImageView*)[borderView viewWithTag:RIGHT_IMAGE] image];
 //
-//    }
+//
+    //Рисование лиц
+    if ([facesSet count] != 0) {
+        for ( PGFacesView *face in facesSet ) {
+            UIImage *image = [face image];
+            assert(image);
+            CGRect imageRec = CGRectMake(0, 0, image.size.width*2, image.size.height*2);
+            CGRect drawImageRec = face.frame;
+            CGFloat contentScaleFactor = self.view.contentScaleFactor;
+            
+            drawImageRec.size.height *= contentScaleFactor;
+            drawImageRec.size.width *= contentScaleFactor;
+            drawImageRec.origin.y = (IMAGE_SIZE - contentScaleFactor*drawImageRec.origin.y + 6*contentScaleFactor - face.frame.size.height*2);
+            drawImageRec.origin.x *= contentScaleFactor;
+            CGImageRef borderImg = CGImageCreateWithImageInRect([[face image] CGImage], imageRec);
+            CGContextDrawImage(context, drawImageRec, borderImg);
+            CGImageRelease(borderImg);
+        }
+    }
+    
+    
+    //Рисоавание рамки
     if (activeBorderImage != nil)
     {
         CGImageRef borderImg = CGImageCreateWithImageInRect([activeBorderImage CGImage], myRect);
         CGContextDrawImage(context, myRect, borderImg);
         CGImageRelease(borderImg);
     }
+    
+    
     
     //Рисование текста
     DrawText(context, captionTextView.frame, [captionTextView.textToDraw UTF8String], [captionTextView.textToDraw length],[segmentedControl.curentFontName UTF8String], 'N');

@@ -40,6 +40,12 @@
         
         [self addSubview:scrollView];
         
+        pageControl = [[UIPageControl alloc] init];
+        pageControl.numberOfPages = 3;
+        pageControl.center = CGPointMake(scrollView.frame.size.width / 2, scrollView.frame.size.height);
+        //[pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+        [self addSubview:pageControl];
+        
     }
     return self;
 }
@@ -59,6 +65,7 @@
     // Switch the indicator when more than 50% of the previous/next page is visible
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    pageControl.currentPage = page;
 }
 
 
@@ -72,6 +79,22 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     pageControlUsed = NO;
+}
+
+- (void)changePage:(id)sender
+{
+    int page = pageControl.currentPage;
+	
+    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+    
+	// update the scroll view to the appropriate page
+    CGRect frame = scrollView.frame;
+    frame.origin.x = frame.size.width * page;
+    frame.origin.y = 0;
+    [scrollView scrollRectToVisible:frame animated:YES];
+    
+	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
+    pageControlUsed = YES;
 }
 
 /*

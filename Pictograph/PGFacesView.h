@@ -27,9 +27,12 @@
     UIView *parent;
     
     UIAlertView *alert;
+    
+    CGFloat scale;
 }
 
 @property (unsafe_unretained) id <FaceViewDelegate> delegate;
+@property (readonly) UIImage* image;
 
 - (id) initWithFaceImage:(UIImage*) image;
 - (void) deleteFaceView;

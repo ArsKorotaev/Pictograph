@@ -10,7 +10,7 @@
 #import "PGFacesView.h"
 #import <QuartzCore/QuartzCore.h>
 @implementation PGFacesView
-
+@synthesize image = faceImage;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -25,6 +25,7 @@
 {
     self = [super initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
     if (self) {
+        faceImage = image;
         faceImageView = [[UIImageView alloc] initWithImage:image];
         [self addSubview:faceImageView];
         
@@ -33,6 +34,7 @@
         longPressGestureRec.minimumPressDuration = 1.5;
         [self addGestureRecognizer:pinchGestureRec];
         [self addGestureRecognizer:longPressGestureRec];
+        scale = 1;
     }
     
     return self;
@@ -77,10 +79,18 @@
 -(void) pinchGestureHandel:(UIPinchGestureRecognizer*) gesture
 {
     //faceImageView.contentScaleFactor = gesture.scale;
-    
+    scale *= gesture.scale;
     CGAffineTransform xSacale = CGAffineTransformMakeScale(gesture.scale, gesture.scale);
     self.transform = xSacale;
 }
+
+
+//- (CGImageRef) image
+//{
+//    CGImageRef scaledImage = [faceImage CGImage];
+//    
+//    return [faceImage CGImage];
+//}
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
