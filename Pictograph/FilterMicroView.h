@@ -17,6 +17,7 @@
 - (void) select;
 - (void) deselect;
 - (void) selectNoAnimation;
+- (void) highlight;
 @property UIView *view;
 @property (readonly) BOOL isSelected;
 @property NSString *filterName;

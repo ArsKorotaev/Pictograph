@@ -627,7 +627,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     }
     else if ([filterName hasPrefix:@"F_"])
     {
-        UIImage *image = [UIImage imageNamed:@"Dog.png"];
+        NSRange prefixRange = {0,2};
+        NSString *fileName = [[filterName stringByReplacingCharactersInRange:prefixRange withString:@""] stringByAppendingPathExtension:@"png"];
+        
+        UIImage *image = [UIImage imageNamed:fileName];
         PGFacesView *face = [[PGFacesView alloc] initWithFaceImage:image];
         face.delegate = self;
         [facesSet addObject:face];

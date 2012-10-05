@@ -13,6 +13,7 @@
 
 @implementation PGFilterView
 @synthesize avialebleFilterNames = filterNames;
+@synthesize views = viewsArray;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

@@ -8,6 +8,8 @@
 
 #import "PGFiltersAndBordersAndAditionalView.h"
 #import "PGFilterView.h"
+#import "PGFaceView.h"
+#import "FilterMicroView.h"
 @implementation PGFiltersAndBordersAndAditionalView
 
 - (id)initWithFrame:(CGRect)frame
@@ -21,10 +23,11 @@
         bordersViewFrame.origin.x += _filtersView.frame.size.width;
         [_boredersView setFrame:bordersViewFrame];
         
-        _facesView = [[PGFilterView alloc] initFilterViewWithFilterNames:@[@"F_TrollFace", @"F_Pocker", @"F_Happy", @"F_LOL", @"F_Dog"]];
+        _facesView = [[PGFaceView alloc] initFilterViewWithFilterNames:@[@"F_TrollFace", @"F_Pocker", @"F_Happy", @"F_BlackDog", @"F_Dog"]];
         CGRect facesViewFrame = _boredersView.frame;
         facesViewFrame.origin.x *= 2;
         [_facesView setFrame:facesViewFrame];
+        [[_facesView.views objectAtIndex:0] deselect];
         
         scrollView = [[UIScrollView alloc] initWithFrame:_filtersView.frame];
         scrollView.pagingEnabled = YES;

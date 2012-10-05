@@ -34,6 +34,7 @@
 @property (readonly) NSThread *thread;
 @property (unsafe_unretained) id<PGFilterViewDelegate> del;
 @property (readonly) NSArray *avialebleFilterNames;
+@property (readonly) NSArray *views;
 - (id) initFilterView;
 - (id) initFilterViewWithFilterNames:(NSArray *) names;
 @end

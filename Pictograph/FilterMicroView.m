@@ -39,15 +39,16 @@
 -(void) setImage:(UIImage *)image
 {
         
-    mainImage = [[UIImageView alloc] initWithImage:image];
-    
+    mainImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [mainImage setImage:image];
+    mainImage.contentMode = UIViewContentModeCenter;
     //Добавление маски
     UIImage *_maskingImage = [UIImage imageNamed:@"FilterMask-2-1.png"];
     CALayer *_maskingLayer = [CALayer layer];
     _maskingLayer.frame = self.view.bounds;
     [_maskingLayer setContents:(id)[_maskingImage CGImage]];
     [mainImage.layer setMask:_maskingLayer];
-
+    
     [self.view addSubview:mainImage];
 }
 -(void) select
@@ -62,6 +63,8 @@
         [UIView setAnimationDuration:0.2];
         selectedImage.alpha = 1.f;
         [UIView commitAnimations];
+        
+      
     }
 }
 
@@ -85,6 +88,35 @@
         [self.view addSubview:standartImage];
         selectedImage.alpha = 0;
     }
+}
+
+- (void) highlight
+{
+    
+    if (selectedImage.superview == nil) {
+        [self.view addSubview:selectedImage];
+    }
+
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [fadeInAnimation setFromValue:[NSNumber numberWithFloat:0.0]];
+    [fadeInAnimation setToValue:[NSNumber numberWithFloat:1.0]];
+    [fadeInAnimation setDuration:0.2];
+    [fadeInAnimation setBeginTime:0.0];
+    
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [fadeOutAnimation setFromValue:[NSNumber numberWithFloat:1.0]];
+    [fadeOutAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+    [fadeOutAnimation setDuration:0.2];
+    [fadeOutAnimation setBeginTime:0.2];
+    
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    [group setDuration:0.4];
+    [group setAnimations:@[fadeInAnimation, fadeOutAnimation]];
+    
+    [selectedImage.layer addAnimation:group forKey:nil];
+   
+ 
+    
 }
 
 @end
