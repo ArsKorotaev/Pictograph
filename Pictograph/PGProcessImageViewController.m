@@ -17,6 +17,7 @@
 #import "PGFiltersAndBordersAndAditionalView.h"
 #import "PGFacesView.h"
 #import "FacesViewController.h"
+#import "FilterMicroView.h"
 #include <stdlib.h>
 #include <stdio.h>
 #define IMAGE_SIZE 640
@@ -436,6 +437,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     [self.view addSubview:mulitiFilterView];
     mulitiFilterView.filtersView.del = self;
+    [mulitiFilterView.filtersView selectFilterAtIndex:self.selectedFilterIndex];
+    if (self.selectedFilterIndex != 0) {
+        [[mulitiFilterView.filtersView.views objectAtIndex:0] deselect];
+    }
     mulitiFilterView.boredersView.del = self;
     mulitiFilterView.facesView.del = self;
     filterView = mulitiFilterView.filtersView;

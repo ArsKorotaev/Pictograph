@@ -162,10 +162,11 @@
     if (!isBlured)
     {
         pivc = [[PGProcessImageViewController alloc] initWithImage:sender andFilterName:NSStringFromClass([filterObject class])];
-    }
+            }
     else
     {
          pivc = [[PGProcessImageViewController alloc] initWithImage:nil andFilterName:NSStringFromClass([filterObject class])];
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^()
                        {
                            UIImage *image;
@@ -186,6 +187,7 @@
 
     }
     pivc.delegate = self;
+    pivc.selectedFilterIndex = filterView.selectedFilterIndex;
     [pivc setCancelButtonCaption:@"Retake"];
     [self presentModalViewController:pivc animated:YES];
     

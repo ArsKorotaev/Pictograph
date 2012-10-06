@@ -35,6 +35,8 @@
 @property (unsafe_unretained) id<PGFilterViewDelegate> del;
 @property (readonly) NSArray *avialebleFilterNames;
 @property (readonly) NSArray *views;
+@property (readonly) NSInteger selectedFilterIndex;
+- (void) selectFilterAtIndex:(NSInteger) index;
 - (id) initFilterView;
 - (id) initFilterViewWithFilterNames:(NSArray *) names;
 @end

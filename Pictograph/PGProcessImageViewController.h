@@ -97,6 +97,7 @@
 @property (strong, nonatomic) UILabel *upText;
 @property (unsafe_unretained) id <PGProcessImageDelegate> delegate;
 @property NSString* cancelButtonCaption;
+@property NSInteger selectedFilterIndex;
 
 - (id) initWithImage:(UIImage*) img andFilterName:(NSString*) filterName;
 - (void) addPicketImage:(UIImage*) image;

@@ -14,6 +14,8 @@
 @implementation PGFilterView
 @synthesize avialebleFilterNames = filterNames;
 @synthesize views = viewsArray;
+@synthesize selectedFilterIndex = oldeSelectedView;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -148,6 +150,12 @@
         [self.del setFilterNamed:filterName];
     }
 
+}
+
+- (void) selectFilterAtIndex:(NSInteger)index
+{
+    [[viewsArray objectAtIndex:index] selectNoAnimation];
+    oldeSelectedView = index;
 }
 
 /*
