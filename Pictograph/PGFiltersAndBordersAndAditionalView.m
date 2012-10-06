@@ -23,7 +23,7 @@
         bordersViewFrame.origin.x += _filtersView.frame.size.width;
         [_boredersView setFrame:bordersViewFrame];
         
-        _facesView = [[PGFaceView alloc] initFilterViewWithFilterNames:@[@"F_TrollFace", @"F_Pocker", @"F_Happy", @"F_BlackDog", @"F_Dog"]];
+        _facesView = [[PGFaceView alloc] initFilterViewWithFilterNames:@[@"F_TrollFace", @"F_YaoMing", @"F_MeGusta", @"F_BlackDog", @"F_Dog"]];
         CGRect facesViewFrame = _boredersView.frame;
         facesViewFrame.origin.x *= 2;
         [_facesView setFrame:facesViewFrame];
