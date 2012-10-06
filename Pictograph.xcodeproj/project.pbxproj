@@ -76,6 +76,10 @@
 		8C28608B161EECA60008035C /* TrollFace@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C286089161EECA60008035C /* TrollFace@2x.png */; };
 		8C28608C161EECA60008035C /* F_TrollFace@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C28608A161EECA60008035C /* F_TrollFace@2x.png */; };
 		8C28608F161EF87E0008035C /* PGFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C28608E161EF87E0008035C /* PGFaceView.m */; };
+		8C2BDB721620613200A0933D /* F_YaoMing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BDB701620613200A0933D /* F_YaoMing@2x.png */; };
+		8C2BDB731620613200A0933D /* YaoMing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BDB711620613200A0933D /* YaoMing@2x.png */; };
+		8C2BDB771620653000A0933D /* F_MeGusta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BDB751620652F00A0933D /* F_MeGusta@2x.png */; };
+		8C2BDB781620653000A0933D /* MeGusta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BDB761620652F00A0933D /* MeGusta@2x.png */; };
 		8C2D609A161ABFF800E8E58F /* FilterMicroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2D6099161ABFF800E8E58F /* FilterMicroView.m */; };
 		8C2D60A1161ADBD100E8E58F /* AmatorkaFilter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D609C161ADBD100E8E58F /* AmatorkaFilter@2x.png */; };
 		8C2D60A2161ADBD100E8E58F /* FilterNone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C2D609D161ADBD100E8E58F /* FilterNone@2x.png */; };
@@ -375,6 +379,10 @@
 		8C28608A161EECA60008035C /* F_TrollFace@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F_TrollFace@2x.png"; sourceTree = "<group>"; };
 		8C28608D161EF87E0008035C /* PGFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFaceView.h; sourceTree = "<group>"; };
 		8C28608E161EF87E0008035C /* PGFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGFaceView.m; sourceTree = "<group>"; };
+		8C2BDB701620613200A0933D /* F_YaoMing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F_YaoMing@2x.png"; sourceTree = "<group>"; };
+		8C2BDB711620613200A0933D /* YaoMing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YaoMing@2x.png"; sourceTree = "<group>"; };
+		8C2BDB751620652F00A0933D /* F_MeGusta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F_MeGusta@2x.png"; sourceTree = "<group>"; };
+		8C2BDB761620652F00A0933D /* MeGusta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeGusta@2x.png"; sourceTree = "<group>"; };
 		8C2D6098161ABFF700E8E58F /* FilterMicroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterMicroView.h; sourceTree = "<group>"; };
 		8C2D6099161ABFF800E8E58F /* FilterMicroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterMicroView.m; sourceTree = "<group>"; };
 		8C2D609C161ADBD100E8E58F /* AmatorkaFilter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AmatorkaFilter@2x.png"; sourceTree = "<group>"; };
@@ -915,6 +923,10 @@
 		8C2D609B161ADBD100E8E58F /* Filters Images */ = {
 			isa = PBXGroup;
 			children = (
+				8C2BDB751620652F00A0933D /* F_MeGusta@2x.png */,
+				8C2BDB761620652F00A0933D /* MeGusta@2x.png */,
+				8C2BDB701620613200A0933D /* F_YaoMing@2x.png */,
+				8C2BDB711620613200A0933D /* YaoMing@2x.png */,
 				8C286089161EECA60008035C /* TrollFace@2x.png */,
 				8C28608A161EECA60008035C /* F_TrollFace@2x.png */,
 				8C286085161EEB3C0008035C /* F_BlackDog@2x.png */,
@@ -1481,6 +1493,10 @@
 				8C286088161EEB3C0008035C /* BlackDog@2x.png in Resources */,
 				8C28608B161EECA60008035C /* TrollFace@2x.png in Resources */,
 				8C28608C161EECA60008035C /* F_TrollFace@2x.png in Resources */,
+				8C2BDB721620613200A0933D /* F_YaoMing@2x.png in Resources */,
+				8C2BDB731620613200A0933D /* YaoMing@2x.png in Resources */,
+				8C2BDB771620653000A0933D /* F_MeGusta@2x.png in Resources */,
+				8C2BDB781620653000A0933D /* MeGusta@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
