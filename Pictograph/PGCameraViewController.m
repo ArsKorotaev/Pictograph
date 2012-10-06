@@ -47,6 +47,7 @@
     [self.view addGestureRecognizer:tapGesture];
     
 
+    [filterView selectFilterAtIndex:0];
 }
 
 
