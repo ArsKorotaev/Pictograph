@@ -69,6 +69,7 @@
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     pageControl.currentPage = page;
+    [self.delegate filtersAndBordersAndAditionalView:self scrolToViewAtIndex:page];
 }
 
 
@@ -98,6 +99,8 @@
     
 	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
     pageControlUsed = YES;
+    
+    
 }
 
 /*

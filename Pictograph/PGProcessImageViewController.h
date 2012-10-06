@@ -55,6 +55,7 @@
     FacesViewController *facesView;
     //Лица добавленные на фото
     NSMutableSet *facesSet;
+    UIView *facesAreaView;
 //    UIView *touchedFace;
 //    CGPoint lastTouchLocation;
     

@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 //#import "PGCaptionView.m"
 @class PGFilterView;
+@class PGFiltersAndBordersAndAditionalView;
+
+@protocol PGFiltersAndBordersAndAditionalViewDelegate <NSObject>
+
+- (void) filtersAndBordersAndAditionalView:(PGFiltersAndBordersAndAditionalView*) view scrolToViewAtIndex:(NSInteger) index;
+
+@end
+
 @interface PGFiltersAndBordersAndAditionalView : UIView <UIScrollViewDelegate>
 {
     //PGFilterView *filtersView, *boredersView, *facesView;
@@ -26,4 +34,5 @@
 @property (readonly) PGFilterView *boredersView;
 @property (readonly) PGFilterView *facesView;
 @property NSArray *contentList;
+@property (unsafe_unretained) id<PGFiltersAndBordersAndAditionalViewDelegate> delegate;
 @end

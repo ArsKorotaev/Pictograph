@@ -18,13 +18,14 @@
 #import "PGFacesView.h"
 #import "FacesViewController.h"
 #import "FilterMicroView.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #define IMAGE_SIZE 640
 #define ANIMATION_DISTANCE 75
 #define LEFT_IMAGE 1
 #define RIGHT_IMAGE 2
-@interface PGProcessImageViewController () <PGFilterViewDelegate, FaceViewDelegate>
+@interface PGProcessImageViewController () <PGFilterViewDelegate, FaceViewDelegate, PGFiltersAndBordersAndAditionalViewDelegate>
 
 @end
 
@@ -400,7 +401,12 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
    // self.imageView.clipsToBounds = YES;
     
-    [self.imageView addSubview:facesView];
+    
+    facesAreaView = [[UIView alloc] initWithFrame:imageArea.frame];
+    facesAreaView.clipsToBounds = YES;
+    facesAreaView.userInteractionEnabled = NO;
+    [self.imageView addSubview:facesAreaView];
+   // [self.imageView addSubview:facesView];
     
     [self.imageView addSubview:borderView];
     [self.imageView addSubview:captionTextView];
@@ -434,6 +440,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     
     //Инициализация фильтров
     mulitiFilterView = [[PGFiltersAndBordersAndAditionalView alloc] initWithFrame:CGRectMake(0, 0, 320, 70)];
+    mulitiFilterView.delegate = self;
   //  mulitiFilterView.frame = CGRectMake(0, 1, mulitiFilterView.frame.size.width, mulitiFilterView.frame.size.height);
     //filterView.del = self;
     
@@ -575,6 +582,19 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object: nil];
    // [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FinishProcessing" object:nil];
 }
+#pragma mark - PGFiltersAndBordersAndAditionalViewDelegate methods
+
+- (void) filtersAndBordersAndAditionalView:(PGFiltersAndBordersAndAditionalView *)view scrolToViewAtIndex:(NSInteger)index
+{
+    if (index == 2) {
+        facesAreaView.userInteractionEnabled = YES;
+    }
+    else
+    {
+        facesAreaView.userInteractionEnabled = NO;
+    }
+}
+
 #pragma mark - FacesViewDelegate methods
 - (void) faceViewAskForDelete:(PGFacesView *)faceView
 {
@@ -643,7 +663,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
         [facesSet addObject:face];
        // [facesView addface:face];
 //        [facesArray addObject:face];
-         [self.imageView addSubview:face];
+         [facesAreaView addSubview:face];
         
     }
     else
