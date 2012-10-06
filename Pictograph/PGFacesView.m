@@ -35,6 +35,7 @@
         [self addGestureRecognizer:pinchGestureRec];
         [self addGestureRecognizer:longPressGestureRec];
         scale = 1;
+        //faceImageView.clipsToBounds = YES;
     }
     
     return self;

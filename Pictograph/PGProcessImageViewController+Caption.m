@@ -16,6 +16,7 @@
     textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, 300, 30)];
     textField.delegate = self;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.placeholder = @"Press return twice to hide keyboard";
     segmentedControl = [[PGSegmentedControl alloc] initWithFrame:CGRectMake(10, 43, 300, 30)];
     segmentedControl.delegate = self;
     captionView.userInteractionEnabled = YES;
@@ -125,4 +126,7 @@
     
    
 }
+
+
+
 @end

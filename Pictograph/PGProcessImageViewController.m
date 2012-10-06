@@ -398,12 +398,14 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [borderView addSubview:leftImage];
     [borderView addSubview:rightImage];
     
+   // self.imageView.clipsToBounds = YES;
     
     [self.imageView addSubview:facesView];
     
     [self.imageView addSubview:borderView];
     [self.imageView addSubview:captionTextView];
     [self.imageView addSubview:captionTextViewUp];
+    
 }
 - (void)viewDidLoad
 {
