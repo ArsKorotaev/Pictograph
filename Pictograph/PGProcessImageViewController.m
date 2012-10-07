@@ -112,6 +112,7 @@
     if (!isCaptionMode)
     {
        isCaptionMode = YES;
+        captionView.userInteractionEnabled = YES;
         CGRect newPhotoFrame = self.imageView.frame;
         CGRect filterFrame = mulitiFilterView.frame;
         
@@ -136,6 +137,7 @@
     else
     {
         isCaptionMode = NO;
+        captionTextView.userInteractionEnabled = NO;
         CGRect newPhotoFrame = self.imageView.frame;
         CGRect filterFrame = mulitiFilterView.frame;
         
@@ -402,7 +404,9 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
    // self.imageView.clipsToBounds = YES;
     
     
-    facesAreaView = [[UIView alloc] initWithFrame:imageArea.frame];
+    facesAreaView = [[UIScrollView alloc] initWithFrame:imageArea.frame];
+    facesAreaView.contentSize = CGSizeMake(self.view.frame.size.width, 1000);
+    facesAreaView.scrollEnabled = NO;
     facesAreaView.clipsToBounds = YES;
     facesAreaView.userInteractionEnabled = NO;
     [self.imageView addSubview:facesAreaView];
@@ -588,6 +592,14 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
 {
     if (index == 2) {
         facesAreaView.userInteractionEnabled = YES;
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Shaw info"]) {
+            if (allert == nil) {
+                allert = [[UIAlertView alloc] initWithTitle:@"You can move faces in this mode only!" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [allert show];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Shaw info"];
+            }
+            
+        }
     }
     else
     {

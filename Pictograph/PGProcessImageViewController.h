@@ -50,12 +50,12 @@
     
     PGFiltersAndBordersAndAditionalView *mulitiFilterView;
     
-    
+    UIAlertView *allert;
     //=====ЛИЦА
     FacesViewController *facesView;
     //Лица добавленные на фото
     NSMutableSet *facesSet;
-    UIView *facesAreaView;
+    UIScrollView *facesAreaView;
 //    UIView *touchedFace;
 //    CGPoint lastTouchLocation;
     

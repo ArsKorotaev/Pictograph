@@ -36,6 +36,7 @@
         [self addGestureRecognizer:longPressGestureRec];
         scale = 1;
         faceImageView.backgroundColor = self.backgroundColor = [UIColor clearColor];
+        pickerImage = [UIImage imageNamed:@"picker.png"];
         //faceImageView.clipsToBounds = YES;
     }
     
@@ -211,6 +212,10 @@
         isScaled = NO;
         [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:2.0];
     }
+//    else
+//    {   touchBegan = YES;
+//        [self performSelector:@selector(drawWithfade:) withObject:nil afterDelay:2.0];
+//    }
 
     
 }
@@ -257,10 +262,16 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
+
+-(void) drawWithfade:(id) sender
+{
+    
+    touchBegan = NO;
+}
 - (void)drawRect:(CGRect)rect
 {
-//    if (isMoved || isScaled)
-//    {
+    if (isMoved || isScaled || touchBegan)
+    {
         rect.origin.x += 10;
         rect.origin.y += 10;
         rect.size.width -= 20;
@@ -276,16 +287,17 @@
         CGContextAddLines(context, linePoints, 4);
         CGContextClosePath(context);
         CGContextSetLineWidth(context, 2.0f);
-        CGContextSetRGBStrokeColor(context, 1, 0, 0, 1);
+        CGContextSetRGBStrokeColor(context, 0.55, 0.73, 0.79, 1);
         CGContextStrokePath(context);
         CGContextSetRGBFillColor(context, 0, 0, 1, 1);
         for (int i = 0; i < 4; i++) {
             
-            CGContextFillEllipseInRect(context, CGRectMake(linePoints[i].x - 10, linePoints[i].y - 10, 20, 20));
+            //CGContextFillEllipseInRect(context, CGRectMake(linePoints[i].x - 10, linePoints[i].y - 10, 20, 20));
+            [pickerImage drawAtPoint:CGPointMake(linePoints[i].x - 7.5, linePoints[i].y - 7.5)];
 
         }
                 
-   // }
+    }
     
         
 }

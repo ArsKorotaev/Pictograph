@@ -23,12 +23,14 @@ typedef enum AnchorPoint_ {
 @interface PGFacesView : UIView <UIAlertViewDelegate>
 {
     UIImage *faceImage;
+    UIImage *pickerImage;
     UIImageView *faceImageView;
     UIPinchGestureRecognizer *pinchGestureRec;
     UILongPressGestureRecognizer *longPressGestureRec;
     
     BOOL isMoved;
     BOOL isScaled;
+    BOOL touchBegan;
     CGPoint anchorPoint;
     CGPoint lastTouchLocation;
     AnchorPoint anchorPointType;
