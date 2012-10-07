@@ -19,11 +19,14 @@
     textField.placeholder = @"Press return twice to hide keyboard";
     segmentedControl = [[PGSegmentedControl alloc] initWithFrame:CGRectMake(10, 43, 300, 30)];
     segmentedControl.delegate = self;
-    captionView.userInteractionEnabled = YES;
+    captionView.userInteractionEnabled = NO;
+    captionView.alpha = 0.0;
     [self customizeTextField];
     [self customizeSegmentedControl];
     [captionView addSubview:textField];
     [captionView addSubview:segmentedControl];
+    
+    [textField resignFirstResponder];
 
 }
 

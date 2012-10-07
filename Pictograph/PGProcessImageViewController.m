@@ -137,7 +137,8 @@
     else
     {
         isCaptionMode = NO;
-        captionTextView.userInteractionEnabled = NO;
+        captionView.userInteractionEnabled = NO;
+        
         CGRect newPhotoFrame = self.imageView.frame;
         CGRect filterFrame = mulitiFilterView.frame;
         
@@ -380,10 +381,11 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [imageArea setZoomScale:320.f / picketImage.size.width];
     
     captionTextView = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 240, 320, 80)];
+    captionTextView.userInteractionEnabled = NO;
     //    self.downText.textAlignment = NSTextAlignmentCenter;
     //    self.downText.numberOfLines = 3;
     captionTextViewUp = [[PGCaptionTextView alloc] initWithFrame:CGRectMake(0, 5, 320, 40)];
-    
+    captionTextViewUp.userInteractionEnabled = NO;
   
     facesView = [[FacesViewController alloc] initWithFrame:imageArea.frame];
    
@@ -501,7 +503,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide,
     [filterThread start];
     
     [(UIScrollView*)self.view setContentSize:self.view.frame.size];
-    
+    captionView.userInteractionEnabled = NO;
     sem_post(viewLoadSemaphore);
 }
 
