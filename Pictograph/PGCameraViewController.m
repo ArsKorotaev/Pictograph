@@ -47,7 +47,7 @@
     [self.view addGestureRecognizer:tapGesture];
     
 
-    [filterView selectFilterAtIndex:0];
+    
 }
 
 
@@ -78,7 +78,7 @@
     [filterObject filterForCamer:stillCamera andView:(GPUImageView *)self.view bloorEnable:NO];
     isBlured = NO;
     [stillCamera startCameraCapture];
-
+    [filterView selectIndex:0];
    
 }
 

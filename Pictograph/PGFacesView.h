@@ -13,6 +13,12 @@
 - (void) faceViewAskForDelete:(PGFacesView*) faveView;
 @end
 
+typedef enum AnchorPoint_ {
+    kUpLeftCorner = 0,
+    kUprightCorner = 3,
+    kDownRightCorner = 2,
+    kDownLeftCorner = 1
+} AnchorPoint;
 
 @interface PGFacesView : UIView <UIAlertViewDelegate>
 {
@@ -22,8 +28,10 @@
     UILongPressGestureRecognizer *longPressGestureRec;
     
     BOOL isMoved;
+    BOOL isScaled;
+    CGPoint anchorPoint;
     CGPoint lastTouchLocation;
-    
+    AnchorPoint anchorPointType;
     UIView *parent;
     
     UIAlertView *alert;

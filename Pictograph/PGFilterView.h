@@ -37,6 +37,7 @@
 @property (readonly) NSArray *views;
 @property (readonly) NSInteger selectedFilterIndex;
 - (void) selectFilterAtIndex:(NSInteger) index;
+- (void) selectIndex:(NSInteger) index;
 - (id) initFilterView;
 - (id) initFilterViewWithFilterNames:(NSArray *) names;
 @end

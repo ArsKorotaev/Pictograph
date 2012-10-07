@@ -152,6 +152,23 @@
 
 }
 
+- (void) selectIndex:(NSInteger)viewIndex
+{
+    NSString *filterName;
+    if (oldeSelectedView != viewIndex)
+    {
+        FilterMicroView *mv = [viewsArray objectAtIndex:viewIndex];
+        filterName = mv.filterName;
+        [mv select];
+        mv = [viewsArray objectAtIndex:oldeSelectedView];
+        [mv deselect];
+        
+        oldeSelectedView = viewIndex;
+        
+        [self.del setFilterNamed:filterName];
+    }
+}
+
 - (void) selectFilterAtIndex:(NSInteger)index
 {
     [[viewsArray objectAtIndex:index] selectNoAnimation];
