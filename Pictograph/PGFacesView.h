@@ -27,6 +27,7 @@ typedef enum AnchorPoint_ {
     UIImageView *faceImageView;
     UIPinchGestureRecognizer *pinchGestureRec;
     UILongPressGestureRecognizer *longPressGestureRec;
+    UITapGestureRecognizer *tapGestureRec;
     
     BOOL isMoved;
     BOOL isScaled;

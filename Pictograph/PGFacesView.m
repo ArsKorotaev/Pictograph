@@ -31,9 +31,11 @@
         
         pinchGestureRec = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureHandel:)];
         longPressGestureRec = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPresGestureHandle:)];
+        
         longPressGestureRec.minimumPressDuration = 1.5;
         [self addGestureRecognizer:pinchGestureRec];
         [self addGestureRecognizer:longPressGestureRec];
+        //[self addGestureRecognizer:tapGestureRec];
         scale = 1;
         faceImageView.backgroundColor = self.backgroundColor = [UIColor clearColor];
         pickerImage = [UIImage imageNamed:@"picker.png"];
@@ -42,6 +44,9 @@
     
     return self;
 }
+
+
+
 
 - (void) longPresGestureHandle:(UILongPressGestureRecognizer*) gesture
 {
@@ -263,14 +268,10 @@
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 
--(void) drawWithfade:(id) sender
-{
-    
-    touchBegan = NO;
-}
+
 - (void)drawRect:(CGRect)rect
 {
-    if (isMoved || isScaled || touchBegan)
+    if (isMoved || isScaled)
     {
         rect.origin.x += 10;
         rect.origin.y += 10;
@@ -296,7 +297,8 @@
             [pickerImage drawAtPoint:CGPointMake(linePoints[i].x - 7.5, linePoints[i].y - 7.5)];
 
         }
-                
+        
+        //CGContextRelease(context);
     }
     
         
